@@ -1,0 +1,386 @@
+{
+  "$defs": {
+    "Applicability": {
+      "additionalProperties": false,
+      "properties": {
+        "line_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Line Id",
+          "type": "string"
+        },
+        "process": {
+          "enum": [
+            "plastic_spray",
+            "glass_vacuum"
+          ],
+          "title": "Process",
+          "type": "string"
+        },
+        "product_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Ids",
+          "type": "array"
+        },
+        "product_families": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Families",
+          "type": "array"
+        },
+        "substrate_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Substrate Ids",
+          "type": "array"
+        },
+        "shapes": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Shapes",
+          "type": "array"
+        },
+        "step_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Step Ids",
+          "type": "array"
+        },
+        "route_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Route Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "line_id",
+        "process"
+      ],
+      "title": "Applicability",
+      "type": "object"
+    },
+    "MetricCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "metric": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Metric",
+          "type": "string"
+        },
+        "operator": {
+          "enum": [
+            "gt",
+            "gte",
+            "lt",
+            "lte",
+            "eq",
+            "between",
+            "outside"
+          ],
+          "title": "Operator",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Value"
+        },
+        "upper": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Upper"
+        },
+        "unit": {
+          "default": "",
+          "maxLength": 40,
+          "title": "Unit",
+          "type": "string"
+        },
+        "value_type": {
+          "default": "measured",
+          "enum": [
+            "measured",
+            "setpoint",
+            "manual",
+            "derived"
+          ],
+          "title": "Value Type",
+          "type": "string"
+        },
+        "equipment_id": {
+          "default": "",
+          "maxLength": 120,
+          "title": "Equipment Id",
+          "type": "string"
+        },
+        "aggregation": {
+          "default": "last",
+          "enum": [
+            "last",
+            "mean",
+            "min",
+            "max"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "max_age_seconds": {
+          "default": 3600,
+          "maximum": 604800,
+          "minimum": 1,
+          "title": "Max Age Seconds",
+          "type": "integer"
+        },
+        "min_samples": {
+          "default": 1,
+          "maximum": 100000,
+          "minimum": 1,
+          "title": "Min Samples",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "metric",
+        "operator",
+        "value"
+      ],
+      "title": "MetricCondition",
+      "type": "object"
+    },
+    "ParameterWindow": {
+      "additionalProperties": false,
+      "properties": {
+        "min": {
+          "title": "Min",
+          "type": "number"
+        },
+        "max": {
+          "title": "Max",
+          "type": "number"
+        },
+        "unit": {
+          "maxLength": 40,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "min",
+        "max",
+        "unit"
+      ],
+      "title": "ParameterWindow",
+      "type": "object"
+    },
+    "RuleInput": {
+      "additionalProperties": false,
+      "properties": {
+        "dimension": {
+          "anyOf": [
+            {
+              "enum": [
+                "equipment",
+                "material",
+                "process",
+                "environment",
+                "management"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dimension"
+        },
+        "defects": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 300,
+          "title": "Defects",
+          "type": "array"
+        },
+        "aliases": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 300,
+          "title": "Aliases",
+          "type": "array"
+        },
+        "cause": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cause"
+        },
+        "required_metrics": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Required Metrics",
+          "type": "array"
+        },
+        "next_checks": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Next Checks",
+          "type": "array"
+        },
+        "relative_score": {
+          "default": 0,
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Relative Score",
+          "type": "number"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "$ref": "#/$defs/ParameterWindow"
+          },
+          "title": "Parameters",
+          "type": "object"
+        },
+        "trigger": {
+          "additionalProperties": true,
+          "title": "Trigger",
+          "type": "object"
+        },
+        "conditions": {
+          "items": {
+            "$ref": "#/$defs/MetricCondition"
+          },
+          "maxItems": 100,
+          "title": "Conditions",
+          "type": "array"
+        },
+        "counter_conditions": {
+          "items": {
+            "$ref": "#/$defs/MetricCondition"
+          },
+          "maxItems": 100,
+          "title": "Counter Conditions",
+          "type": "array"
+        },
+        "exclude_when_false": {
+          "default": false,
+          "title": "Exclude When False",
+          "type": "boolean"
+        }
+      },
+      "title": "RuleInput",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "maxLength": 200,
+      "minLength": 2,
+      "title": "Title",
+      "type": "string"
+    },
+    "scope": {
+      "$ref": "#/$defs/Applicability"
+    },
+    "rule": {
+      "$ref": "#/$defs/RuleInput"
+    },
+    "definition_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Definition Ids",
+      "type": "array"
+    },
+    "experience_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Experience Ids",
+      "type": "array"
+    },
+    "sop_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Sop Ids",
+      "type": "array"
+    },
+    "rationale": {
+      "maxLength": 5000,
+      "minLength": 4,
+      "title": "Rationale",
+      "type": "string"
+    },
+    "previous_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Id"
+    }
+  },
+  "required": [
+    "title",
+    "scope",
+    "rule",
+    "definition_ids",
+    "rationale"
+  ],
+  "title": "RuleProposal",
+  "type": "object"
+}

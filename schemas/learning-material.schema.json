@@ -1,0 +1,26 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "title": "Case Id",
+      "type": "string"
+    },
+    "file_id": {
+      "title": "File Id",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 200,
+      "minLength": 2,
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "case_id",
+    "file_id",
+    "title"
+  ],
+  "title": "MaterialInput",
+  "type": "object"
+}

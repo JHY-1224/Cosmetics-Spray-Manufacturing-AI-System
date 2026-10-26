@@ -1,0 +1,161 @@
+name: ${CUSTOMER_ID:?使用生成的客户配置包}
+x-postgres: &postgres
+  image: pgvector/pgvector:0.8.7-pg17-trixie
+  restart: unless-stopped
+  logging: &bounded-logs
+    driver: json-file
+    options: {max-size: "10m", max-file: "5"}
+  environment: &postgres-env
+    POSTGRES_USER: quality_migrator
+    POSTGRES_PASSWORD: ${DB_ADMIN_PASSWORD:?}
+    POSTGRES_DB: quality
+    DB_RUNTIME_PASSWORD: ${DB_RUNTIME_PASSWORD:?}
+  healthcheck:
+    test: ["CMD-SHELL", "pg_isready -U quality_migrator -d quality"]
+    interval: 5s
+    timeout: 3s
+    retries: 20
+x-app: &app
+  image: quality-platform:0.2.0rc1
+  build:
+    context: ..
+  restart: unless-stopped
+  init: true
+  stop_grace_period: 90s
+  logging: *bounded-logs
+  security_opt: ["no-new-privileges:true"]
+  cap_drop: ["ALL"]
+  environment: &app-env
+    QUALITY_MODE: integration
+    QUALITY_TENANT_ID: ${CUSTOMER_ID:?}
+    QUALITY_STORAGE_BACKEND: s3
+    QUALITY_S3_ENDPOINT: http://storage:8333
+    QUALITY_APPROVED_HOSTS: '["storage","center","site-a","site-b","jaeger","mqtt-reference","opc-reference","http-reference"]'
+    QUALITY_MODEL_APPROVED: "false"
+    QUALITY_OTLP_ENDPOINT: http://jaeger:4318/v1/traces
+    QUALITY_DATA_DIR: /data
+services:
+  center-db:
+    <<: *postgres
+    volumes: ["center-db:/var/lib/postgresql/data", "./postgres-init.sh:/docker-entrypoint-initdb.d/01-runtime.sh:ro"]
+  site-a-db:
+    <<: *postgres
+    volumes: ["site-a-db:/var/lib/postgresql/data", "./postgres-init.sh:/docker-entrypoint-initdb.d/01-runtime.sh:ro"]
+  site-b-db:
+    <<: *postgres
+    volumes: ["site-b-db:/var/lib/postgresql/data", "./postgres-init.sh:/docker-entrypoint-initdb.d/01-runtime.sh:ro"]
+  broker:
+    image: rabbitmq:4.3.6-management
+    restart: unless-stopped
+    logging: *bounded-logs
+    volumes:
+      - broker:/var/lib/rabbitmq
+      - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ${CUSTOMER_CONFIG_DIR:?}/rabbit-definitions.json:/etc/rabbitmq/definitions.json:ro
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+  storage:
+    image: chrislusf/seaweedfs:4.48
+    command: ["server", "-ip=storage", "-ip.bind=0.0.0.0", "-dir=/data", "-filer", "-s3", "-s3.config=/etc/quality/s3.json", "-master.telemetry=false", "-s3.allowDeleteBucketNotEmpty=false", "-s3.port.iceberg=0", "-s3.port.lance=0"]
+    restart: unless-stopped
+    logging: *bounded-logs
+    volumes: ["storage:/data", "${CUSTOMER_CONFIG_DIR:?}/s3.json:/etc/quality/s3.json:ro"]
+  jaeger:
+    image: jaegertracing/jaeger:2.14.1
+    logging: *bounded-logs
+    ports: ["127.0.0.1:${JAEGER_PORT:-16686}:16686"]
+  center:
+    <<: *app
+    depends_on:
+      center-db: {condition: service_healthy}
+      broker: {condition: service_healthy}
+    ports: ["127.0.0.1:${CENTER_PORT:-8000}:8000"]
+    volumes: ["center-data:/data"]
+    environment:
+      <<: *app-env
+      QUALITY_NODE_ROLE: center
+      QUALITY_NODE_ID: center
+      QUALITY_SITE_ID: ""
+      QUALITY_DATABASE_URL: postgresql+psycopg://quality_runtime:${DB_RUNTIME_PASSWORD}@center-db:5432/quality
+      QUALITY_PACKAGE_SECRET: ${PACKAGE_SIGNING_SEED:?}
+      QUALITY_RABBITMQ_URL: amqp://center:${RABBIT_CENTER_PASSWORD:?}@broker:5672/center
+      QUALITY_S3_BUCKET: quality-center
+      QUALITY_S3_ACCESS_KEY: ${S3_CENTER_ACCESS:?}
+      QUALITY_S3_SECRET_KEY: ${S3_CENTER_SECRET:?}
+  site-a:
+    <<: *app
+    depends_on:
+      site-a-db: {condition: service_healthy}
+      broker: {condition: service_healthy}
+    ports: ["127.0.0.1:${SITE_A_PORT:-8001}:8000"]
+    volumes: ["site-a-data:/data"]
+    environment:
+      <<: *app-env
+      QUALITY_NODE_ROLE: site
+      QUALITY_NODE_ID: site-a
+      QUALITY_SITE_ID: factory-a
+      QUALITY_DATABASE_URL: postgresql+psycopg://quality_runtime:${DB_RUNTIME_PASSWORD}@site-a-db:5432/quality
+      QUALITY_CENTER_URL: http://center:8000
+      QUALITY_SYNC_TOKEN: ${SITE_A_SYNC_TOKEN:-}
+      QUALITY_LOCAL_RECOVERY_KEY: ${SITE_A_RECOVERY_KEY:-}
+      QUALITY_PACKAGE_PUBLIC_KEY: ${PACKAGE_PUBLIC_KEY:?}
+      QUALITY_RABBITMQ_URL: amqp://site-a:${RABBIT_SITE_A_PASSWORD:?}@broker:5672/site-a
+      QUALITY_S3_BUCKET: quality-factory-a
+      QUALITY_S3_ACCESS_KEY: ${S3_SITE_A_ACCESS:?}
+      QUALITY_S3_SECRET_KEY: ${S3_SITE_A_SECRET:?}
+  site-b:
+    <<: *app
+    depends_on:
+      site-b-db: {condition: service_healthy}
+      broker: {condition: service_healthy}
+    ports: ["127.0.0.1:${SITE_B_PORT:-8002}:8000"]
+    volumes: ["site-b-data:/data"]
+    environment:
+      <<: *app-env
+      QUALITY_NODE_ROLE: site
+      QUALITY_NODE_ID: site-b
+      QUALITY_SITE_ID: factory-b
+      QUALITY_DATABASE_URL: postgresql+psycopg://quality_runtime:${DB_RUNTIME_PASSWORD}@site-b-db:5432/quality
+      QUALITY_CENTER_URL: http://center:8000
+      QUALITY_SYNC_TOKEN: ${SITE_B_SYNC_TOKEN:-}
+      QUALITY_LOCAL_RECOVERY_KEY: ${SITE_B_RECOVERY_KEY:-}
+      QUALITY_PACKAGE_PUBLIC_KEY: ${PACKAGE_PUBLIC_KEY:?}
+      QUALITY_RABBITMQ_URL: amqp://site-b:${RABBIT_SITE_B_PASSWORD:?}@broker:5672/site-b
+      QUALITY_S3_BUCKET: quality-factory-b
+      QUALITY_S3_ACCESS_KEY: ${S3_SITE_B_ACCESS:?}
+      QUALITY_S3_SECRET_KEY: ${S3_SITE_B_SECRET:?}
+  center-worker:
+    <<: *app
+    profiles: ["workers"]
+    command: ["python", "-m", "quality.cli", "worker"]
+    env_file: ["${CUSTOMER_CONFIG_DIR:?}/center-worker.env"]
+    environment: null
+    healthcheck: {disable: true}
+    volumes: ["center-data:/data"]
+  site-a-worker:
+    <<: *app
+    profiles: ["workers"]
+    command: ["python", "-m", "quality.cli", "worker"]
+    env_file: ["${CUSTOMER_CONFIG_DIR:?}/site-a-worker.env"]
+    environment: null
+    healthcheck: {disable: true}
+    volumes: ["site-a-data:/data"]
+  site-b-worker:
+    <<: *app
+    profiles: ["workers"]
+    command: ["python", "-m", "quality.cli", "worker"]
+    env_file: ["${CUSTOMER_CONFIG_DIR:?}/site-b-worker.env"]
+    environment: null
+    healthcheck: {disable: true}
+volumes:
+  center-db:
+  site-a-db:
+  site-b-db:
+  center-data:
+  site-a-data:
+  site-b-data:
+  storage:
+  broker:

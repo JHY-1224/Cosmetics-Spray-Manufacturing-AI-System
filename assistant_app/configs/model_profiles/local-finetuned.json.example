@@ -1,0 +1,12 @@
+{
+  "id": "local-qwen35-9b-finetuned",
+  "name": "Qwen3.5-9B · 工艺微调模型",
+  "category": "local_finetuned",
+  "text_model_base_url": "http://127.0.0.1:5101/v1",
+  "text_served_model": "cosmetics-qwen35-9b-finetuned",
+  "text_model_path": "models/base/Qwen3.5-9B",
+  "text_adapter_path": "models/finetuned/Qwen3.5-9B-cosmetics/实际run_id/adapter",
+  "model_verification_file": "models/finetuned/Qwen3.5-9B-cosmetics/实际run_id/assistant-verification.json",
+  "vision_model_base_url": "http://127.0.0.1:5102/v1",
+  "vision_served_model": "cosmetics-qwen3-vl-8b"
+}

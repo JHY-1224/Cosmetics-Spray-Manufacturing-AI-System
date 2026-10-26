@@ -1,0 +1,44 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "plan_id": {
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "object_id": {
+      "title": "Object Id",
+      "type": "string"
+    },
+    "assessment_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "title": "Assessment Ids",
+      "type": "array"
+    },
+    "cohort_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Cohort Id"
+    }
+  },
+  "required": [
+    "plan_id",
+    "line_id",
+    "object_id"
+  ],
+  "title": "PlanAssessmentInput",
+  "type": "object"
+}

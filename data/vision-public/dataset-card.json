@@ -1,0 +1,21 @@
+{
+  "images": 20,
+  "samples": 20,
+  "context_samples": 20,
+  "specific_reading_samples": 0,
+  "source_groups": 1,
+  "train_rows": 20,
+  "validation_rows": 0,
+  "test_rows": 0,
+  "expert_reviewed": false,
+  "public_subset": true,
+  "rights": {
+    "CC_BY_4.0_declared": 20
+  },
+  "limitations": [
+    "small development SFT set; no independent efficacy claim",
+    "74 contextual labels do not equal exhaustive table transcription",
+    "no real customer batch, defect cause or before/after validation labels"
+  ],
+  "metadata_sha256": "5d214085c2756ee0ee7c9b144417c32727032bc87e6666a109a77ef75df36cca"
+}

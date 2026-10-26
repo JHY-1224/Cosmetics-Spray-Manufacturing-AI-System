@@ -1,0 +1,1318 @@
+{
+  "sqlite": [
+    {
+      "name": "automation_policies",
+      "create": "\nCREATE TABLE automation_policies (\n\tpriority INTEGER NOT NULL, \n\teffect VARCHAR(10) NOT NULL, \n\tautomation_level VARCHAR(3) NOT NULL, \n\tactor_ids JSON NOT NULL, \n\tactor_roles JSON NOT NULL, \n\tactions JSON NOT NULL, \n\tobject_ids JSON NOT NULL, \n\tmax_quantity NUMERIC(28, 9) NOT NULL, \n\tmax_amount NUMERIC(28, 9) NOT NULL, \n\tcurrency VARCHAR(10) NOT NULL, \n\twindow_seconds INTEGER NOT NULL, \n\tmax_frequency INTEGER NOT NULL, \n\toffline_allowed BOOLEAN NOT NULL, \n\trequired_evidence_kinds JSON NOT NULL, \n\tcode VARCHAR(100) NOT NULL, \n\tname VARCHAR(200) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\trevision INTEGER NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\treviewer_id VARCHAR(64), \n\tprevious_id VARCHAR(64), \n\tscope JSON NOT NULL, \n\tvalid_from DATETIME NOT NULL, \n\tvalid_until DATETIME NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, code, revision)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_automation_policies_code",
+          "create": "CREATE INDEX ix_automation_policies_code ON automation_policies (code)"
+        },
+        {
+          "name": "ix_automation_policies_scope_line_id",
+          "create": "CREATE INDEX ix_automation_policies_scope_line_id ON automation_policies (scope_line_id)"
+        },
+        {
+          "name": "ix_automation_policies_site_id",
+          "create": "CREATE INDEX ix_automation_policies_site_id ON automation_policies (site_id)"
+        },
+        {
+          "name": "ix_automation_policies_status",
+          "create": "CREATE INDEX ix_automation_policies_status ON automation_policies (status)"
+        },
+        {
+          "name": "ix_automation_policies_tenant_id",
+          "create": "CREATE INDEX ix_automation_policies_tenant_id ON automation_policies (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_connectors",
+      "create": "\nCREATE TABLE business_connectors (\n\tname VARCHAR(200) NOT NULL, \n\tsystem VARCHAR(20) NOT NULL, \n\tendpoint VARCHAR(500) NOT NULL, \n\tcredential_reference VARCHAR(100) NOT NULL, \n\tactions JSON NOT NULL, \n\tenabled BOOLEAN NOT NULL, \n\tsupports_idempotency BOOLEAN NOT NULL, \n\tsupports_lookup BOOLEAN NOT NULL, \n\tversion INTEGER NOT NULL, \n\tcontract_version VARCHAR(40) NOT NULL, \n\tauthority VARCHAR(120) NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_connectors_scope_line_id",
+          "create": "CREATE INDEX ix_business_connectors_scope_line_id ON business_connectors (scope_line_id)"
+        },
+        {
+          "name": "ix_business_connectors_site_id",
+          "create": "CREATE INDEX ix_business_connectors_site_id ON business_connectors (site_id)"
+        },
+        {
+          "name": "ix_business_connectors_tenant_id",
+          "create": "CREATE INDEX ix_business_connectors_tenant_id ON business_connectors (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_orders",
+      "create": "\nCREATE TABLE business_orders (\n\texternal_id VARCHAR(120) NOT NULL, \n\tcustomer_reference VARCHAR(120) NOT NULL, \n\tsource_system VARCHAR(100) NOT NULL, \n\tsource_version VARCHAR(100) NOT NULL, \n\tversion INTEGER NOT NULL, \n\tdue_at DATETIME NOT NULL, \n\tcurrency VARCHAR(10) NOT NULL, \n\ttax_basis VARCHAR(20) NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, source_system, external_id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_orders_scope_line_id",
+          "create": "CREATE INDEX ix_business_orders_scope_line_id ON business_orders (scope_line_id)"
+        },
+        {
+          "name": "ix_business_orders_site_id",
+          "create": "CREATE INDEX ix_business_orders_site_id ON business_orders (site_id)"
+        },
+        {
+          "name": "ix_business_orders_tenant_id",
+          "create": "CREATE INDEX ix_business_orders_tenant_id ON business_orders (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "decision_definitions",
+      "create": "\nCREATE TABLE decision_definitions (\n\tkind VARCHAR(30) NOT NULL, \n\tpayload JSON NOT NULL, \n\tcode VARCHAR(100) NOT NULL, \n\tname VARCHAR(200) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\trevision INTEGER NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\treviewer_id VARCHAR(64), \n\tprevious_id VARCHAR(64), \n\tscope JSON NOT NULL, \n\tvalid_from DATETIME NOT NULL, \n\tvalid_until DATETIME NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, kind, code, revision)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_decision_definitions_code",
+          "create": "CREATE INDEX ix_decision_definitions_code ON decision_definitions (code)"
+        },
+        {
+          "name": "ix_decision_definitions_kind",
+          "create": "CREATE INDEX ix_decision_definitions_kind ON decision_definitions (kind)"
+        },
+        {
+          "name": "ix_decision_definitions_scope_line_id",
+          "create": "CREATE INDEX ix_decision_definitions_scope_line_id ON decision_definitions (scope_line_id)"
+        },
+        {
+          "name": "ix_decision_definitions_site_id",
+          "create": "CREATE INDEX ix_decision_definitions_site_id ON decision_definitions (site_id)"
+        },
+        {
+          "name": "ix_decision_definitions_status",
+          "create": "CREATE INDEX ix_decision_definitions_status ON decision_definitions (status)"
+        },
+        {
+          "name": "ix_decision_definitions_tenant_id",
+          "create": "CREATE INDEX ix_decision_definitions_tenant_id ON decision_definitions (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "material_formulations",
+      "create": "\nCREATE TABLE material_formulations (\n\tratio_basis VARCHAR(20) NOT NULL, \n\tdilution_basis VARCHAR(30) NOT NULL, \n\tdilution_fraction NUMERIC(28, 9) NOT NULL, \n\tresolution_kg NUMERIC(28, 9) NOT NULL, \n\ttolerance_fraction NUMERIC(28, 9) NOT NULL, \n\tpot_life_minutes INTEGER NOT NULL, \n\ttechnical_version VARCHAR(100) NOT NULL, \n\tprohibited_pairs JSON NOT NULL, \n\tcode VARCHAR(100) NOT NULL, \n\tname VARCHAR(200) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\trevision INTEGER NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\treviewer_id VARCHAR(64), \n\tprevious_id VARCHAR(64), \n\tscope JSON NOT NULL, \n\tvalid_from DATETIME NOT NULL, \n\tvalid_until DATETIME NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, code, revision)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_material_formulations_code",
+          "create": "CREATE INDEX ix_material_formulations_code ON material_formulations (code)"
+        },
+        {
+          "name": "ix_material_formulations_scope_line_id",
+          "create": "CREATE INDEX ix_material_formulations_scope_line_id ON material_formulations (scope_line_id)"
+        },
+        {
+          "name": "ix_material_formulations_site_id",
+          "create": "CREATE INDEX ix_material_formulations_site_id ON material_formulations (site_id)"
+        },
+        {
+          "name": "ix_material_formulations_status",
+          "create": "CREATE INDEX ix_material_formulations_status ON material_formulations (status)"
+        },
+        {
+          "name": "ix_material_formulations_tenant_id",
+          "create": "CREATE INDEX ix_material_formulations_tenant_id ON material_formulations (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "material_items",
+      "create": "\nCREATE TABLE material_items (\n\tcode VARCHAR(100) NOT NULL, \n\tname VARCHAR(200) NOT NULL, \n\tunit VARCHAR(20) NOT NULL, \n\tdensity_kg_l NUMERIC(28, 9), \n\tversion INTEGER NOT NULL, \n\tquality_requirements JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, code)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_material_items_scope_line_id",
+          "create": "CREATE INDEX ix_material_items_scope_line_id ON material_items (scope_line_id)"
+        },
+        {
+          "name": "ix_material_items_site_id",
+          "create": "CREATE INDEX ix_material_items_site_id ON material_items (site_id)"
+        },
+        {
+          "name": "ix_material_items_tenant_id",
+          "create": "CREATE INDEX ix_material_items_tenant_id ON material_items (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "production_cohorts",
+      "create": "\nCREATE TABLE production_cohorts (\n\texternal_id VARCHAR(120) NOT NULL, \n\tgranularity VARCHAR(30) NOT NULL, \n\tproduct_id VARCHAR(100) NOT NULL, \n\tversion INTEGER NOT NULL, \n\texpected_quantity NUMERIC(28, 9) NOT NULL, \n\tclosed BOOLEAN NOT NULL, \n\tobject_ids JSON NOT NULL, \n\tledger JSON NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, external_id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_production_cohorts_scope_line_id",
+          "create": "CREATE INDEX ix_production_cohorts_scope_line_id ON production_cohorts (scope_line_id)"
+        },
+        {
+          "name": "ix_production_cohorts_site_id",
+          "create": "CREATE INDEX ix_production_cohorts_site_id ON production_cohorts (site_id)"
+        },
+        {
+          "name": "ix_production_cohorts_tenant_id",
+          "create": "CREATE INDEX ix_production_cohorts_tenant_id ON production_cohorts (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "tool_invocations",
+      "create": "\nCREATE TABLE tool_invocations (\n\tactor_id VARCHAR(64) NOT NULL, \n\trole VARCHAR(40) NOT NULL, \n\ttool VARCHAR(100) NOT NULL, \n\ttool_version VARCHAR(40) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tinput_hash VARCHAR(64) NOT NULL, \n\tinput JSON NOT NULL, \n\tresult JSON NOT NULL, \n\tauthorization JSON NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_tool_invocations_scope_line_id",
+          "create": "CREATE INDEX ix_tool_invocations_scope_line_id ON tool_invocations (scope_line_id)"
+        },
+        {
+          "name": "ix_tool_invocations_site_id",
+          "create": "CREATE INDEX ix_tool_invocations_site_id ON tool_invocations (site_id)"
+        },
+        {
+          "name": "ix_tool_invocations_tenant_id",
+          "create": "CREATE INDEX ix_tool_invocations_tenant_id ON tool_invocations (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "bills_of_materials",
+      "create": "\nCREATE TABLE bills_of_materials (\n\tproduct_id VARCHAR(100) NOT NULL, \n\tproduct_version VARCHAR(100) NOT NULL, \n\toutput_quantity NUMERIC(28, 9) NOT NULL, \n\toutput_unit VARCHAR(20) NOT NULL, \n\troute_id VARCHAR(64) NOT NULL, \n\tcode VARCHAR(100) NOT NULL, \n\tname VARCHAR(200) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\trevision INTEGER NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\treviewer_id VARCHAR(64), \n\tprevious_id VARCHAR(64), \n\tscope JSON NOT NULL, \n\tvalid_from DATETIME NOT NULL, \n\tvalid_until DATETIME NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, code, revision), \n\tFOREIGN KEY(route_id) REFERENCES routes (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_bills_of_materials_code",
+          "create": "CREATE INDEX ix_bills_of_materials_code ON bills_of_materials (code)"
+        },
+        {
+          "name": "ix_bills_of_materials_scope_line_id",
+          "create": "CREATE INDEX ix_bills_of_materials_scope_line_id ON bills_of_materials (scope_line_id)"
+        },
+        {
+          "name": "ix_bills_of_materials_site_id",
+          "create": "CREATE INDEX ix_bills_of_materials_site_id ON bills_of_materials (site_id)"
+        },
+        {
+          "name": "ix_bills_of_materials_status",
+          "create": "CREATE INDEX ix_bills_of_materials_status ON bills_of_materials (status)"
+        },
+        {
+          "name": "ix_bills_of_materials_tenant_id",
+          "create": "CREATE INDEX ix_bills_of_materials_tenant_id ON bills_of_materials (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_documents",
+      "create": "\nCREATE TABLE business_documents (\n\tkind VARCHAR(30) NOT NULL, \n\texternal_id VARCHAR(120) NOT NULL, \n\tsource_system VARCHAR(100) NOT NULL, \n\torder_id VARCHAR(64) NOT NULL, \n\tcurrency VARCHAR(10) NOT NULL, \n\ttax_basis VARCHAR(20) NOT NULL, \n\ttax_rate NUMERIC(28, 9) NOT NULL, \n\toccurred_at DATETIME NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, source_system, kind, external_id), \n\tFOREIGN KEY(order_id) REFERENCES business_orders (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_documents_scope_line_id",
+          "create": "CREATE INDEX ix_business_documents_scope_line_id ON business_documents (scope_line_id)"
+        },
+        {
+          "name": "ix_business_documents_site_id",
+          "create": "CREATE INDEX ix_business_documents_site_id ON business_documents (site_id)"
+        },
+        {
+          "name": "ix_business_documents_tenant_id",
+          "create": "CREATE INDEX ix_business_documents_tenant_id ON business_documents (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "cost_reports",
+      "create": "\nCREATE TABLE cost_reports (\n\torder_id VARCHAR(64) NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tcurrency VARCHAR(10) NOT NULL, \n\tallocation_version VARCHAR(100) NOT NULL, \n\tactual_amount NUMERIC(28, 9), \n\testimated_amount NUMERIC(28, 9), \n\tsnapshot JSON NOT NULL, \n\treconciliation JSON NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(order_id) REFERENCES business_orders (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_cost_reports_order_id",
+          "create": "CREATE INDEX ix_cost_reports_order_id ON cost_reports (order_id)"
+        },
+        {
+          "name": "ix_cost_reports_scope_line_id",
+          "create": "CREATE INDEX ix_cost_reports_scope_line_id ON cost_reports (scope_line_id)"
+        },
+        {
+          "name": "ix_cost_reports_site_id",
+          "create": "CREATE INDEX ix_cost_reports_site_id ON cost_reports (site_id)"
+        },
+        {
+          "name": "ix_cost_reports_tenant_id",
+          "create": "CREATE INDEX ix_cost_reports_tenant_id ON cost_reports (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "domain_approvals",
+      "create": "\nCREATE TABLE domain_approvals (\n\tresource_kind VARCHAR(40) NOT NULL, \n\tresource_id VARCHAR(100) NOT NULL, \n\tresource_version INTEGER NOT NULL, \n\tactor_id VARCHAR(64) NOT NULL, \n\tapproved BOOLEAN NOT NULL, \n\tfingerprint VARCHAR(64) NOT NULL, \n\treason TEXT NOT NULL, \n\texpires_at DATETIME NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(actor_id) REFERENCES users (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_domain_approvals_resource_id",
+          "create": "CREATE INDEX ix_domain_approvals_resource_id ON domain_approvals (resource_id)"
+        },
+        {
+          "name": "ix_domain_approvals_scope_line_id",
+          "create": "CREATE INDEX ix_domain_approvals_scope_line_id ON domain_approvals (scope_line_id)"
+        },
+        {
+          "name": "ix_domain_approvals_site_id",
+          "create": "CREATE INDEX ix_domain_approvals_site_id ON domain_approvals (site_id)"
+        },
+        {
+          "name": "ix_domain_approvals_tenant_id",
+          "create": "CREATE INDEX ix_domain_approvals_tenant_id ON domain_approvals (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "formulation_calculations",
+      "create": "\nCREATE TABLE formulation_calculations (\n\tformulation_id VARCHAR(64) NOT NULL, \n\tformulation_version INTEGER NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tbasis VARCHAR(20) NOT NULL, \n\ttarget_quantity NUMERIC(28, 9) NOT NULL, \n\ttarget_unit VARCHAR(20) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tsnapshot JSON NOT NULL, \n\tresult JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(formulation_id) REFERENCES material_formulations (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_formulation_calculations_formulation_id",
+          "create": "CREATE INDEX ix_formulation_calculations_formulation_id ON formulation_calculations (formulation_id)"
+        },
+        {
+          "name": "ix_formulation_calculations_scope_line_id",
+          "create": "CREATE INDEX ix_formulation_calculations_scope_line_id ON formulation_calculations (scope_line_id)"
+        },
+        {
+          "name": "ix_formulation_calculations_site_id",
+          "create": "CREATE INDEX ix_formulation_calculations_site_id ON formulation_calculations (site_id)"
+        },
+        {
+          "name": "ix_formulation_calculations_tenant_id",
+          "create": "CREATE INDEX ix_formulation_calculations_tenant_id ON formulation_calculations (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "formulation_components",
+      "create": "\nCREATE TABLE formulation_components (\n\tformulation_id VARCHAR(64) NOT NULL, \n\tmaterial_id VARCHAR(64) NOT NULL, \n\trole VARCHAR(30) NOT NULL, \n\tparts NUMERIC(28, 9) NOT NULL, \n\tapproved_substitute_ids JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (formulation_id, material_id), \n\tCHECK (parts > 0), \n\tFOREIGN KEY(formulation_id) REFERENCES material_formulations (id), \n\tFOREIGN KEY(material_id) REFERENCES material_items (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_formulation_components_formulation_id",
+          "create": "CREATE INDEX ix_formulation_components_formulation_id ON formulation_components (formulation_id)"
+        },
+        {
+          "name": "ix_formulation_components_scope_line_id",
+          "create": "CREATE INDEX ix_formulation_components_scope_line_id ON formulation_components (scope_line_id)"
+        },
+        {
+          "name": "ix_formulation_components_site_id",
+          "create": "CREATE INDEX ix_formulation_components_site_id ON formulation_components (site_id)"
+        },
+        {
+          "name": "ix_formulation_components_tenant_id",
+          "create": "CREATE INDEX ix_formulation_components_tenant_id ON formulation_components (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "policy_decisions",
+      "create": "\nCREATE TABLE policy_decisions (\n\tpolicy_id VARCHAR(64), \n\tpolicy_version INTEGER, \n\tactor_id VARCHAR(64) NOT NULL, \n\taction VARCHAR(80) NOT NULL, \n\tobject_id VARCHAR(120) NOT NULL, \n\tallowed BOOLEAN NOT NULL, \n\tinput_hash VARCHAR(64) NOT NULL, \n\tsnapshot JSON NOT NULL, \n\treasons JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(policy_id) REFERENCES automation_policies (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_policy_decisions_scope_line_id",
+          "create": "CREATE INDEX ix_policy_decisions_scope_line_id ON policy_decisions (scope_line_id)"
+        },
+        {
+          "name": "ix_policy_decisions_site_id",
+          "create": "CREATE INDEX ix_policy_decisions_site_id ON policy_decisions (site_id)"
+        },
+        {
+          "name": "ix_policy_decisions_tenant_id",
+          "create": "CREATE INDEX ix_policy_decisions_tenant_id ON policy_decisions (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "process_decisions",
+      "create": "\nCREATE TABLE process_decisions (\n\tobject_id VARCHAR(120) NOT NULL, \n\troute_id VARCHAR(64) NOT NULL, \n\tmode_id VARCHAR(64), \n\tfrom_step_id VARCHAR(100) NOT NULL, \n\tnext_step_id VARCHAR(100) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tsnapshot JSON NOT NULL, \n\treasons JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(route_id) REFERENCES routes (id), \n\tFOREIGN KEY(mode_id) REFERENCES decision_definitions (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_process_decisions_object_id",
+          "create": "CREATE INDEX ix_process_decisions_object_id ON process_decisions (object_id)"
+        },
+        {
+          "name": "ix_process_decisions_scope_line_id",
+          "create": "CREATE INDEX ix_process_decisions_scope_line_id ON process_decisions (scope_line_id)"
+        },
+        {
+          "name": "ix_process_decisions_site_id",
+          "create": "CREATE INDEX ix_process_decisions_site_id ON process_decisions (site_id)"
+        },
+        {
+          "name": "ix_process_decisions_tenant_id",
+          "create": "CREATE INDEX ix_process_decisions_tenant_id ON process_decisions (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "quality_assessments",
+      "create": "\nCREATE TABLE quality_assessments (\n\tdefinition_id VARCHAR(64), \n\tmethod_id VARCHAR(64), \n\tplan_id VARCHAR(64), \n\tobject_id VARCHAR(120) NOT NULL, \n\tgranularity VARCHAR(30) NOT NULL, \n\tproduct_id VARCHAR(100) NOT NULL, \n\tprocess VARCHAR(40) NOT NULL, \n\tstep_id VARCHAR(100) NOT NULL, \n\toutcome VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\tsource_kind VARCHAR(30) NOT NULL, \n\tsource_id VARCHAR(100) NOT NULL, \n\tsource_version VARCHAR(100) NOT NULL, \n\toriginal_value TEXT NOT NULL, \n\tvalue NUMERIC(28, 9), \n\tunit VARCHAR(40) NOT NULL, \n\toccurred_at DATETIME NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tsnapshot JSON NOT NULL, \n\treasons JSON NOT NULL, \n\tsupersedes_id VARCHAR(64), \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tCHECK (outcome IN ('pass','fail','not_tested','invalid','review')), \n\tFOREIGN KEY(definition_id) REFERENCES decision_definitions (id), \n\tFOREIGN KEY(method_id) REFERENCES decision_definitions (id), \n\tFOREIGN KEY(plan_id) REFERENCES decision_definitions (id), \n\tFOREIGN KEY(supersedes_id) REFERENCES quality_assessments (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_quality_assessments_object_id",
+          "create": "CREATE INDEX ix_quality_assessments_object_id ON quality_assessments (object_id)"
+        },
+        {
+          "name": "ix_quality_assessments_outcome",
+          "create": "CREATE INDEX ix_quality_assessments_outcome ON quality_assessments (outcome)"
+        },
+        {
+          "name": "ix_quality_assessments_scope_line_id",
+          "create": "CREATE INDEX ix_quality_assessments_scope_line_id ON quality_assessments (scope_line_id)"
+        },
+        {
+          "name": "ix_quality_assessments_site_id",
+          "create": "CREATE INDEX ix_quality_assessments_site_id ON quality_assessments (site_id)"
+        },
+        {
+          "name": "ix_quality_assessments_tenant_id",
+          "create": "CREATE INDEX ix_quality_assessments_tenant_id ON quality_assessments (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "supply_plans",
+      "create": "\nCREATE TABLE supply_plans (\n\torder_id VARCHAR(64) NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\tsnapshot JSON NOT NULL, \n\tdelivery_assessment JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(order_id) REFERENCES business_orders (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_supply_plans_order_id",
+          "create": "CREATE INDEX ix_supply_plans_order_id ON supply_plans (order_id)"
+        },
+        {
+          "name": "ix_supply_plans_scope_line_id",
+          "create": "CREATE INDEX ix_supply_plans_scope_line_id ON supply_plans (scope_line_id)"
+        },
+        {
+          "name": "ix_supply_plans_site_id",
+          "create": "CREATE INDEX ix_supply_plans_site_id ON supply_plans (site_id)"
+        },
+        {
+          "name": "ix_supply_plans_tenant_id",
+          "create": "CREATE INDEX ix_supply_plans_tenant_id ON supply_plans (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "bom_components",
+      "create": "\nCREATE TABLE bom_components (\n\tbom_id VARCHAR(64) NOT NULL, \n\tmaterial_id VARCHAR(64), \n\tchild_bom_id VARCHAR(64), \n\tquantity NUMERIC(28, 9) NOT NULL, \n\tunit VARCHAR(20) NOT NULL, \n\tloss_fraction NUMERIC(28, 9) NOT NULL, \n\tconversion_factor NUMERIC(28, 9) NOT NULL, \n\tconversion_basis VARCHAR(500) NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tCHECK ((material_id IS NULL) <> (child_bom_id IS NULL)), \n\tCHECK (quantity > 0), \n\tFOREIGN KEY(bom_id) REFERENCES bills_of_materials (id), \n\tFOREIGN KEY(material_id) REFERENCES material_items (id), \n\tFOREIGN KEY(child_bom_id) REFERENCES bills_of_materials (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_bom_components_bom_id",
+          "create": "CREATE INDEX ix_bom_components_bom_id ON bom_components (bom_id)"
+        },
+        {
+          "name": "ix_bom_components_scope_line_id",
+          "create": "CREATE INDEX ix_bom_components_scope_line_id ON bom_components (scope_line_id)"
+        },
+        {
+          "name": "ix_bom_components_site_id",
+          "create": "CREATE INDEX ix_bom_components_site_id ON bom_components (site_id)"
+        },
+        {
+          "name": "ix_bom_components_tenant_id",
+          "create": "CREATE INDEX ix_bom_components_tenant_id ON bom_components (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_order_lines",
+      "create": "\nCREATE TABLE business_order_lines (\n\torder_id VARCHAR(64) NOT NULL, \n\texternal_line VARCHAR(100) NOT NULL, \n\tproduct_id VARCHAR(100) NOT NULL, \n\tproduct_version VARCHAR(100) NOT NULL, \n\tquantity NUMERIC(28, 9) NOT NULL, \n\tunit VARCHAR(20) NOT NULL, \n\tbom_id VARCHAR(64) NOT NULL, \n\tversion INTEGER NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (order_id, external_line), \n\tCHECK (quantity > 0), \n\tFOREIGN KEY(order_id) REFERENCES business_orders (id), \n\tFOREIGN KEY(bom_id) REFERENCES bills_of_materials (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_order_lines_order_id",
+          "create": "CREATE INDEX ix_business_order_lines_order_id ON business_order_lines (order_id)"
+        },
+        {
+          "name": "ix_business_order_lines_scope_line_id",
+          "create": "CREATE INDEX ix_business_order_lines_scope_line_id ON business_order_lines (scope_line_id)"
+        },
+        {
+          "name": "ix_business_order_lines_site_id",
+          "create": "CREATE INDEX ix_business_order_lines_site_id ON business_order_lines (site_id)"
+        },
+        {
+          "name": "ix_business_order_lines_tenant_id",
+          "create": "CREATE INDEX ix_business_order_lines_tenant_id ON business_order_lines (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "digital_tasks",
+      "create": "\nCREATE TABLE digital_tasks (\n\tkind VARCHAR(80) NOT NULL, \n\tactor_id VARCHAR(64) NOT NULL, \n\tpolicy_id VARCHAR(64) NOT NULL, \n\tpolicy_decision_id VARCHAR(64) NOT NULL, \n\tresponsibility VARCHAR(160) NOT NULL, \n\tauthorization_hash VARCHAR(64) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\tattempts INTEGER NOT NULL, \n\tlease_token VARCHAR(64) NOT NULL, \n\tlease_until DATETIME, \n\tnext_at DATETIME NOT NULL, \n\tinput JSON NOT NULL, \n\ttarget_snapshot JSON NOT NULL, \n\tresult JSON NOT NULL, \n\terror_code VARCHAR(100) NOT NULL, \n\tbatch_id VARCHAR(64) NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(actor_id) REFERENCES users (id), \n\tFOREIGN KEY(policy_id) REFERENCES automation_policies (id), \n\tFOREIGN KEY(policy_decision_id) REFERENCES policy_decisions (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_digital_queue",
+          "create": "CREATE INDEX ix_digital_queue ON digital_tasks (tenant_id, site_id, status, next_at)"
+        },
+        {
+          "name": "ix_digital_tasks_batch_id",
+          "create": "CREATE INDEX ix_digital_tasks_batch_id ON digital_tasks (batch_id)"
+        },
+        {
+          "name": "ix_digital_tasks_scope_line_id",
+          "create": "CREATE INDEX ix_digital_tasks_scope_line_id ON digital_tasks (scope_line_id)"
+        },
+        {
+          "name": "ix_digital_tasks_site_id",
+          "create": "CREATE INDEX ix_digital_tasks_site_id ON digital_tasks (site_id)"
+        },
+        {
+          "name": "ix_digital_tasks_status",
+          "create": "CREATE INDEX ix_digital_tasks_status ON digital_tasks (status)"
+        },
+        {
+          "name": "ix_digital_tasks_tenant_id",
+          "create": "CREATE INDEX ix_digital_tasks_tenant_id ON digital_tasks (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "inventory_snapshots",
+      "create": "\nCREATE TABLE inventory_snapshots (\n\tmaterial_id VARCHAR(64) NOT NULL, \n\twarehouse VARCHAR(100) NOT NULL, \n\tlot VARCHAR(120) NOT NULL, \n\tquality_status VARCHAR(30) NOT NULL, \n\tquantity_basis VARCHAR(20) NOT NULL, \n\ton_hand NUMERIC(28, 9) NOT NULL, \n\theld NUMERIC(28, 9) NOT NULL, \n\treserved NUMERIC(28, 9) NOT NULL, \n\tin_transit NUMERIC(28, 9) NOT NULL, \n\treported_available NUMERIC(28, 9), \n\tunit VARCHAR(20) NOT NULL, \n\tsource_system VARCHAR(100) NOT NULL, \n\tsource_version VARCHAR(100) NOT NULL, \n\tobserved_at DATETIME NOT NULL, \n\texpires_at DATETIME NOT NULL, \n\tfresh_seconds INTEGER NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tincluded_command_ids JSON NOT NULL, \n\tquality_assessment_id VARCHAR(64), \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, source_system, material_id, warehouse, lot, source_version), \n\tFOREIGN KEY(material_id) REFERENCES material_items (id), \n\tFOREIGN KEY(quality_assessment_id) REFERENCES quality_assessments (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_inventory_snapshots_material_id",
+          "create": "CREATE INDEX ix_inventory_snapshots_material_id ON inventory_snapshots (material_id)"
+        },
+        {
+          "name": "ix_inventory_snapshots_scope_line_id",
+          "create": "CREATE INDEX ix_inventory_snapshots_scope_line_id ON inventory_snapshots (scope_line_id)"
+        },
+        {
+          "name": "ix_inventory_snapshots_site_id",
+          "create": "CREATE INDEX ix_inventory_snapshots_site_id ON inventory_snapshots (site_id)"
+        },
+        {
+          "name": "ix_inventory_snapshots_tenant_id",
+          "create": "CREATE INDEX ix_inventory_snapshots_tenant_id ON inventory_snapshots (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "mixing_batches",
+      "create": "\nCREATE TABLE mixing_batches (\n\tcalculation_id VARCHAR(64) NOT NULL, \n\texternal_id VARCHAR(120) NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tmixed_at DATETIME NOT NULL, \n\texpires_at DATETIME NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tsnapshot JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, external_id), \n\tFOREIGN KEY(calculation_id) REFERENCES formulation_calculations (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_mixing_batches_scope_line_id",
+          "create": "CREATE INDEX ix_mixing_batches_scope_line_id ON mixing_batches (scope_line_id)"
+        },
+        {
+          "name": "ix_mixing_batches_site_id",
+          "create": "CREATE INDEX ix_mixing_batches_site_id ON mixing_batches (site_id)"
+        },
+        {
+          "name": "ix_mixing_batches_tenant_id",
+          "create": "CREATE INDEX ix_mixing_batches_tenant_id ON mixing_batches (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "actual_material_usage",
+      "create": "\nCREATE TABLE actual_material_usage (\n\tmaterial_id VARCHAR(64) NOT NULL, \n\tinventory_id VARCHAR(64) NOT NULL, \n\tmixing_batch_id VARCHAR(64), \n\torder_line_id VARCHAR(64), \n\tsource_id VARCHAR(120) NOT NULL, \n\tquantity NUMERIC(28, 9) NOT NULL, \n\tunit VARCHAR(20) NOT NULL, \n\tpurpose VARCHAR(30) NOT NULL, \n\toccurred_at DATETIME NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tdeviation_reason TEXT NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, source_id), \n\tCHECK (quantity > 0), \n\tFOREIGN KEY(material_id) REFERENCES material_items (id), \n\tFOREIGN KEY(inventory_id) REFERENCES inventory_snapshots (id), \n\tFOREIGN KEY(mixing_batch_id) REFERENCES mixing_batches (id), \n\tFOREIGN KEY(order_line_id) REFERENCES business_order_lines (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_actual_material_usage_scope_line_id",
+          "create": "CREATE INDEX ix_actual_material_usage_scope_line_id ON actual_material_usage (scope_line_id)"
+        },
+        {
+          "name": "ix_actual_material_usage_site_id",
+          "create": "CREATE INDEX ix_actual_material_usage_site_id ON actual_material_usage (site_id)"
+        },
+        {
+          "name": "ix_actual_material_usage_tenant_id",
+          "create": "CREATE INDEX ix_actual_material_usage_tenant_id ON actual_material_usage (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_commands",
+      "create": "\nCREATE TABLE business_commands (\n\tconnector_id VARCHAR(64) NOT NULL, \n\ttask_id VARCHAR(64), \n\taction VARCHAR(80) NOT NULL, \n\tcontract_version VARCHAR(40) NOT NULL, \n\tidempotency_key VARCHAR(120) NOT NULL, \n\tactor_id VARCHAR(64) NOT NULL, \n\tpolicy_id VARCHAR(64), \n\tapproval_id VARCHAR(64), \n\ttarget_id VARCHAR(120) NOT NULL, \n\ttarget_version VARCHAR(100) NOT NULL, \n\tinput_hash VARCHAR(64) NOT NULL, \n\tinput JSON NOT NULL, \n\tsnapshot JSON NOT NULL, \n\texpected_result JSON NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\tfencing INTEGER NOT NULL, \n\tlease_token VARCHAR(64) NOT NULL, \n\tlease_until DATETIME, \n\texternal_id VARCHAR(160) NOT NULL, \n\tresult JSON NOT NULL, \n\terror_code VARCHAR(100) NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, connector_id, idempotency_key), \n\tFOREIGN KEY(connector_id) REFERENCES business_connectors (id), \n\tFOREIGN KEY(task_id) REFERENCES digital_tasks (id), \n\tFOREIGN KEY(actor_id) REFERENCES users (id), \n\tFOREIGN KEY(policy_id) REFERENCES automation_policies (id), \n\tFOREIGN KEY(approval_id) REFERENCES domain_approvals (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_commands_scope_line_id",
+          "create": "CREATE INDEX ix_business_commands_scope_line_id ON business_commands (scope_line_id)"
+        },
+        {
+          "name": "ix_business_commands_site_id",
+          "create": "CREATE INDEX ix_business_commands_site_id ON business_commands (site_id)"
+        },
+        {
+          "name": "ix_business_commands_status",
+          "create": "CREATE INDEX ix_business_commands_status ON business_commands (status)"
+        },
+        {
+          "name": "ix_business_commands_tenant_id",
+          "create": "CREATE INDEX ix_business_commands_tenant_id ON business_commands (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_document_lines",
+      "create": "\nCREATE TABLE business_document_lines (\n\tdocument_id VARCHAR(64) NOT NULL, \n\texternal_line VARCHAR(100) NOT NULL, \n\torder_line_id VARCHAR(64) NOT NULL, \n\tmaterial_id VARCHAR(64) NOT NULL, \n\tlot VARCHAR(120) NOT NULL, \n\tquantity NUMERIC(28, 9) NOT NULL, \n\tunit VARCHAR(20) NOT NULL, \n\tunit_price NUMERIC(28, 9) NOT NULL, \n\treference_line_id VARCHAR(64), \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (document_id, external_line), \n\tCHECK (quantity >= 0), \n\tCHECK (unit_price >= 0), \n\tFOREIGN KEY(document_id) REFERENCES business_documents (id), \n\tFOREIGN KEY(order_line_id) REFERENCES business_order_lines (id), \n\tFOREIGN KEY(material_id) REFERENCES material_items (id), \n\tFOREIGN KEY(reference_line_id) REFERENCES business_document_lines (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_document_lines_document_id",
+          "create": "CREATE INDEX ix_business_document_lines_document_id ON business_document_lines (document_id)"
+        },
+        {
+          "name": "ix_business_document_lines_scope_line_id",
+          "create": "CREATE INDEX ix_business_document_lines_scope_line_id ON business_document_lines (scope_line_id)"
+        },
+        {
+          "name": "ix_business_document_lines_site_id",
+          "create": "CREATE INDEX ix_business_document_lines_site_id ON business_document_lines (site_id)"
+        },
+        {
+          "name": "ix_business_document_lines_tenant_id",
+          "create": "CREATE INDEX ix_business_document_lines_tenant_id ON business_document_lines (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "material_demands",
+      "create": "\nCREATE TABLE material_demands (\n\tplan_id VARCHAR(64) NOT NULL, \n\torder_line_id VARCHAR(64) NOT NULL, \n\tmaterial_id VARCHAR(64) NOT NULL, \n\trequired_quantity NUMERIC(28, 9) NOT NULL, \n\tavailable_quantity NUMERIC(28, 9) NOT NULL, \n\tshortage NUMERIC(28, 9) NOT NULL, \n\tunit VARCHAR(20) NOT NULL, \n\tcalculation JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(plan_id) REFERENCES supply_plans (id), \n\tFOREIGN KEY(order_line_id) REFERENCES business_order_lines (id), \n\tFOREIGN KEY(material_id) REFERENCES material_items (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_material_demands_plan_id",
+          "create": "CREATE INDEX ix_material_demands_plan_id ON material_demands (plan_id)"
+        },
+        {
+          "name": "ix_material_demands_scope_line_id",
+          "create": "CREATE INDEX ix_material_demands_scope_line_id ON material_demands (scope_line_id)"
+        },
+        {
+          "name": "ix_material_demands_site_id",
+          "create": "CREATE INDEX ix_material_demands_site_id ON material_demands (site_id)"
+        },
+        {
+          "name": "ix_material_demands_tenant_id",
+          "create": "CREATE INDEX ix_material_demands_tenant_id ON material_demands (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_command_attempts",
+      "create": "\nCREATE TABLE business_command_attempts (\n\tcommand_id VARCHAR(64) NOT NULL, \n\tfencing INTEGER NOT NULL, \n\tkind VARCHAR(20) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\trequest_hash VARCHAR(64) NOT NULL, \n\tresponse JSON NOT NULL, \n\tfinished_at DATETIME, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(command_id) REFERENCES business_commands (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_command_attempts_command_id",
+          "create": "CREATE INDEX ix_business_command_attempts_command_id ON business_command_attempts (command_id)"
+        },
+        {
+          "name": "ix_business_command_attempts_scope_line_id",
+          "create": "CREATE INDEX ix_business_command_attempts_scope_line_id ON business_command_attempts (scope_line_id)"
+        },
+        {
+          "name": "ix_business_command_attempts_site_id",
+          "create": "CREATE INDEX ix_business_command_attempts_site_id ON business_command_attempts (site_id)"
+        },
+        {
+          "name": "ix_business_command_attempts_tenant_id",
+          "create": "CREATE INDEX ix_business_command_attempts_tenant_id ON business_command_attempts (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_receipts",
+      "create": "\nCREATE TABLE business_receipts (\n\tcommand_id VARCHAR(64) NOT NULL, \n\texternal_id VARCHAR(160) NOT NULL, \n\tsource_revision INTEGER NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tpayload_hash VARCHAR(64) NOT NULL, \n\tpayload JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (command_id, source_revision), \n\tFOREIGN KEY(command_id) REFERENCES business_commands (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_receipts_command_id",
+          "create": "CREATE INDEX ix_business_receipts_command_id ON business_receipts (command_id)"
+        },
+        {
+          "name": "ix_business_receipts_scope_line_id",
+          "create": "CREATE INDEX ix_business_receipts_scope_line_id ON business_receipts (scope_line_id)"
+        },
+        {
+          "name": "ix_business_receipts_site_id",
+          "create": "CREATE INDEX ix_business_receipts_site_id ON business_receipts (site_id)"
+        },
+        {
+          "name": "ix_business_receipts_tenant_id",
+          "create": "CREATE INDEX ix_business_receipts_tenant_id ON business_receipts (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "inventory_reservations",
+      "create": "\nCREATE TABLE inventory_reservations (\n\tplan_id VARCHAR(64), \n\tinventory_id VARCHAR(64) NOT NULL, \n\tquantity NUMERIC(28, 9) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tcommand_id VARCHAR(64), \n\tsource_reference VARCHAR(160) NOT NULL, \n\tversion INTEGER NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tCHECK (quantity > 0), \n\tFOREIGN KEY(plan_id) REFERENCES supply_plans (id), \n\tFOREIGN KEY(inventory_id) REFERENCES inventory_snapshots (id), \n\tFOREIGN KEY(command_id) REFERENCES business_commands (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_inventory_reservations_inventory_id",
+          "create": "CREATE INDEX ix_inventory_reservations_inventory_id ON inventory_reservations (inventory_id)"
+        },
+        {
+          "name": "ix_inventory_reservations_scope_line_id",
+          "create": "CREATE INDEX ix_inventory_reservations_scope_line_id ON inventory_reservations (scope_line_id)"
+        },
+        {
+          "name": "ix_inventory_reservations_site_id",
+          "create": "CREATE INDEX ix_inventory_reservations_site_id ON inventory_reservations (site_id)"
+        },
+        {
+          "name": "ix_inventory_reservations_tenant_id",
+          "create": "CREATE INDEX ix_inventory_reservations_tenant_id ON inventory_reservations (tenant_id)"
+        }
+      ]
+    }
+  ],
+  "postgresql": [
+    {
+      "name": "automation_policies",
+      "create": "\nCREATE TABLE automation_policies (\n\tpriority INTEGER NOT NULL, \n\teffect VARCHAR(10) NOT NULL, \n\tautomation_level VARCHAR(3) NOT NULL, \n\tactor_ids JSON NOT NULL, \n\tactor_roles JSON NOT NULL, \n\tactions JSON NOT NULL, \n\tobject_ids JSON NOT NULL, \n\tmax_quantity NUMERIC(28, 9) NOT NULL, \n\tmax_amount NUMERIC(28, 9) NOT NULL, \n\tcurrency VARCHAR(10) NOT NULL, \n\twindow_seconds INTEGER NOT NULL, \n\tmax_frequency INTEGER NOT NULL, \n\toffline_allowed BOOLEAN NOT NULL, \n\trequired_evidence_kinds JSON NOT NULL, \n\tcode VARCHAR(100) NOT NULL, \n\tname VARCHAR(200) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\trevision INTEGER NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\treviewer_id VARCHAR(64), \n\tprevious_id VARCHAR(64), \n\tscope JSON NOT NULL, \n\tvalid_from TIMESTAMP WITH TIME ZONE NOT NULL, \n\tvalid_until TIMESTAMP WITH TIME ZONE NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, code, revision)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_automation_policies_code",
+          "create": "CREATE INDEX ix_automation_policies_code ON automation_policies (code)"
+        },
+        {
+          "name": "ix_automation_policies_scope_line_id",
+          "create": "CREATE INDEX ix_automation_policies_scope_line_id ON automation_policies (scope_line_id)"
+        },
+        {
+          "name": "ix_automation_policies_site_id",
+          "create": "CREATE INDEX ix_automation_policies_site_id ON automation_policies (site_id)"
+        },
+        {
+          "name": "ix_automation_policies_status",
+          "create": "CREATE INDEX ix_automation_policies_status ON automation_policies (status)"
+        },
+        {
+          "name": "ix_automation_policies_tenant_id",
+          "create": "CREATE INDEX ix_automation_policies_tenant_id ON automation_policies (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_connectors",
+      "create": "\nCREATE TABLE business_connectors (\n\tname VARCHAR(200) NOT NULL, \n\tsystem VARCHAR(20) NOT NULL, \n\tendpoint VARCHAR(500) NOT NULL, \n\tcredential_reference VARCHAR(100) NOT NULL, \n\tactions JSON NOT NULL, \n\tenabled BOOLEAN NOT NULL, \n\tsupports_idempotency BOOLEAN NOT NULL, \n\tsupports_lookup BOOLEAN NOT NULL, \n\tversion INTEGER NOT NULL, \n\tcontract_version VARCHAR(40) NOT NULL, \n\tauthority VARCHAR(120) NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_connectors_scope_line_id",
+          "create": "CREATE INDEX ix_business_connectors_scope_line_id ON business_connectors (scope_line_id)"
+        },
+        {
+          "name": "ix_business_connectors_site_id",
+          "create": "CREATE INDEX ix_business_connectors_site_id ON business_connectors (site_id)"
+        },
+        {
+          "name": "ix_business_connectors_tenant_id",
+          "create": "CREATE INDEX ix_business_connectors_tenant_id ON business_connectors (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_orders",
+      "create": "\nCREATE TABLE business_orders (\n\texternal_id VARCHAR(120) NOT NULL, \n\tcustomer_reference VARCHAR(120) NOT NULL, \n\tsource_system VARCHAR(100) NOT NULL, \n\tsource_version VARCHAR(100) NOT NULL, \n\tversion INTEGER NOT NULL, \n\tdue_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tcurrency VARCHAR(10) NOT NULL, \n\ttax_basis VARCHAR(20) NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, source_system, external_id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_orders_scope_line_id",
+          "create": "CREATE INDEX ix_business_orders_scope_line_id ON business_orders (scope_line_id)"
+        },
+        {
+          "name": "ix_business_orders_site_id",
+          "create": "CREATE INDEX ix_business_orders_site_id ON business_orders (site_id)"
+        },
+        {
+          "name": "ix_business_orders_tenant_id",
+          "create": "CREATE INDEX ix_business_orders_tenant_id ON business_orders (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "decision_definitions",
+      "create": "\nCREATE TABLE decision_definitions (\n\tkind VARCHAR(30) NOT NULL, \n\tpayload JSON NOT NULL, \n\tcode VARCHAR(100) NOT NULL, \n\tname VARCHAR(200) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\trevision INTEGER NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\treviewer_id VARCHAR(64), \n\tprevious_id VARCHAR(64), \n\tscope JSON NOT NULL, \n\tvalid_from TIMESTAMP WITH TIME ZONE NOT NULL, \n\tvalid_until TIMESTAMP WITH TIME ZONE NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, kind, code, revision)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_decision_definitions_code",
+          "create": "CREATE INDEX ix_decision_definitions_code ON decision_definitions (code)"
+        },
+        {
+          "name": "ix_decision_definitions_kind",
+          "create": "CREATE INDEX ix_decision_definitions_kind ON decision_definitions (kind)"
+        },
+        {
+          "name": "ix_decision_definitions_scope_line_id",
+          "create": "CREATE INDEX ix_decision_definitions_scope_line_id ON decision_definitions (scope_line_id)"
+        },
+        {
+          "name": "ix_decision_definitions_site_id",
+          "create": "CREATE INDEX ix_decision_definitions_site_id ON decision_definitions (site_id)"
+        },
+        {
+          "name": "ix_decision_definitions_status",
+          "create": "CREATE INDEX ix_decision_definitions_status ON decision_definitions (status)"
+        },
+        {
+          "name": "ix_decision_definitions_tenant_id",
+          "create": "CREATE INDEX ix_decision_definitions_tenant_id ON decision_definitions (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "material_formulations",
+      "create": "\nCREATE TABLE material_formulations (\n\tratio_basis VARCHAR(20) NOT NULL, \n\tdilution_basis VARCHAR(30) NOT NULL, \n\tdilution_fraction NUMERIC(28, 9) NOT NULL, \n\tresolution_kg NUMERIC(28, 9) NOT NULL, \n\ttolerance_fraction NUMERIC(28, 9) NOT NULL, \n\tpot_life_minutes INTEGER NOT NULL, \n\ttechnical_version VARCHAR(100) NOT NULL, \n\tprohibited_pairs JSON NOT NULL, \n\tcode VARCHAR(100) NOT NULL, \n\tname VARCHAR(200) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\trevision INTEGER NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\treviewer_id VARCHAR(64), \n\tprevious_id VARCHAR(64), \n\tscope JSON NOT NULL, \n\tvalid_from TIMESTAMP WITH TIME ZONE NOT NULL, \n\tvalid_until TIMESTAMP WITH TIME ZONE NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, code, revision)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_material_formulations_code",
+          "create": "CREATE INDEX ix_material_formulations_code ON material_formulations (code)"
+        },
+        {
+          "name": "ix_material_formulations_scope_line_id",
+          "create": "CREATE INDEX ix_material_formulations_scope_line_id ON material_formulations (scope_line_id)"
+        },
+        {
+          "name": "ix_material_formulations_site_id",
+          "create": "CREATE INDEX ix_material_formulations_site_id ON material_formulations (site_id)"
+        },
+        {
+          "name": "ix_material_formulations_status",
+          "create": "CREATE INDEX ix_material_formulations_status ON material_formulations (status)"
+        },
+        {
+          "name": "ix_material_formulations_tenant_id",
+          "create": "CREATE INDEX ix_material_formulations_tenant_id ON material_formulations (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "material_items",
+      "create": "\nCREATE TABLE material_items (\n\tcode VARCHAR(100) NOT NULL, \n\tname VARCHAR(200) NOT NULL, \n\tunit VARCHAR(20) NOT NULL, \n\tdensity_kg_l NUMERIC(28, 9), \n\tversion INTEGER NOT NULL, \n\tquality_requirements JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, code)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_material_items_scope_line_id",
+          "create": "CREATE INDEX ix_material_items_scope_line_id ON material_items (scope_line_id)"
+        },
+        {
+          "name": "ix_material_items_site_id",
+          "create": "CREATE INDEX ix_material_items_site_id ON material_items (site_id)"
+        },
+        {
+          "name": "ix_material_items_tenant_id",
+          "create": "CREATE INDEX ix_material_items_tenant_id ON material_items (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "production_cohorts",
+      "create": "\nCREATE TABLE production_cohorts (\n\texternal_id VARCHAR(120) NOT NULL, \n\tgranularity VARCHAR(30) NOT NULL, \n\tproduct_id VARCHAR(100) NOT NULL, \n\tversion INTEGER NOT NULL, \n\texpected_quantity NUMERIC(28, 9) NOT NULL, \n\tclosed BOOLEAN NOT NULL, \n\tobject_ids JSON NOT NULL, \n\tledger JSON NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, external_id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_production_cohorts_scope_line_id",
+          "create": "CREATE INDEX ix_production_cohorts_scope_line_id ON production_cohorts (scope_line_id)"
+        },
+        {
+          "name": "ix_production_cohorts_site_id",
+          "create": "CREATE INDEX ix_production_cohorts_site_id ON production_cohorts (site_id)"
+        },
+        {
+          "name": "ix_production_cohorts_tenant_id",
+          "create": "CREATE INDEX ix_production_cohorts_tenant_id ON production_cohorts (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "tool_invocations",
+      "create": "\nCREATE TABLE tool_invocations (\n\tactor_id VARCHAR(64) NOT NULL, \n\trole VARCHAR(40) NOT NULL, \n\ttool VARCHAR(100) NOT NULL, \n\ttool_version VARCHAR(40) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tinput_hash VARCHAR(64) NOT NULL, \n\tinput JSON NOT NULL, \n\tresult JSON NOT NULL, \n\t\"authorization\" JSON NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_tool_invocations_scope_line_id",
+          "create": "CREATE INDEX ix_tool_invocations_scope_line_id ON tool_invocations (scope_line_id)"
+        },
+        {
+          "name": "ix_tool_invocations_site_id",
+          "create": "CREATE INDEX ix_tool_invocations_site_id ON tool_invocations (site_id)"
+        },
+        {
+          "name": "ix_tool_invocations_tenant_id",
+          "create": "CREATE INDEX ix_tool_invocations_tenant_id ON tool_invocations (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "bills_of_materials",
+      "create": "\nCREATE TABLE bills_of_materials (\n\tproduct_id VARCHAR(100) NOT NULL, \n\tproduct_version VARCHAR(100) NOT NULL, \n\toutput_quantity NUMERIC(28, 9) NOT NULL, \n\toutput_unit VARCHAR(20) NOT NULL, \n\troute_id VARCHAR(64) NOT NULL, \n\tcode VARCHAR(100) NOT NULL, \n\tname VARCHAR(200) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\trevision INTEGER NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\treviewer_id VARCHAR(64), \n\tprevious_id VARCHAR(64), \n\tscope JSON NOT NULL, \n\tvalid_from TIMESTAMP WITH TIME ZONE NOT NULL, \n\tvalid_until TIMESTAMP WITH TIME ZONE NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, code, revision), \n\tFOREIGN KEY(route_id) REFERENCES routes (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_bills_of_materials_code",
+          "create": "CREATE INDEX ix_bills_of_materials_code ON bills_of_materials (code)"
+        },
+        {
+          "name": "ix_bills_of_materials_scope_line_id",
+          "create": "CREATE INDEX ix_bills_of_materials_scope_line_id ON bills_of_materials (scope_line_id)"
+        },
+        {
+          "name": "ix_bills_of_materials_site_id",
+          "create": "CREATE INDEX ix_bills_of_materials_site_id ON bills_of_materials (site_id)"
+        },
+        {
+          "name": "ix_bills_of_materials_status",
+          "create": "CREATE INDEX ix_bills_of_materials_status ON bills_of_materials (status)"
+        },
+        {
+          "name": "ix_bills_of_materials_tenant_id",
+          "create": "CREATE INDEX ix_bills_of_materials_tenant_id ON bills_of_materials (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_documents",
+      "create": "\nCREATE TABLE business_documents (\n\tkind VARCHAR(30) NOT NULL, \n\texternal_id VARCHAR(120) NOT NULL, \n\tsource_system VARCHAR(100) NOT NULL, \n\torder_id VARCHAR(64) NOT NULL, \n\tcurrency VARCHAR(10) NOT NULL, \n\ttax_basis VARCHAR(20) NOT NULL, \n\ttax_rate NUMERIC(28, 9) NOT NULL, \n\toccurred_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, source_system, kind, external_id), \n\tFOREIGN KEY(order_id) REFERENCES business_orders (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_documents_scope_line_id",
+          "create": "CREATE INDEX ix_business_documents_scope_line_id ON business_documents (scope_line_id)"
+        },
+        {
+          "name": "ix_business_documents_site_id",
+          "create": "CREATE INDEX ix_business_documents_site_id ON business_documents (site_id)"
+        },
+        {
+          "name": "ix_business_documents_tenant_id",
+          "create": "CREATE INDEX ix_business_documents_tenant_id ON business_documents (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "cost_reports",
+      "create": "\nCREATE TABLE cost_reports (\n\torder_id VARCHAR(64) NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tcurrency VARCHAR(10) NOT NULL, \n\tallocation_version VARCHAR(100) NOT NULL, \n\tactual_amount NUMERIC(28, 9), \n\testimated_amount NUMERIC(28, 9), \n\tsnapshot JSON NOT NULL, \n\treconciliation JSON NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(order_id) REFERENCES business_orders (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_cost_reports_order_id",
+          "create": "CREATE INDEX ix_cost_reports_order_id ON cost_reports (order_id)"
+        },
+        {
+          "name": "ix_cost_reports_scope_line_id",
+          "create": "CREATE INDEX ix_cost_reports_scope_line_id ON cost_reports (scope_line_id)"
+        },
+        {
+          "name": "ix_cost_reports_site_id",
+          "create": "CREATE INDEX ix_cost_reports_site_id ON cost_reports (site_id)"
+        },
+        {
+          "name": "ix_cost_reports_tenant_id",
+          "create": "CREATE INDEX ix_cost_reports_tenant_id ON cost_reports (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "domain_approvals",
+      "create": "\nCREATE TABLE domain_approvals (\n\tresource_kind VARCHAR(40) NOT NULL, \n\tresource_id VARCHAR(100) NOT NULL, \n\tresource_version INTEGER NOT NULL, \n\tactor_id VARCHAR(64) NOT NULL, \n\tapproved BOOLEAN NOT NULL, \n\tfingerprint VARCHAR(64) NOT NULL, \n\treason TEXT NOT NULL, \n\texpires_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(actor_id) REFERENCES users (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_domain_approvals_resource_id",
+          "create": "CREATE INDEX ix_domain_approvals_resource_id ON domain_approvals (resource_id)"
+        },
+        {
+          "name": "ix_domain_approvals_scope_line_id",
+          "create": "CREATE INDEX ix_domain_approvals_scope_line_id ON domain_approvals (scope_line_id)"
+        },
+        {
+          "name": "ix_domain_approvals_site_id",
+          "create": "CREATE INDEX ix_domain_approvals_site_id ON domain_approvals (site_id)"
+        },
+        {
+          "name": "ix_domain_approvals_tenant_id",
+          "create": "CREATE INDEX ix_domain_approvals_tenant_id ON domain_approvals (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "formulation_calculations",
+      "create": "\nCREATE TABLE formulation_calculations (\n\tformulation_id VARCHAR(64) NOT NULL, \n\tformulation_version INTEGER NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tbasis VARCHAR(20) NOT NULL, \n\ttarget_quantity NUMERIC(28, 9) NOT NULL, \n\ttarget_unit VARCHAR(20) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tsnapshot JSON NOT NULL, \n\tresult JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(formulation_id) REFERENCES material_formulations (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_formulation_calculations_formulation_id",
+          "create": "CREATE INDEX ix_formulation_calculations_formulation_id ON formulation_calculations (formulation_id)"
+        },
+        {
+          "name": "ix_formulation_calculations_scope_line_id",
+          "create": "CREATE INDEX ix_formulation_calculations_scope_line_id ON formulation_calculations (scope_line_id)"
+        },
+        {
+          "name": "ix_formulation_calculations_site_id",
+          "create": "CREATE INDEX ix_formulation_calculations_site_id ON formulation_calculations (site_id)"
+        },
+        {
+          "name": "ix_formulation_calculations_tenant_id",
+          "create": "CREATE INDEX ix_formulation_calculations_tenant_id ON formulation_calculations (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "formulation_components",
+      "create": "\nCREATE TABLE formulation_components (\n\tformulation_id VARCHAR(64) NOT NULL, \n\tmaterial_id VARCHAR(64) NOT NULL, \n\trole VARCHAR(30) NOT NULL, \n\tparts NUMERIC(28, 9) NOT NULL, \n\tapproved_substitute_ids JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (formulation_id, material_id), \n\tCHECK (parts > 0), \n\tFOREIGN KEY(formulation_id) REFERENCES material_formulations (id), \n\tFOREIGN KEY(material_id) REFERENCES material_items (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_formulation_components_formulation_id",
+          "create": "CREATE INDEX ix_formulation_components_formulation_id ON formulation_components (formulation_id)"
+        },
+        {
+          "name": "ix_formulation_components_scope_line_id",
+          "create": "CREATE INDEX ix_formulation_components_scope_line_id ON formulation_components (scope_line_id)"
+        },
+        {
+          "name": "ix_formulation_components_site_id",
+          "create": "CREATE INDEX ix_formulation_components_site_id ON formulation_components (site_id)"
+        },
+        {
+          "name": "ix_formulation_components_tenant_id",
+          "create": "CREATE INDEX ix_formulation_components_tenant_id ON formulation_components (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "policy_decisions",
+      "create": "\nCREATE TABLE policy_decisions (\n\tpolicy_id VARCHAR(64), \n\tpolicy_version INTEGER, \n\tactor_id VARCHAR(64) NOT NULL, \n\taction VARCHAR(80) NOT NULL, \n\tobject_id VARCHAR(120) NOT NULL, \n\tallowed BOOLEAN NOT NULL, \n\tinput_hash VARCHAR(64) NOT NULL, \n\tsnapshot JSON NOT NULL, \n\treasons JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(policy_id) REFERENCES automation_policies (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_policy_decisions_scope_line_id",
+          "create": "CREATE INDEX ix_policy_decisions_scope_line_id ON policy_decisions (scope_line_id)"
+        },
+        {
+          "name": "ix_policy_decisions_site_id",
+          "create": "CREATE INDEX ix_policy_decisions_site_id ON policy_decisions (site_id)"
+        },
+        {
+          "name": "ix_policy_decisions_tenant_id",
+          "create": "CREATE INDEX ix_policy_decisions_tenant_id ON policy_decisions (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "process_decisions",
+      "create": "\nCREATE TABLE process_decisions (\n\tobject_id VARCHAR(120) NOT NULL, \n\troute_id VARCHAR(64) NOT NULL, \n\tmode_id VARCHAR(64), \n\tfrom_step_id VARCHAR(100) NOT NULL, \n\tnext_step_id VARCHAR(100) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tsnapshot JSON NOT NULL, \n\treasons JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(route_id) REFERENCES routes (id), \n\tFOREIGN KEY(mode_id) REFERENCES decision_definitions (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_process_decisions_object_id",
+          "create": "CREATE INDEX ix_process_decisions_object_id ON process_decisions (object_id)"
+        },
+        {
+          "name": "ix_process_decisions_scope_line_id",
+          "create": "CREATE INDEX ix_process_decisions_scope_line_id ON process_decisions (scope_line_id)"
+        },
+        {
+          "name": "ix_process_decisions_site_id",
+          "create": "CREATE INDEX ix_process_decisions_site_id ON process_decisions (site_id)"
+        },
+        {
+          "name": "ix_process_decisions_tenant_id",
+          "create": "CREATE INDEX ix_process_decisions_tenant_id ON process_decisions (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "quality_assessments",
+      "create": "\nCREATE TABLE quality_assessments (\n\tdefinition_id VARCHAR(64), \n\tmethod_id VARCHAR(64), \n\tplan_id VARCHAR(64), \n\tobject_id VARCHAR(120) NOT NULL, \n\tgranularity VARCHAR(30) NOT NULL, \n\tproduct_id VARCHAR(100) NOT NULL, \n\tprocess VARCHAR(40) NOT NULL, \n\tstep_id VARCHAR(100) NOT NULL, \n\toutcome VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\tsource_kind VARCHAR(30) NOT NULL, \n\tsource_id VARCHAR(100) NOT NULL, \n\tsource_version VARCHAR(100) NOT NULL, \n\toriginal_value TEXT NOT NULL, \n\tvalue NUMERIC(28, 9), \n\tunit VARCHAR(40) NOT NULL, \n\toccurred_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tsnapshot JSON NOT NULL, \n\treasons JSON NOT NULL, \n\tsupersedes_id VARCHAR(64), \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tCHECK (outcome IN ('pass','fail','not_tested','invalid','review')), \n\tFOREIGN KEY(definition_id) REFERENCES decision_definitions (id), \n\tFOREIGN KEY(method_id) REFERENCES decision_definitions (id), \n\tFOREIGN KEY(plan_id) REFERENCES decision_definitions (id), \n\tFOREIGN KEY(supersedes_id) REFERENCES quality_assessments (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_quality_assessments_object_id",
+          "create": "CREATE INDEX ix_quality_assessments_object_id ON quality_assessments (object_id)"
+        },
+        {
+          "name": "ix_quality_assessments_outcome",
+          "create": "CREATE INDEX ix_quality_assessments_outcome ON quality_assessments (outcome)"
+        },
+        {
+          "name": "ix_quality_assessments_scope_line_id",
+          "create": "CREATE INDEX ix_quality_assessments_scope_line_id ON quality_assessments (scope_line_id)"
+        },
+        {
+          "name": "ix_quality_assessments_site_id",
+          "create": "CREATE INDEX ix_quality_assessments_site_id ON quality_assessments (site_id)"
+        },
+        {
+          "name": "ix_quality_assessments_tenant_id",
+          "create": "CREATE INDEX ix_quality_assessments_tenant_id ON quality_assessments (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "supply_plans",
+      "create": "\nCREATE TABLE supply_plans (\n\torder_id VARCHAR(64) NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\tsnapshot JSON NOT NULL, \n\tdelivery_assessment JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(order_id) REFERENCES business_orders (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_supply_plans_order_id",
+          "create": "CREATE INDEX ix_supply_plans_order_id ON supply_plans (order_id)"
+        },
+        {
+          "name": "ix_supply_plans_scope_line_id",
+          "create": "CREATE INDEX ix_supply_plans_scope_line_id ON supply_plans (scope_line_id)"
+        },
+        {
+          "name": "ix_supply_plans_site_id",
+          "create": "CREATE INDEX ix_supply_plans_site_id ON supply_plans (site_id)"
+        },
+        {
+          "name": "ix_supply_plans_tenant_id",
+          "create": "CREATE INDEX ix_supply_plans_tenant_id ON supply_plans (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "bom_components",
+      "create": "\nCREATE TABLE bom_components (\n\tbom_id VARCHAR(64) NOT NULL, \n\tmaterial_id VARCHAR(64), \n\tchild_bom_id VARCHAR(64), \n\tquantity NUMERIC(28, 9) NOT NULL, \n\tunit VARCHAR(20) NOT NULL, \n\tloss_fraction NUMERIC(28, 9) NOT NULL, \n\tconversion_factor NUMERIC(28, 9) NOT NULL, \n\tconversion_basis VARCHAR(500) NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tCHECK ((material_id IS NULL) <> (child_bom_id IS NULL)), \n\tCHECK (quantity > 0), \n\tFOREIGN KEY(bom_id) REFERENCES bills_of_materials (id), \n\tFOREIGN KEY(material_id) REFERENCES material_items (id), \n\tFOREIGN KEY(child_bom_id) REFERENCES bills_of_materials (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_bom_components_bom_id",
+          "create": "CREATE INDEX ix_bom_components_bom_id ON bom_components (bom_id)"
+        },
+        {
+          "name": "ix_bom_components_scope_line_id",
+          "create": "CREATE INDEX ix_bom_components_scope_line_id ON bom_components (scope_line_id)"
+        },
+        {
+          "name": "ix_bom_components_site_id",
+          "create": "CREATE INDEX ix_bom_components_site_id ON bom_components (site_id)"
+        },
+        {
+          "name": "ix_bom_components_tenant_id",
+          "create": "CREATE INDEX ix_bom_components_tenant_id ON bom_components (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_order_lines",
+      "create": "\nCREATE TABLE business_order_lines (\n\torder_id VARCHAR(64) NOT NULL, \n\texternal_line VARCHAR(100) NOT NULL, \n\tproduct_id VARCHAR(100) NOT NULL, \n\tproduct_version VARCHAR(100) NOT NULL, \n\tquantity NUMERIC(28, 9) NOT NULL, \n\tunit VARCHAR(20) NOT NULL, \n\tbom_id VARCHAR(64) NOT NULL, \n\tversion INTEGER NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (order_id, external_line), \n\tCHECK (quantity > 0), \n\tFOREIGN KEY(order_id) REFERENCES business_orders (id), \n\tFOREIGN KEY(bom_id) REFERENCES bills_of_materials (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_order_lines_order_id",
+          "create": "CREATE INDEX ix_business_order_lines_order_id ON business_order_lines (order_id)"
+        },
+        {
+          "name": "ix_business_order_lines_scope_line_id",
+          "create": "CREATE INDEX ix_business_order_lines_scope_line_id ON business_order_lines (scope_line_id)"
+        },
+        {
+          "name": "ix_business_order_lines_site_id",
+          "create": "CREATE INDEX ix_business_order_lines_site_id ON business_order_lines (site_id)"
+        },
+        {
+          "name": "ix_business_order_lines_tenant_id",
+          "create": "CREATE INDEX ix_business_order_lines_tenant_id ON business_order_lines (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "digital_tasks",
+      "create": "\nCREATE TABLE digital_tasks (\n\tkind VARCHAR(80) NOT NULL, \n\tactor_id VARCHAR(64) NOT NULL, \n\tpolicy_id VARCHAR(64) NOT NULL, \n\tpolicy_decision_id VARCHAR(64) NOT NULL, \n\tresponsibility VARCHAR(160) NOT NULL, \n\tauthorization_hash VARCHAR(64) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\tattempts INTEGER NOT NULL, \n\tlease_token VARCHAR(64) NOT NULL, \n\tlease_until TIMESTAMP WITH TIME ZONE, \n\tnext_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tinput JSON NOT NULL, \n\ttarget_snapshot JSON NOT NULL, \n\tresult JSON NOT NULL, \n\terror_code VARCHAR(100) NOT NULL, \n\tbatch_id VARCHAR(64) NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(actor_id) REFERENCES users (id), \n\tFOREIGN KEY(policy_id) REFERENCES automation_policies (id), \n\tFOREIGN KEY(policy_decision_id) REFERENCES policy_decisions (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_digital_queue",
+          "create": "CREATE INDEX ix_digital_queue ON digital_tasks (tenant_id, site_id, status, next_at)"
+        },
+        {
+          "name": "ix_digital_tasks_batch_id",
+          "create": "CREATE INDEX ix_digital_tasks_batch_id ON digital_tasks (batch_id)"
+        },
+        {
+          "name": "ix_digital_tasks_scope_line_id",
+          "create": "CREATE INDEX ix_digital_tasks_scope_line_id ON digital_tasks (scope_line_id)"
+        },
+        {
+          "name": "ix_digital_tasks_site_id",
+          "create": "CREATE INDEX ix_digital_tasks_site_id ON digital_tasks (site_id)"
+        },
+        {
+          "name": "ix_digital_tasks_status",
+          "create": "CREATE INDEX ix_digital_tasks_status ON digital_tasks (status)"
+        },
+        {
+          "name": "ix_digital_tasks_tenant_id",
+          "create": "CREATE INDEX ix_digital_tasks_tenant_id ON digital_tasks (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "inventory_snapshots",
+      "create": "\nCREATE TABLE inventory_snapshots (\n\tmaterial_id VARCHAR(64) NOT NULL, \n\twarehouse VARCHAR(100) NOT NULL, \n\tlot VARCHAR(120) NOT NULL, \n\tquality_status VARCHAR(30) NOT NULL, \n\tquantity_basis VARCHAR(20) NOT NULL, \n\ton_hand NUMERIC(28, 9) NOT NULL, \n\theld NUMERIC(28, 9) NOT NULL, \n\treserved NUMERIC(28, 9) NOT NULL, \n\tin_transit NUMERIC(28, 9) NOT NULL, \n\treported_available NUMERIC(28, 9), \n\tunit VARCHAR(20) NOT NULL, \n\tsource_system VARCHAR(100) NOT NULL, \n\tsource_version VARCHAR(100) NOT NULL, \n\tobserved_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\texpires_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tfresh_seconds INTEGER NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tincluded_command_ids JSON NOT NULL, \n\tquality_assessment_id VARCHAR(64), \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, source_system, material_id, warehouse, lot, source_version), \n\tFOREIGN KEY(material_id) REFERENCES material_items (id), \n\tFOREIGN KEY(quality_assessment_id) REFERENCES quality_assessments (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_inventory_snapshots_material_id",
+          "create": "CREATE INDEX ix_inventory_snapshots_material_id ON inventory_snapshots (material_id)"
+        },
+        {
+          "name": "ix_inventory_snapshots_scope_line_id",
+          "create": "CREATE INDEX ix_inventory_snapshots_scope_line_id ON inventory_snapshots (scope_line_id)"
+        },
+        {
+          "name": "ix_inventory_snapshots_site_id",
+          "create": "CREATE INDEX ix_inventory_snapshots_site_id ON inventory_snapshots (site_id)"
+        },
+        {
+          "name": "ix_inventory_snapshots_tenant_id",
+          "create": "CREATE INDEX ix_inventory_snapshots_tenant_id ON inventory_snapshots (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "mixing_batches",
+      "create": "\nCREATE TABLE mixing_batches (\n\tcalculation_id VARCHAR(64) NOT NULL, \n\texternal_id VARCHAR(120) NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tmixed_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\texpires_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tsnapshot JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, external_id), \n\tFOREIGN KEY(calculation_id) REFERENCES formulation_calculations (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_mixing_batches_scope_line_id",
+          "create": "CREATE INDEX ix_mixing_batches_scope_line_id ON mixing_batches (scope_line_id)"
+        },
+        {
+          "name": "ix_mixing_batches_site_id",
+          "create": "CREATE INDEX ix_mixing_batches_site_id ON mixing_batches (site_id)"
+        },
+        {
+          "name": "ix_mixing_batches_tenant_id",
+          "create": "CREATE INDEX ix_mixing_batches_tenant_id ON mixing_batches (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "actual_material_usage",
+      "create": "\nCREATE TABLE actual_material_usage (\n\tmaterial_id VARCHAR(64) NOT NULL, \n\tinventory_id VARCHAR(64) NOT NULL, \n\tmixing_batch_id VARCHAR(64), \n\torder_line_id VARCHAR(64), \n\tsource_id VARCHAR(120) NOT NULL, \n\tquantity NUMERIC(28, 9) NOT NULL, \n\tunit VARCHAR(20) NOT NULL, \n\tpurpose VARCHAR(30) NOT NULL, \n\toccurred_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tauthor_id VARCHAR(64) NOT NULL, \n\tevidence_ids JSON NOT NULL, \n\tdeviation_reason TEXT NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, source_id), \n\tCHECK (quantity > 0), \n\tFOREIGN KEY(material_id) REFERENCES material_items (id), \n\tFOREIGN KEY(inventory_id) REFERENCES inventory_snapshots (id), \n\tFOREIGN KEY(mixing_batch_id) REFERENCES mixing_batches (id), \n\tFOREIGN KEY(order_line_id) REFERENCES business_order_lines (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_actual_material_usage_scope_line_id",
+          "create": "CREATE INDEX ix_actual_material_usage_scope_line_id ON actual_material_usage (scope_line_id)"
+        },
+        {
+          "name": "ix_actual_material_usage_site_id",
+          "create": "CREATE INDEX ix_actual_material_usage_site_id ON actual_material_usage (site_id)"
+        },
+        {
+          "name": "ix_actual_material_usage_tenant_id",
+          "create": "CREATE INDEX ix_actual_material_usage_tenant_id ON actual_material_usage (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_commands",
+      "create": "\nCREATE TABLE business_commands (\n\tconnector_id VARCHAR(64) NOT NULL, \n\ttask_id VARCHAR(64), \n\taction VARCHAR(80) NOT NULL, \n\tcontract_version VARCHAR(40) NOT NULL, \n\tidempotency_key VARCHAR(120) NOT NULL, \n\tactor_id VARCHAR(64) NOT NULL, \n\tpolicy_id VARCHAR(64), \n\tapproval_id VARCHAR(64), \n\ttarget_id VARCHAR(120) NOT NULL, \n\ttarget_version VARCHAR(100) NOT NULL, \n\tinput_hash VARCHAR(64) NOT NULL, \n\tinput JSON NOT NULL, \n\tsnapshot JSON NOT NULL, \n\texpected_result JSON NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tversion INTEGER NOT NULL, \n\tfencing INTEGER NOT NULL, \n\tlease_token VARCHAR(64) NOT NULL, \n\tlease_until TIMESTAMP WITH TIME ZONE, \n\texternal_id VARCHAR(160) NOT NULL, \n\tresult JSON NOT NULL, \n\terror_code VARCHAR(100) NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (tenant_id, site_id, connector_id, idempotency_key), \n\tFOREIGN KEY(connector_id) REFERENCES business_connectors (id), \n\tFOREIGN KEY(task_id) REFERENCES digital_tasks (id), \n\tFOREIGN KEY(actor_id) REFERENCES users (id), \n\tFOREIGN KEY(policy_id) REFERENCES automation_policies (id), \n\tFOREIGN KEY(approval_id) REFERENCES domain_approvals (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_commands_scope_line_id",
+          "create": "CREATE INDEX ix_business_commands_scope_line_id ON business_commands (scope_line_id)"
+        },
+        {
+          "name": "ix_business_commands_site_id",
+          "create": "CREATE INDEX ix_business_commands_site_id ON business_commands (site_id)"
+        },
+        {
+          "name": "ix_business_commands_status",
+          "create": "CREATE INDEX ix_business_commands_status ON business_commands (status)"
+        },
+        {
+          "name": "ix_business_commands_tenant_id",
+          "create": "CREATE INDEX ix_business_commands_tenant_id ON business_commands (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_document_lines",
+      "create": "\nCREATE TABLE business_document_lines (\n\tdocument_id VARCHAR(64) NOT NULL, \n\texternal_line VARCHAR(100) NOT NULL, \n\torder_line_id VARCHAR(64) NOT NULL, \n\tmaterial_id VARCHAR(64) NOT NULL, \n\tlot VARCHAR(120) NOT NULL, \n\tquantity NUMERIC(28, 9) NOT NULL, \n\tunit VARCHAR(20) NOT NULL, \n\tunit_price NUMERIC(28, 9) NOT NULL, \n\treference_line_id VARCHAR(64), \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (document_id, external_line), \n\tCHECK (quantity >= 0), \n\tCHECK (unit_price >= 0), \n\tFOREIGN KEY(document_id) REFERENCES business_documents (id), \n\tFOREIGN KEY(order_line_id) REFERENCES business_order_lines (id), \n\tFOREIGN KEY(material_id) REFERENCES material_items (id), \n\tFOREIGN KEY(reference_line_id) REFERENCES business_document_lines (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_document_lines_document_id",
+          "create": "CREATE INDEX ix_business_document_lines_document_id ON business_document_lines (document_id)"
+        },
+        {
+          "name": "ix_business_document_lines_scope_line_id",
+          "create": "CREATE INDEX ix_business_document_lines_scope_line_id ON business_document_lines (scope_line_id)"
+        },
+        {
+          "name": "ix_business_document_lines_site_id",
+          "create": "CREATE INDEX ix_business_document_lines_site_id ON business_document_lines (site_id)"
+        },
+        {
+          "name": "ix_business_document_lines_tenant_id",
+          "create": "CREATE INDEX ix_business_document_lines_tenant_id ON business_document_lines (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "material_demands",
+      "create": "\nCREATE TABLE material_demands (\n\tplan_id VARCHAR(64) NOT NULL, \n\torder_line_id VARCHAR(64) NOT NULL, \n\tmaterial_id VARCHAR(64) NOT NULL, \n\trequired_quantity NUMERIC(28, 9) NOT NULL, \n\tavailable_quantity NUMERIC(28, 9) NOT NULL, \n\tshortage NUMERIC(28, 9) NOT NULL, \n\tunit VARCHAR(20) NOT NULL, \n\tcalculation JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(plan_id) REFERENCES supply_plans (id), \n\tFOREIGN KEY(order_line_id) REFERENCES business_order_lines (id), \n\tFOREIGN KEY(material_id) REFERENCES material_items (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_material_demands_plan_id",
+          "create": "CREATE INDEX ix_material_demands_plan_id ON material_demands (plan_id)"
+        },
+        {
+          "name": "ix_material_demands_scope_line_id",
+          "create": "CREATE INDEX ix_material_demands_scope_line_id ON material_demands (scope_line_id)"
+        },
+        {
+          "name": "ix_material_demands_site_id",
+          "create": "CREATE INDEX ix_material_demands_site_id ON material_demands (site_id)"
+        },
+        {
+          "name": "ix_material_demands_tenant_id",
+          "create": "CREATE INDEX ix_material_demands_tenant_id ON material_demands (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_command_attempts",
+      "create": "\nCREATE TABLE business_command_attempts (\n\tcommand_id VARCHAR(64) NOT NULL, \n\tfencing INTEGER NOT NULL, \n\tkind VARCHAR(20) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\trequest_hash VARCHAR(64) NOT NULL, \n\tresponse JSON NOT NULL, \n\tfinished_at TIMESTAMP WITH TIME ZONE, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(command_id) REFERENCES business_commands (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_command_attempts_command_id",
+          "create": "CREATE INDEX ix_business_command_attempts_command_id ON business_command_attempts (command_id)"
+        },
+        {
+          "name": "ix_business_command_attempts_scope_line_id",
+          "create": "CREATE INDEX ix_business_command_attempts_scope_line_id ON business_command_attempts (scope_line_id)"
+        },
+        {
+          "name": "ix_business_command_attempts_site_id",
+          "create": "CREATE INDEX ix_business_command_attempts_site_id ON business_command_attempts (site_id)"
+        },
+        {
+          "name": "ix_business_command_attempts_tenant_id",
+          "create": "CREATE INDEX ix_business_command_attempts_tenant_id ON business_command_attempts (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "business_receipts",
+      "create": "\nCREATE TABLE business_receipts (\n\tcommand_id VARCHAR(64) NOT NULL, \n\texternal_id VARCHAR(160) NOT NULL, \n\tsource_revision INTEGER NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tpayload_hash VARCHAR(64) NOT NULL, \n\tpayload JSON NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (command_id, source_revision), \n\tFOREIGN KEY(command_id) REFERENCES business_commands (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_business_receipts_command_id",
+          "create": "CREATE INDEX ix_business_receipts_command_id ON business_receipts (command_id)"
+        },
+        {
+          "name": "ix_business_receipts_scope_line_id",
+          "create": "CREATE INDEX ix_business_receipts_scope_line_id ON business_receipts (scope_line_id)"
+        },
+        {
+          "name": "ix_business_receipts_site_id",
+          "create": "CREATE INDEX ix_business_receipts_site_id ON business_receipts (site_id)"
+        },
+        {
+          "name": "ix_business_receipts_tenant_id",
+          "create": "CREATE INDEX ix_business_receipts_tenant_id ON business_receipts (tenant_id)"
+        }
+      ]
+    },
+    {
+      "name": "inventory_reservations",
+      "create": "\nCREATE TABLE inventory_reservations (\n\tplan_id VARCHAR(64), \n\tinventory_id VARCHAR(64) NOT NULL, \n\tquantity NUMERIC(28, 9) NOT NULL, \n\tstatus VARCHAR(30) NOT NULL, \n\tcommand_id VARCHAR(64), \n\tsource_reference VARCHAR(160) NOT NULL, \n\tversion INTEGER NOT NULL, \n\tid VARCHAR(64) NOT NULL, \n\ttenant_id VARCHAR(80) NOT NULL, \n\tsite_id VARCHAR(80) NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tscope_line_id VARCHAR(100) NOT NULL, \n\tPRIMARY KEY (id), \n\tCHECK (quantity > 0), \n\tFOREIGN KEY(plan_id) REFERENCES supply_plans (id), \n\tFOREIGN KEY(inventory_id) REFERENCES inventory_snapshots (id), \n\tFOREIGN KEY(command_id) REFERENCES business_commands (id)\n)\n\n",
+      "indexes": [
+        {
+          "name": "ix_inventory_reservations_inventory_id",
+          "create": "CREATE INDEX ix_inventory_reservations_inventory_id ON inventory_reservations (inventory_id)"
+        },
+        {
+          "name": "ix_inventory_reservations_scope_line_id",
+          "create": "CREATE INDEX ix_inventory_reservations_scope_line_id ON inventory_reservations (scope_line_id)"
+        },
+        {
+          "name": "ix_inventory_reservations_site_id",
+          "create": "CREATE INDEX ix_inventory_reservations_site_id ON inventory_reservations (site_id)"
+        },
+        {
+          "name": "ix_inventory_reservations_tenant_id",
+          "create": "CREATE INDEX ix_inventory_reservations_tenant_id ON inventory_reservations (tenant_id)"
+        }
+      ]
+    }
+  ]
+}

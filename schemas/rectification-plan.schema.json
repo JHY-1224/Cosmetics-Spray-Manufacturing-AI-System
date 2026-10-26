@@ -1,0 +1,189 @@
+{
+  "$defs": {
+    "Action": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "default": "",
+          "maxLength": 100,
+          "title": "Action Id",
+          "type": "string"
+        },
+        "owner_role": {
+          "default": "",
+          "enum": [
+            "",
+            "engineer",
+            "executor",
+            "quality",
+            "inspector",
+            "admin"
+          ],
+          "title": "Owner Role",
+          "type": "string"
+        },
+        "owner_id": {
+          "default": "",
+          "maxLength": 100,
+          "title": "Owner Id",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "inspect",
+            "measure",
+            "sop_action"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 1000,
+          "minLength": 2,
+          "title": "Description",
+          "type": "string"
+        },
+        "sop_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sop Id"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Parameters",
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "description"
+      ],
+      "title": "Action",
+      "type": "object"
+    },
+    "RetestPlan": {
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "maxLength": 300,
+          "minLength": 2,
+          "title": "Method",
+          "type": "string"
+        },
+        "target_defects": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Target Defects",
+          "type": "array"
+        },
+        "sample_unit": {
+          "enum": [
+            "bottle",
+            "load",
+            "batch",
+            "sample"
+          ],
+          "title": "Sample Unit",
+          "type": "string"
+        },
+        "min_samples": {
+          "minimum": 1,
+          "title": "Min Samples",
+          "type": "integer"
+        },
+        "max_defect_rate": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Max Defect Rate",
+          "type": "number"
+        },
+        "stabilization_minutes": {
+          "minimum": 0,
+          "title": "Stabilization Minutes",
+          "type": "integer"
+        },
+        "observation_minutes": {
+          "minimum": 0,
+          "title": "Observation Minutes",
+          "type": "integer"
+        },
+        "conditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Conditions",
+          "type": "array"
+        },
+        "other_constraints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Other Constraints",
+          "type": "array"
+        }
+      },
+      "required": [
+        "method",
+        "target_defects",
+        "sample_unit",
+        "min_samples",
+        "max_defect_rate",
+        "stabilization_minutes",
+        "observation_minutes"
+      ],
+      "title": "RetestPlan",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "source_run_id": {
+      "default": "",
+      "maxLength": 100,
+      "title": "Source Run Id",
+      "type": "string"
+    },
+    "actions": {
+      "items": {
+        "$ref": "#/$defs/Action"
+      },
+      "maxItems": 30,
+      "minItems": 1,
+      "title": "Actions",
+      "type": "array"
+    },
+    "retest": {
+      "$ref": "#/$defs/RetestPlan"
+    },
+    "expires_in_hours": {
+      "default": 24,
+      "maximum": 168,
+      "minimum": 1,
+      "title": "Expires In Hours",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "version",
+    "actions",
+    "retest"
+  ],
+  "title": "PlanInput",
+  "type": "object"
+}

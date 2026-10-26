@@ -1,0 +1,9 @@
+{$CENTER_HOST} {
+    reverse_proxy center:8000
+}
+{$SITE_A_HOST} {
+    reverse_proxy site-a:8000
+}
+{$SITE_B_HOST} {
+    reverse_proxy site-b:8000
+}

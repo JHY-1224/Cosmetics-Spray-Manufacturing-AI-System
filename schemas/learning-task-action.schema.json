@@ -1,0 +1,25 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "enum": [
+        "retry",
+        "cancel"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 4,
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "action",
+    "reason"
+  ],
+  "title": "TaskAction",
+  "type": "object"
+}

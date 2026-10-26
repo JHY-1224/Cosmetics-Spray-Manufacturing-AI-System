@@ -1,0 +1,185 @@
+{
+  "$defs": {
+    "DocumentLineInput": {
+      "additionalProperties": false,
+      "properties": {
+        "external_line": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "External Line",
+          "type": "string"
+        },
+        "order_line_id": {
+          "title": "Order Line Id",
+          "type": "string"
+        },
+        "material_id": {
+          "title": "Material Id",
+          "type": "string"
+        },
+        "lot": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Lot",
+          "type": "string"
+        },
+        "quantity": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "max_digits": 28,
+          "title": "Quantity"
+        },
+        "unit": {
+          "maxLength": 20,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "unit_price": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "max_digits": 28,
+          "title": "Unit Price"
+        },
+        "reference_line_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Line Id"
+        }
+      },
+      "required": [
+        "external_line",
+        "order_line_id",
+        "material_id",
+        "lot",
+        "quantity",
+        "unit",
+        "unit_price"
+      ],
+      "title": "DocumentLineInput",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "receipt",
+        "return",
+        "invoice"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "external_id": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "External Id",
+      "type": "string"
+    },
+    "source_system": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Source System",
+      "type": "string"
+    },
+    "order_id": {
+      "title": "Order Id",
+      "type": "string"
+    },
+    "currency": {
+      "maxLength": 10,
+      "minLength": 3,
+      "title": "Currency",
+      "type": "string"
+    },
+    "tax_basis": {
+      "enum": [
+        "tax_inclusive",
+        "tax_exclusive"
+      ],
+      "title": "Tax Basis",
+      "type": "string"
+    },
+    "tax_rate": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "ge": 0,
+      "lt": 1,
+      "max_digits": 28,
+      "title": "Tax Rate"
+    },
+    "occurred_at": {
+      "format": "date-time",
+      "title": "Occurred At",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "lines": {
+      "items": {
+        "$ref": "#/$defs/DocumentLineInput"
+      },
+      "maxItems": 200,
+      "minItems": 1,
+      "title": "Lines",
+      "type": "array"
+    }
+  },
+  "required": [
+    "line_id",
+    "kind",
+    "external_id",
+    "source_system",
+    "order_id",
+    "currency",
+    "tax_basis",
+    "tax_rate",
+    "occurred_at",
+    "evidence_ids",
+    "lines"
+  ],
+  "title": "DocumentInput",
+  "type": "object"
+}

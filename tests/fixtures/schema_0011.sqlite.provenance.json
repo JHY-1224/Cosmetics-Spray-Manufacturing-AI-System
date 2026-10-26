@@ -1,0 +1,7 @@
+{
+  "origin": "Current pre-upgrade immutable source snapshot; migrate on new empty SQLite using unchanged migrations 0001..0011",
+  "revision": "0011",
+  "source_snapshot": "/var/folders/z_/9fy3q9kj2d1gtp__35kc6h9r0000gn/T/quality-enterprise-uo5kpima",
+  "fixture_sha256": "fb8413a4c29fe4f532727042c7265b1af1ecc5b832e9ab24c213e46a09755dd5",
+  "business_rows": 0
+}

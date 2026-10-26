@@ -1,0 +1,309 @@
+{
+  "$defs": {
+    "PolicyScope": {
+      "additionalProperties": false,
+      "properties": {
+        "line_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Line Id",
+          "type": "string"
+        },
+        "process": {
+          "enum": [
+            "plastic_spray",
+            "glass_vacuum"
+          ],
+          "title": "Process",
+          "type": "string"
+        },
+        "product_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Ids",
+          "type": "array"
+        },
+        "product_families": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Families",
+          "type": "array"
+        },
+        "substrate_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Substrate Ids",
+          "type": "array"
+        },
+        "shapes": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Shapes",
+          "type": "array"
+        },
+        "step_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Step Ids",
+          "type": "array"
+        },
+        "route_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Route Ids",
+          "type": "array"
+        },
+        "product_versions": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Versions",
+          "type": "array"
+        },
+        "equipment_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Equipment Ids",
+          "type": "array"
+        },
+        "quantity_unit": {
+          "enum": [
+            "operation",
+            "kg",
+            "g",
+            "L",
+            "mL",
+            "piece",
+            "bottle",
+            "load",
+            "batch",
+            "sample"
+          ],
+          "title": "Quantity Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "line_id",
+        "process",
+        "quantity_unit"
+      ],
+      "title": "PolicyScope",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "code": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Code",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 200,
+      "minLength": 2,
+      "title": "Name",
+      "type": "string"
+    },
+    "scope": {
+      "$ref": "#/$defs/PolicyScope"
+    },
+    "valid_from": {
+      "format": "date-time",
+      "title": "Valid From",
+      "type": "string"
+    },
+    "valid_until": {
+      "format": "date-time",
+      "title": "Valid Until",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "previous_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Id"
+    },
+    "priority": {
+      "default": 0,
+      "maximum": 1000,
+      "minimum": 0,
+      "title": "Priority",
+      "type": "integer"
+    },
+    "effect": {
+      "default": "allow",
+      "enum": [
+        "allow",
+        "deny"
+      ],
+      "title": "Effect",
+      "type": "string"
+    },
+    "automation_level": {
+      "enum": [
+        "D1",
+        "D2"
+      ],
+      "title": "Automation Level",
+      "type": "string"
+    },
+    "actor_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Actor Ids",
+      "type": "array"
+    },
+    "actor_roles": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 20,
+      "minItems": 1,
+      "title": "Actor Roles",
+      "type": "array"
+    },
+    "actions": {
+      "items": {
+        "enum": [
+          "quality.assess",
+          "formulation.calculate",
+          "process.select",
+          "retest.create",
+          "inventory.reserve",
+          "inventory.release",
+          "purchase.draft",
+          "purchase.submit"
+        ],
+        "type": "string"
+      },
+      "maxItems": 8,
+      "minItems": 1,
+      "title": "Actions",
+      "type": "array"
+    },
+    "object_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "title": "Object Ids",
+      "type": "array"
+    },
+    "max_quantity": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "gt": 0,
+      "max_digits": 28,
+      "title": "Max Quantity"
+    },
+    "max_amount": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "ge": 0,
+      "max_digits": 28,
+      "title": "Max Amount"
+    },
+    "currency": {
+      "maxLength": 10,
+      "minLength": 3,
+      "title": "Currency",
+      "type": "string"
+    },
+    "window_seconds": {
+      "default": 3600,
+      "maximum": 86400,
+      "minimum": 1,
+      "title": "Window Seconds",
+      "type": "integer"
+    },
+    "max_frequency": {
+      "maximum": 10000,
+      "minimum": 1,
+      "title": "Max Frequency",
+      "type": "integer"
+    },
+    "offline_allowed": {
+      "default": false,
+      "title": "Offline Allowed",
+      "type": "boolean"
+    },
+    "required_evidence_kinds": {
+      "items": {
+        "enum": [
+          "quality_assessment",
+          "calculation",
+          "source_receipt",
+          "evidence"
+        ],
+        "type": "string"
+      },
+      "maxItems": 4,
+      "title": "Required Evidence Kinds",
+      "type": "array"
+    }
+  },
+  "required": [
+    "code",
+    "name",
+    "scope",
+    "valid_until",
+    "evidence_ids",
+    "automation_level",
+    "actor_roles",
+    "actions",
+    "max_quantity",
+    "max_amount",
+    "currency",
+    "max_frequency"
+  ],
+  "title": "PolicyInput",
+  "type": "object"
+}

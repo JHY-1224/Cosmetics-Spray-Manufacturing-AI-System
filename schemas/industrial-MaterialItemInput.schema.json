@@ -1,0 +1,76 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "code": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Code",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 200,
+      "minLength": 2,
+      "title": "Name",
+      "type": "string"
+    },
+    "unit": {
+      "enum": [
+        "kg",
+        "g",
+        "L",
+        "mL",
+        "piece"
+      ],
+      "title": "Unit",
+      "type": "string"
+    },
+    "density_kg_l": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "gt": 0,
+          "max_digits": 28
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Density Kg L"
+    },
+    "density_basis": {
+      "default": "",
+      "maxLength": 500,
+      "title": "Density Basis",
+      "type": "string"
+    },
+    "prohibited_material_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Prohibited Material Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "line_id",
+    "code",
+    "name",
+    "unit"
+  ],
+  "title": "MaterialItemInput",
+  "type": "object"
+}

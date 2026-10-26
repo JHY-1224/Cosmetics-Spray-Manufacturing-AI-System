@@ -1,0 +1,22 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "tool": {
+      "maxLength": 100,
+      "minLength": 3,
+      "title": "Tool",
+      "type": "string"
+    },
+    "input": {
+      "additionalProperties": true,
+      "title": "Input",
+      "type": "object"
+    }
+  },
+  "required": [
+    "tool",
+    "input"
+  ],
+  "title": "InvokeInput",
+  "type": "object"
+}

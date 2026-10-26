@@ -1,0 +1,293 @@
+{
+  "$defs": {
+    "BomLineInput": {
+      "additionalProperties": false,
+      "properties": {
+        "material_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Material Id"
+        },
+        "child_bom_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Child Bom Id"
+        },
+        "quantity": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "gt": 0,
+          "max_digits": 28,
+          "title": "Quantity"
+        },
+        "unit": {
+          "maxLength": 20,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "loss_fraction": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "default": "0",
+          "ge": 0,
+          "lt": 1,
+          "max_digits": 28,
+          "title": "Loss Fraction"
+        },
+        "conversion_factor": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "default": "1",
+          "gt": 0,
+          "max_digits": 28,
+          "title": "Conversion Factor"
+        },
+        "conversion_basis": {
+          "maxLength": 500,
+          "minLength": 3,
+          "title": "Conversion Basis",
+          "type": "string"
+        }
+      },
+      "required": [
+        "quantity",
+        "unit",
+        "conversion_basis"
+      ],
+      "title": "BomLineInput",
+      "type": "object"
+    },
+    "IndustrialScope": {
+      "additionalProperties": false,
+      "properties": {
+        "line_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Line Id",
+          "type": "string"
+        },
+        "process": {
+          "enum": [
+            "plastic_spray",
+            "glass_vacuum"
+          ],
+          "title": "Process",
+          "type": "string"
+        },
+        "product_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Ids",
+          "type": "array"
+        },
+        "product_families": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Families",
+          "type": "array"
+        },
+        "substrate_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Substrate Ids",
+          "type": "array"
+        },
+        "shapes": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Shapes",
+          "type": "array"
+        },
+        "step_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Step Ids",
+          "type": "array"
+        },
+        "route_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Route Ids",
+          "type": "array"
+        },
+        "product_versions": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Versions",
+          "type": "array"
+        },
+        "equipment_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Equipment Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "line_id",
+        "process"
+      ],
+      "title": "IndustrialScope",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "code": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Code",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 200,
+      "minLength": 2,
+      "title": "Name",
+      "type": "string"
+    },
+    "scope": {
+      "$ref": "#/$defs/IndustrialScope"
+    },
+    "valid_from": {
+      "format": "date-time",
+      "title": "Valid From",
+      "type": "string"
+    },
+    "valid_until": {
+      "format": "date-time",
+      "title": "Valid Until",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "previous_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Id"
+    },
+    "product_id": {
+      "title": "Product Id",
+      "type": "string"
+    },
+    "product_version": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Product Version",
+      "type": "string"
+    },
+    "output_quantity": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "gt": 0,
+      "max_digits": 28,
+      "title": "Output Quantity"
+    },
+    "output_unit": {
+      "maxLength": 20,
+      "minLength": 1,
+      "title": "Output Unit",
+      "type": "string"
+    },
+    "route_id": {
+      "title": "Route Id",
+      "type": "string"
+    },
+    "components": {
+      "items": {
+        "$ref": "#/$defs/BomLineInput"
+      },
+      "maxItems": 200,
+      "minItems": 1,
+      "title": "Components",
+      "type": "array"
+    }
+  },
+  "required": [
+    "code",
+    "name",
+    "scope",
+    "valid_until",
+    "evidence_ids",
+    "product_id",
+    "product_version",
+    "output_quantity",
+    "output_unit",
+    "route_id",
+    "components"
+  ],
+  "title": "BomInput",
+  "type": "object"
+}

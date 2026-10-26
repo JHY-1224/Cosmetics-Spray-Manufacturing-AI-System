@@ -1,0 +1,308 @@
+{
+  "$defs": {
+    "ComponentInput": {
+      "additionalProperties": false,
+      "properties": {
+        "material_id": {
+          "title": "Material Id",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "main",
+            "hardener",
+            "diluent",
+            "additive"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "parts": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "gt": 0,
+          "max_digits": 28,
+          "title": "Parts"
+        },
+        "approved_substitute_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Approved Substitute Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "material_id",
+        "role",
+        "parts"
+      ],
+      "title": "ComponentInput",
+      "type": "object"
+    },
+    "IndustrialScope": {
+      "additionalProperties": false,
+      "properties": {
+        "line_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Line Id",
+          "type": "string"
+        },
+        "process": {
+          "enum": [
+            "plastic_spray",
+            "glass_vacuum"
+          ],
+          "title": "Process",
+          "type": "string"
+        },
+        "product_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Ids",
+          "type": "array"
+        },
+        "product_families": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Families",
+          "type": "array"
+        },
+        "substrate_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Substrate Ids",
+          "type": "array"
+        },
+        "shapes": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Shapes",
+          "type": "array"
+        },
+        "step_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Step Ids",
+          "type": "array"
+        },
+        "route_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Route Ids",
+          "type": "array"
+        },
+        "product_versions": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Versions",
+          "type": "array"
+        },
+        "equipment_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Equipment Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "line_id",
+        "process"
+      ],
+      "title": "IndustrialScope",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "code": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Code",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 200,
+      "minLength": 2,
+      "title": "Name",
+      "type": "string"
+    },
+    "scope": {
+      "$ref": "#/$defs/IndustrialScope"
+    },
+    "valid_from": {
+      "format": "date-time",
+      "title": "Valid From",
+      "type": "string"
+    },
+    "valid_until": {
+      "format": "date-time",
+      "title": "Valid Until",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "previous_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Id"
+    },
+    "ratio_basis": {
+      "enum": [
+        "mass",
+        "volume"
+      ],
+      "title": "Ratio Basis",
+      "type": "string"
+    },
+    "dilution_basis": {
+      "default": "parts",
+      "enum": [
+        "parts",
+        "main",
+        "main_hardener",
+        "final_total"
+      ],
+      "title": "Dilution Basis",
+      "type": "string"
+    },
+    "dilution_fraction": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "default": "0",
+      "ge": 0,
+      "lt": 1,
+      "max_digits": 28,
+      "title": "Dilution Fraction"
+    },
+    "resolution_kg": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "default": "0.001",
+      "gt": 0,
+      "max_digits": 28,
+      "title": "Resolution Kg"
+    },
+    "tolerance_fraction": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "default": "0.01",
+      "ge": 0,
+      "lt": 1,
+      "max_digits": 28,
+      "title": "Tolerance Fraction"
+    },
+    "pot_life_minutes": {
+      "maximum": 10080,
+      "minimum": 1,
+      "title": "Pot Life Minutes",
+      "type": "integer"
+    },
+    "technical_version": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Technical Version",
+      "type": "string"
+    },
+    "prohibited_pairs": {
+      "items": {
+        "maxItems": 2,
+        "minItems": 2,
+        "prefixItems": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "type": "array"
+      },
+      "maxItems": 100,
+      "title": "Prohibited Pairs",
+      "type": "array"
+    },
+    "components": {
+      "items": {
+        "$ref": "#/$defs/ComponentInput"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Components",
+      "type": "array"
+    }
+  },
+  "required": [
+    "code",
+    "name",
+    "scope",
+    "valid_until",
+    "evidence_ids",
+    "ratio_basis",
+    "pot_life_minutes",
+    "technical_version",
+    "components"
+  ],
+  "title": "FormulationInput",
+  "type": "object"
+}

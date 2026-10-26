@@ -1,0 +1,14 @@
+[project]
+name = "cosmetics-unsloth-sft"
+version = "0.1.0"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "unsloth==2026.10.8",
+  "transformers==5.17.0",
+  "trl==1.15.0",
+  "datasets>=4.7,<5"
+]
+
+[tool.uv]
+package = false
+environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]

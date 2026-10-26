@@ -1,0 +1,133 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "object_id": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Object Id",
+      "type": "string"
+    },
+    "granularity": {
+      "enum": [
+        "bottle",
+        "load",
+        "batch",
+        "sample"
+      ],
+      "title": "Granularity",
+      "type": "string"
+    },
+    "route_id": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Route Id",
+      "type": "string"
+    },
+    "step_id": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Step Id",
+      "type": "string"
+    },
+    "source_id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Source Id",
+      "type": "string"
+    },
+    "source_session_id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Source Session Id",
+      "type": "string"
+    },
+    "source_record_id": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Source Record Id",
+      "type": "string"
+    },
+    "reported_sequence": {
+      "maximum": 2147483647,
+      "minimum": 1,
+      "title": "Reported Sequence",
+      "type": "integer"
+    },
+    "entered_at": {
+      "format": "date-time",
+      "title": "Entered At",
+      "type": "string"
+    },
+    "exited_at": {
+      "format": "date-time",
+      "title": "Exited At",
+      "type": "string"
+    },
+    "cycle": {
+      "default": 1,
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Cycle",
+      "type": "integer"
+    },
+    "disposition_id": {
+      "default": "",
+      "maxLength": 100,
+      "title": "Disposition Id",
+      "type": "string"
+    },
+    "product_id": {
+      "default": "",
+      "maxLength": 120,
+      "title": "Product Id",
+      "type": "string"
+    },
+    "production_batch_id": {
+      "default": "",
+      "maxLength": 120,
+      "title": "Production Batch Id",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "actual_confirmation": {
+      "title": "Actual Confirmation",
+      "type": "boolean"
+    },
+    "notes": {
+      "maxLength": 3000,
+      "minLength": 3,
+      "title": "Notes",
+      "type": "string"
+    }
+  },
+  "required": [
+    "line_id",
+    "object_id",
+    "granularity",
+    "route_id",
+    "step_id",
+    "source_id",
+    "source_session_id",
+    "source_record_id",
+    "reported_sequence",
+    "entered_at",
+    "exited_at",
+    "evidence_ids",
+    "actual_confirmation",
+    "notes"
+  ],
+  "title": "ActualPassageInput",
+  "type": "object"
+}

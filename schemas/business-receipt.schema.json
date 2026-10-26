@@ -1,0 +1,178 @@
+{
+  "$defs": {
+    "BusinessReceiptBody": {
+      "additionalProperties": false,
+      "properties": {
+        "contract": {
+          "const": "business-actions-v1",
+          "default": "business-actions-v1",
+          "title": "Contract",
+          "type": "string"
+        },
+        "tenant_id": {
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "site_id": {
+          "title": "Site Id",
+          "type": "string"
+        },
+        "node_id": {
+          "title": "Node Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 120,
+          "minLength": 16,
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "input_hash": {
+          "maxLength": 64,
+          "minLength": 64,
+          "title": "Input Hash",
+          "type": "string"
+        },
+        "action": {
+          "enum": [
+            "retest.create",
+            "inventory.reserve",
+            "inventory.release",
+            "purchase.draft",
+            "purchase.submit"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "target_id": {
+          "title": "Target Id",
+          "type": "string"
+        },
+        "target_version": {
+          "title": "Target Version",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "accepted",
+            "applied",
+            "partial",
+            "rejected",
+            "not_found"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "source_revision": {
+          "minimum": 0,
+          "title": "Source Revision",
+          "type": "integer"
+        },
+        "external_id": {
+          "maxLength": 160,
+          "title": "External Id",
+          "type": "string"
+        },
+        "effect": {
+          "maxLength": 60,
+          "title": "Effect",
+          "type": "string"
+        },
+        "quantity": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "max_digits": 28,
+          "title": "Quantity"
+        },
+        "unit": {
+          "maxLength": 20,
+          "title": "Unit",
+          "type": "string"
+        },
+        "amount": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "default": 0,
+          "ge": 0,
+          "max_digits": 28,
+          "title": "Amount"
+        },
+        "currency": {
+          "default": "CNY",
+          "maxLength": 10,
+          "title": "Currency",
+          "type": "string"
+        },
+        "source_version": {
+          "default": "",
+          "maxLength": 100,
+          "title": "Source Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "error_code": {
+          "default": "",
+          "maxLength": 100,
+          "title": "Error Code",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tenant_id",
+        "site_id",
+        "node_id",
+        "idempotency_key",
+        "input_hash",
+        "action",
+        "target_id",
+        "target_version",
+        "status",
+        "source_revision",
+        "external_id",
+        "effect",
+        "quantity",
+        "unit",
+        "generated_at"
+      ],
+      "title": "BusinessReceiptBody",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "body": {
+      "$ref": "#/$defs/BusinessReceiptBody"
+    },
+    "signature": {
+      "maxLength": 64,
+      "minLength": 64,
+      "title": "Signature",
+      "type": "string"
+    }
+  },
+  "required": [
+    "body",
+    "signature"
+  ],
+  "title": "SignedBusinessReceipt",
+  "type": "object"
+}

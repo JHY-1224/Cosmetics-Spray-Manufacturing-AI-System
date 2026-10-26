@@ -1,0 +1,194 @@
+{
+  "$defs": {
+    "Action": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "default": "",
+          "maxLength": 100,
+          "title": "Action Id",
+          "type": "string"
+        },
+        "owner_role": {
+          "default": "",
+          "enum": [
+            "",
+            "engineer",
+            "executor",
+            "quality",
+            "inspector",
+            "admin"
+          ],
+          "title": "Owner Role",
+          "type": "string"
+        },
+        "owner_id": {
+          "default": "",
+          "maxLength": 100,
+          "title": "Owner Id",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "inspect",
+            "measure",
+            "sop_action"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 1000,
+          "minLength": 2,
+          "title": "Description",
+          "type": "string"
+        },
+        "sop_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sop Id"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Parameters",
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "description"
+      ],
+      "title": "Action",
+      "type": "object"
+    },
+    "Candidate": {
+      "additionalProperties": false,
+      "properties": {
+        "dimension": {
+          "enum": [
+            "equipment",
+            "material",
+            "process",
+            "environment",
+            "management"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "cause": {
+          "maxLength": 500,
+          "minLength": 2,
+          "title": "Cause",
+          "type": "string"
+        },
+        "support_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Support Refs",
+          "type": "array"
+        },
+        "counter_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Counter Refs",
+          "type": "array"
+        },
+        "missing_evidence": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Evidence",
+          "type": "array"
+        },
+        "ranking_basis": {
+          "title": "Ranking Basis",
+          "type": "string"
+        },
+        "applicability": {
+          "title": "Applicability",
+          "type": "string"
+        },
+        "next_checks": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Next Checks",
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "unverified",
+            "evidence_supported",
+            "excluded",
+            "human_confirmed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "relative_score": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Relative Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "dimension",
+        "cause",
+        "support_refs",
+        "counter_refs",
+        "missing_evidence",
+        "ranking_basis",
+        "applicability",
+        "next_checks",
+        "status",
+        "relative_score"
+      ],
+      "title": "Candidate",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "candidates": {
+      "items": {
+        "$ref": "#/$defs/Candidate"
+      },
+      "maxItems": 20,
+      "title": "Candidates",
+      "type": "array"
+    },
+    "actions": {
+      "items": {
+        "$ref": "#/$defs/Action"
+      },
+      "maxItems": 20,
+      "title": "Actions",
+      "type": "array"
+    },
+    "summary": {
+      "maxLength": 3000,
+      "title": "Summary",
+      "type": "string"
+    }
+  },
+  "required": [
+    "candidates",
+    "actions",
+    "summary"
+  ],
+  "title": "ModelOutput",
+  "type": "object"
+}

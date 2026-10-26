@@ -1,0 +1,96 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "formulation_id": {
+      "title": "Formulation Id",
+      "type": "string"
+    },
+    "formulation_version": {
+      "minimum": 1,
+      "title": "Formulation Version",
+      "type": "integer"
+    },
+    "product_id": {
+      "title": "Product Id",
+      "type": "string"
+    },
+    "product_version": {
+      "default": "",
+      "title": "Product Version",
+      "type": "string"
+    },
+    "substrate_id": {
+      "default": "",
+      "title": "Substrate Id",
+      "type": "string"
+    },
+    "equipment_id": {
+      "default": "",
+      "title": "Equipment Id",
+      "type": "string"
+    },
+    "basis": {
+      "enum": [
+        "total",
+        "main"
+      ],
+      "title": "Basis",
+      "type": "string"
+    },
+    "quantity": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "gt": 0,
+      "max_digits": 28,
+      "title": "Quantity"
+    },
+    "unit": {
+      "enum": [
+        "kg",
+        "g",
+        "L",
+        "mL"
+      ],
+      "title": "Unit",
+      "type": "string"
+    },
+    "inventory_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 200,
+      "title": "Inventory Ids",
+      "type": "array"
+    },
+    "substitutions": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "maxProperties": 100,
+      "title": "Substitutions",
+      "type": "object"
+    }
+  },
+  "required": [
+    "line_id",
+    "formulation_id",
+    "formulation_version",
+    "product_id",
+    "basis",
+    "quantity",
+    "unit"
+  ],
+  "title": "CalculationInput",
+  "type": "object"
+}

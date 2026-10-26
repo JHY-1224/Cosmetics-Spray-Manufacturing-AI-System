@@ -1,0 +1,67 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "enabled": {
+      "default": true,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "min_rate": {
+      "default": 1,
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Min Rate",
+      "type": "number"
+    },
+    "min_samples": {
+      "default": 1,
+      "maximum": 10000000,
+      "minimum": 1,
+      "title": "Min Samples",
+      "type": "integer"
+    },
+    "min_ng_records": {
+      "default": 1,
+      "maximum": 100000,
+      "minimum": 1,
+      "title": "Min Ng Records",
+      "type": "integer"
+    },
+    "window_seconds": {
+      "default": 0,
+      "maximum": 86400,
+      "minimum": 0,
+      "title": "Window Seconds",
+      "type": "integer"
+    },
+    "dedup_seconds": {
+      "default": 3600,
+      "maximum": 86400,
+      "minimum": 1,
+      "title": "Dedup Seconds",
+      "type": "integer"
+    },
+    "max_lateness_seconds": {
+      "default": 86400,
+      "maximum": 604800,
+      "minimum": 1,
+      "title": "Max Lateness Seconds",
+      "type": "integer"
+    },
+    "same_batch": {
+      "default": true,
+      "title": "Same Batch",
+      "type": "boolean"
+    },
+    "defects": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Defects",
+      "type": "array"
+    }
+  },
+  "title": "AnomalyPolicy",
+  "type": "object"
+}

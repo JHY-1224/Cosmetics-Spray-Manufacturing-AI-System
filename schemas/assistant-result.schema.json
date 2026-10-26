@@ -1,0 +1,126 @@
+{
+  "$defs": {
+    "ToolReference": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "case",
+            "knowledge",
+            "inspection",
+            "passage",
+            "measurement",
+            "evidence",
+            "plan",
+            "retest",
+            "run",
+            "raw_record",
+            "lab"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Version"
+        }
+      },
+      "required": [
+        "kind",
+        "id"
+      ],
+      "title": "ToolReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "role": {
+      "enum": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6"
+      ],
+      "title": "Role",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "success",
+        "no_data",
+        "partial",
+        "stale",
+        "forbidden",
+        "failure"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "engine": {
+      "const": "deterministic_tools",
+      "default": "deterministic_tools",
+      "title": "Engine",
+      "type": "string"
+    },
+    "scope": {
+      "additionalProperties": true,
+      "title": "Scope",
+      "type": "object"
+    },
+    "references": {
+      "items": {
+        "$ref": "#/$defs/ToolReference"
+      },
+      "title": "References",
+      "type": "array"
+    },
+    "data": {
+      "additionalProperties": true,
+      "title": "Data",
+      "type": "object"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "workflow_version": {
+      "default": "delivery-tools-v1",
+      "title": "Workflow Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "role",
+    "status",
+    "generated_at",
+    "scope",
+    "references",
+    "data",
+    "limitations"
+  ],
+  "title": "ToolResult",
+  "type": "object"
+}

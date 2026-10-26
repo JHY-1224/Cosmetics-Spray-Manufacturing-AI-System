@@ -1,0 +1,6 @@
+{
+  "origin": "actual unchanged pre-upgrade source migrations to 0011",
+  "business_rows": 0,
+  "business_table_count": 31,
+  "fixture_sha256": "07d28bafc51cea3e943e62fe4ae549b63e96144e0ffa2342f050b704f38ba9e1"
+}

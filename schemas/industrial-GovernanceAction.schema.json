@@ -1,0 +1,34 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "action": {
+      "enum": [
+        "submit",
+        "publish",
+        "reject",
+        "retire",
+        "rollback"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 3000,
+      "minLength": 3,
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "action",
+    "reason"
+  ],
+  "title": "GovernanceAction",
+  "type": "object"
+}

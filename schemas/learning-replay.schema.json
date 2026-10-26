@@ -1,0 +1,20 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "dataset_id": {
+      "title": "Dataset Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "dataset_id"
+  ],
+  "title": "ReplayInput",
+  "type": "object"
+}

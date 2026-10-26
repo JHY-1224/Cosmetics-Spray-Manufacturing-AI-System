@@ -1,0 +1,36 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 3,
+      "title": "Reason",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "external_reference": {
+      "default": "",
+      "maxLength": 500,
+      "title": "External Reference",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "reason"
+  ],
+  "title": "ReleaseInput",
+  "type": "object"
+}

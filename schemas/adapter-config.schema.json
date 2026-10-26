@@ -1,0 +1,157 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "endpoint": {
+      "title": "Endpoint",
+      "type": "string"
+    },
+    "secret_env": {
+      "default": "",
+      "title": "Secret Env",
+      "type": "string"
+    },
+    "username": {
+      "default": "",
+      "title": "Username",
+      "type": "string"
+    },
+    "topic": {
+      "default": "quality/measurements",
+      "title": "Topic",
+      "type": "string"
+    },
+    "nodes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Nodes",
+      "type": "array"
+    },
+    "fields": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Fields",
+      "type": "object"
+    },
+    "units": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Units",
+      "type": "object"
+    },
+    "timeout_seconds": {
+      "default": 5,
+      "maximum": 60,
+      "minimum": 1,
+      "title": "Timeout Seconds",
+      "type": "number"
+    },
+    "page_size": {
+      "default": 100,
+      "maximum": 1000,
+      "minimum": 1,
+      "title": "Page Size",
+      "type": "integer"
+    },
+    "cursor": {
+      "default": "",
+      "title": "Cursor",
+      "type": "string"
+    },
+    "max_pages": {
+      "default": 10,
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Max Pages",
+      "type": "integer"
+    },
+    "certificate": {
+      "default": "",
+      "title": "Certificate",
+      "type": "string"
+    },
+    "private_key": {
+      "default": "",
+      "title": "Private Key",
+      "type": "string"
+    },
+    "server_certificate": {
+      "default": "",
+      "title": "Server Certificate",
+      "type": "string"
+    },
+    "security_policy": {
+      "default": "",
+      "title": "Security Policy",
+      "type": "string"
+    },
+    "tls": {
+      "default": true,
+      "title": "Tls",
+      "type": "boolean"
+    },
+    "mode": {
+      "default": "read",
+      "title": "Mode",
+      "type": "string"
+    },
+    "record_type": {
+      "default": "measurement",
+      "enum": [
+        "measurement",
+        "master"
+      ],
+      "title": "Record Type",
+      "type": "string"
+    },
+    "master_kind": {
+      "default": "work_order",
+      "title": "Master Kind",
+      "type": "string"
+    },
+    "client_id": {
+      "default": "",
+      "title": "Client Id",
+      "type": "string"
+    },
+    "poll_seconds": {
+      "default": 5,
+      "maximum": 86400,
+      "minimum": 1,
+      "title": "Poll Seconds",
+      "type": "integer"
+    },
+    "mapping_version": {
+      "default": "legacy-v1",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Mapping Version",
+      "type": "string"
+    },
+    "line_id": {
+      "default": "",
+      "title": "Line Id",
+      "type": "string"
+    },
+    "source_instance_id": {
+      "default": "",
+      "maxLength": 100,
+      "title": "Source Instance Id",
+      "type": "string"
+    },
+    "max_future_seconds": {
+      "default": 300,
+      "maximum": 86400,
+      "minimum": 0,
+      "title": "Max Future Seconds",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "endpoint"
+  ],
+  "title": "AdapterConfig",
+  "type": "object"
+}

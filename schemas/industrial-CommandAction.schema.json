@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "action": {
+      "enum": [
+        "submit",
+        "send",
+        "lookup",
+        "cancel"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 3,
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "action",
+    "reason"
+  ],
+  "title": "CommandAction",
+  "type": "object"
+}

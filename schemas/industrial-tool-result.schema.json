@@ -1,0 +1,56 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "invocation_id": {
+      "title": "Invocation Id",
+      "type": "string"
+    },
+    "tool": {
+      "title": "Tool",
+      "type": "string"
+    },
+    "tool_version": {
+      "const": "industrial-tools-v1",
+      "default": "industrial-tools-v1",
+      "title": "Tool Version",
+      "type": "string"
+    },
+    "engine": {
+      "const": "deterministic_tools",
+      "default": "deterministic_tools",
+      "title": "Engine",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "success",
+        "no_data",
+        "forbidden",
+        "invalid",
+        "stale",
+        "timeout",
+        "failure"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "result": {
+      "additionalProperties": true,
+      "title": "Result",
+      "type": "object"
+    },
+    "error_code": {
+      "default": "",
+      "title": "Error Code",
+      "type": "string"
+    }
+  },
+  "required": [
+    "invocation_id",
+    "tool",
+    "status",
+    "result"
+  ],
+  "title": "InvokeResult",
+  "type": "object"
+}

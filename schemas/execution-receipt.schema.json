@@ -1,0 +1,147 @@
+{
+  "$defs": {
+    "ActionResult": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Action Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "partial",
+            "failed",
+            "not_started"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "notes": {
+          "maxLength": 2000,
+          "minLength": 3,
+          "title": "Notes",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "action_id",
+        "status",
+        "notes"
+      ],
+      "title": "ActionResult",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "plan_id": {
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "executed_at": {
+      "format": "date-time",
+      "title": "Executed At",
+      "type": "string"
+    },
+    "object_ids": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Object Ids",
+      "type": "array"
+    },
+    "actual_actions": {
+      "maxLength": 5000,
+      "minLength": 3,
+      "title": "Actual Actions",
+      "type": "string"
+    },
+    "deviations": {
+      "maxLength": 3000,
+      "title": "Deviations",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "success": {
+      "title": "Success",
+      "type": "boolean"
+    },
+    "completion": {
+      "anyOf": [
+        {
+          "enum": [
+            "completed",
+            "partial",
+            "failed"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Completion"
+    },
+    "completed_action_indexes": {
+      "items": {
+        "type": "integer"
+      },
+      "maxItems": 30,
+      "title": "Completed Action Indexes",
+      "type": "array"
+    },
+    "completed_action_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 30,
+      "title": "Completed Action Ids",
+      "type": "array"
+    },
+    "action_results": {
+      "items": {
+        "$ref": "#/$defs/ActionResult"
+      },
+      "maxItems": 30,
+      "title": "Action Results",
+      "type": "array"
+    }
+  },
+  "required": [
+    "version",
+    "plan_id",
+    "executed_at",
+    "object_ids",
+    "actual_actions",
+    "deviations",
+    "evidence_ids",
+    "success"
+  ],
+  "title": "ReceiptInput",
+  "type": "object"
+}

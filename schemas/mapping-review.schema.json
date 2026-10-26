@@ -1,0 +1,32 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "action": {
+      "enum": [
+        "publish",
+        "reject",
+        "rollback"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 4,
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "action",
+    "reason"
+  ],
+  "title": "MappingReview",
+  "type": "object"
+}

@@ -1,0 +1,110 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "action": {
+      "enum": [
+        "quality.assess",
+        "formulation.calculate",
+        "process.select",
+        "retest.create",
+        "inventory.reserve",
+        "inventory.release",
+        "purchase.draft",
+        "purchase.submit"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "object_id": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Object Id",
+      "type": "string"
+    },
+    "object_version": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Object Version",
+      "type": "string"
+    },
+    "policy_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Policy Id"
+    },
+    "quantity": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "default": "0",
+      "ge": 0,
+      "max_digits": 28,
+      "title": "Quantity"
+    },
+    "amount": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "default": "0",
+      "ge": 0,
+      "max_digits": 28,
+      "title": "Amount"
+    },
+    "currency": {
+      "default": "CNY",
+      "maxLength": 10,
+      "minLength": 3,
+      "title": "Currency",
+      "type": "string"
+    },
+    "offline": {
+      "default": false,
+      "title": "Offline",
+      "type": "boolean"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "payload": {
+      "additionalProperties": true,
+      "title": "Payload",
+      "type": "object"
+    }
+  },
+  "required": [
+    "line_id",
+    "action",
+    "object_id",
+    "object_version"
+  ],
+  "title": "DigitalTaskInput",
+  "type": "object"
+}

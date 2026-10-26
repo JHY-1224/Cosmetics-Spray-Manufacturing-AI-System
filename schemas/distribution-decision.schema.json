@@ -1,0 +1,25 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "decision": {
+      "enum": [
+        "apply",
+        "reject"
+      ],
+      "title": "Decision",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 4,
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "decision",
+    "reason"
+  ],
+  "title": "DecisionInput",
+  "type": "object"
+}

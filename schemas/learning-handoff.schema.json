@@ -1,0 +1,202 @@
+{
+  "$defs": {
+    "Applicability": {
+      "additionalProperties": false,
+      "properties": {
+        "line_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Line Id",
+          "type": "string"
+        },
+        "process": {
+          "enum": [
+            "plastic_spray",
+            "glass_vacuum"
+          ],
+          "title": "Process",
+          "type": "string"
+        },
+        "product_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Ids",
+          "type": "array"
+        },
+        "product_families": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Families",
+          "type": "array"
+        },
+        "substrate_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Substrate Ids",
+          "type": "array"
+        },
+        "shapes": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Shapes",
+          "type": "array"
+        },
+        "step_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Step Ids",
+          "type": "array"
+        },
+        "route_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Route Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "line_id",
+        "process"
+      ],
+      "title": "Applicability",
+      "type": "object"
+    },
+    "HandoffStage": {
+      "additionalProperties": false,
+      "properties": {
+        "segment": {
+          "enum": [
+            "device_to_server",
+            "server_to_platform",
+            "platform_processing"
+          ],
+          "title": "Segment",
+          "type": "string"
+        },
+        "owner": {
+          "maxLength": 120,
+          "minLength": 2,
+          "title": "Owner",
+          "type": "string"
+        },
+        "receiver": {
+          "maxLength": 120,
+          "minLength": 2,
+          "title": "Receiver",
+          "type": "string"
+        },
+        "location": {
+          "maxLength": 300,
+          "minLength": 2,
+          "title": "Location",
+          "type": "string"
+        },
+        "format": {
+          "maxLength": 300,
+          "minLength": 2,
+          "title": "Format",
+          "type": "string"
+        },
+        "authorization": {
+          "maxLength": 300,
+          "minLength": 2,
+          "title": "Authorization",
+          "type": "string"
+        },
+        "error_handling": {
+          "maxLength": 1000,
+          "minLength": 3,
+          "title": "Error Handling",
+          "type": "string"
+        },
+        "sample_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Sample Ids",
+          "type": "array"
+        },
+        "acceptance_evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Acceptance Evidence Ids",
+          "type": "array"
+        },
+        "state": {
+          "default": "unconfirmed",
+          "enum": [
+            "unconfirmed",
+            "fixture_validated",
+            "sample_validated",
+            "field_connected",
+            "field_accepted"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "segment",
+        "owner",
+        "receiver",
+        "location",
+        "format",
+        "authorization",
+        "error_handling"
+      ],
+      "title": "HandoffStage",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "maxLength": 200,
+      "minLength": 2,
+      "title": "Title",
+      "type": "string"
+    },
+    "scope": {
+      "$ref": "#/$defs/Applicability"
+    },
+    "stages": {
+      "items": {
+        "$ref": "#/$defs/HandoffStage"
+      },
+      "maxItems": 3,
+      "minItems": 3,
+      "title": "Stages",
+      "type": "array"
+    },
+    "gaps": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Gaps",
+      "type": "array"
+    }
+  },
+  "required": [
+    "title",
+    "scope",
+    "stages"
+  ],
+  "title": "HandoffInput",
+  "type": "object"
+}

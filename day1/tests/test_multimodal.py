@@ -1,0 +1,66 @@
+import copy
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+
+import pytest
+from PIL import Image
+
+module_path = Path(__file__).resolve().parents[1] / 'multimodal/dataset.py'
+spec = importlib.util.spec_from_file_location('vision_dataset', module_path)
+dataset = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(dataset)
+
+
+@pytest.fixture
+def sample(tmp_path):
+    image = tmp_path / 'sample.png'
+    Image.new('RGB',(32,32),'white').save(image)
+    row={'id':'a','source_group':'source-a','split':'train','expert_reviewed':True,
+         'question':'读取图片','answer':'合成白色测试图','source_url':'https://example.org/fixture',
+         'images':[{'path':image.name,'sha256':hashlib.sha256(image.read_bytes()).hexdigest()}]}
+    return tmp_path/'metadata.jsonl', row
+
+
+def write(path, rows):
+    path.write_text(''.join(json.dumps(r)+'\n' for r in rows))
+
+
+def test_image_pixels_loaded_not_just_filename(sample):
+    path,row=sample;write(path,[row])
+    result=dataset.conversation(dataset.load_records(path)[0])
+    assert result['messages'][0]['content'][1]['image'].size==(32,32)
+    assert result['messages'][1]['content'][0]['text']==row['answer']
+
+
+def test_unreviewed_requires_development_opt_in(sample):
+    path,row=sample;row['expert_reviewed']=False;write(path,[row])
+    with pytest.raises(ValueError,match='expert review'): dataset.load_records(path)
+    assert len(dataset.load_records(path,allow_unreviewed=True))==1
+
+
+def test_replaced_image_rejected(sample):
+    path,row=sample;write(path,[row]);(path.parent/'sample.png').write_bytes(b'changed')
+    with pytest.raises(ValueError,match='hash mismatch'): dataset.load_records(path)
+
+
+@pytest.mark.parametrize('same_group',[True,False])
+def test_group_and_duplicate_image_cannot_leak(sample,same_group):
+    path,row=sample;other=copy.deepcopy(row);other.update(id='b',split='test')
+    if not same_group: other['source_group']='other'
+    write(path,[row,other])
+    with pytest.raises(ValueError,match='leaks'): dataset.load_records(path)
+
+
+def test_image_escape_rejected(sample):
+    path,row=sample;row['images'][0]['path']='../elsewhere.png';write(path,[row])
+    with pytest.raises(ValueError,match='path escape'): dataset.load_records(path)
+
+
+def test_public_dataset_is_portable():
+    path=Path(__file__).resolve().parents[2]/'data/vision-public/metadata.jsonl'
+    rows=dataset.load_records(path,allow_unreviewed=True)
+    assert len(rows)==20
+    assert len({r['source_group'] for r in rows})==1
+    assert all(r['rights_status']=='CC_BY_4.0_declared' for r in rows)

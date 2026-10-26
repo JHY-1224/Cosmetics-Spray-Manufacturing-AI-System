@@ -1,0 +1,14 @@
+.venv*
+frontend/node_modules
+.pnpm-store
+frontend/dist
+var
+.env
+configs/customers
+reports
+*.doc
+*.txt
+!requirements.txt
+.git
+__pycache__
+.pytest_cache

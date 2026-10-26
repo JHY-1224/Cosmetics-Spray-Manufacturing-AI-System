@@ -1,0 +1,43 @@
+services:
+  center:
+    environment:
+      QUALITY_MODE: production
+      QUALITY_COOKIE_SECURE: "true"
+      QUALITY_TRUSTED_ORIGINS: '["https://${CENTER_HOST:?}"]'
+      QUALITY_APPROVED_HOSTS: '["storage","center","jaeger","${CENTER_HOST:?}","${SITE_A_HOST:?}","${SITE_B_HOST:?}"]'
+  site-a:
+    environment:
+      QUALITY_MODE: production
+      QUALITY_COOKIE_SECURE: "true"
+      QUALITY_CENTER_URL: https://${CENTER_HOST:?}
+      QUALITY_APPROVED_HOSTS: '["storage","center","jaeger","${CENTER_HOST:?}"]'
+      QUALITY_TRUSTED_ORIGINS: '["https://${SITE_A_HOST:?}"]'
+  site-b:
+    environment:
+      QUALITY_MODE: production
+      QUALITY_COOKIE_SECURE: "true"
+      QUALITY_CENTER_URL: https://${CENTER_HOST:?}
+      QUALITY_APPROVED_HOSTS: '["storage","center","jaeger","${CENTER_HOST:?}"]'
+      QUALITY_TRUSTED_ORIGINS: '["https://${SITE_B_HOST:?}"]'
+  site-a-worker:
+    environment:
+      QUALITY_CENTER_URL: https://${CENTER_HOST:?}
+      QUALITY_APPROVED_HOSTS: '["storage","center","jaeger","${CENTER_HOST:?}"]'
+  site-b-worker:
+    environment:
+      QUALITY_CENTER_URL: https://${CENTER_HOST:?}
+      QUALITY_APPROVED_HOSTS: '["storage","center","jaeger","${CENTER_HOST:?}"]'
+  edge:
+    image: caddy:2.10.2-alpine
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "5"}
+    ports: ["80:80", "443:443"]
+    environment:
+      CENTER_HOST: ${CENTER_HOST:?}
+      SITE_A_HOST: ${SITE_A_HOST:?}
+      SITE_B_HOST: ${SITE_B_HOST:?}
+    volumes: ["./Caddyfile:/etc/caddy/Caddyfile:ro", "caddy-data:/data", "caddy-config:/config"]
+volumes:
+  caddy-data:
+  caddy-config:

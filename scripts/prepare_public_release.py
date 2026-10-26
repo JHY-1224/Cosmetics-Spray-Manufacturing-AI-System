@@ -1,0 +1,83 @@
+"""Explicit public snapshot. Originals, runtime data and weights are never moved."""
+import argparse
+import ast
+import hashlib
+import json
+import os
+from pathlib import Path
+import shutil
+
+ROOT = Path(__file__).resolve().parents[1]
+DIRECTORIES = ('quality','frontend','assistant_app','migrations','deploy','schemas','scripts','tests','day1','day2','docs','data/vision-public')
+ROOT_FILES = ('.env.example','.dockerignore','.gitignore','Dockerfile','requirements.txt','pyproject.toml','alembic.ini','LICENSE','AGENTS.md')
+SKIP = {'node_modules','__pycache__','dist','test-results','playwright-report','.pytest_cache','.ruff_cache','outputs','dataset','.data','.git','configs-private'}
+SUFFIXES = {'.py','.sh','.toml','.lock','.json','.jsonl','.yaml','.yml','.ts','.tsx','.mjs','.mts','.js','.css','.html','.md','.txt','.svg','.csv','.sql','.example','.command','.conf','.node'}
+
+
+def digest(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def main():
+    p=argparse.ArgumentParser()
+    p.add_argument('--output',type=Path,required=True)
+    args=p.parse_args()
+    output=args.output.resolve()
+    if output==ROOT or ROOT.is_relative_to(output): raise ValueError('Output must be a new child or independent directory')
+    output.mkdir(parents=True,exist_ok=False)
+    def copy(path,relative=None):
+        target=output/(relative or path.relative_to(ROOT))
+        target.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copy2(path,target)
+    for directory in DIRECTORIES:
+        for folder,dirs,names in os.walk(ROOT/directory,followlinks=False):
+            dirs[:]=[n for n in dirs if n not in SKIP and not n.startswith('.venv') and not (Path(folder)/n).is_symlink()]
+            for name in sorted(names):
+                path=Path(folder)/name
+                if path.is_symlink() or name.endswith('.tsbuildinfo'): continue
+                if name.startswith('.env') and name!='.env.example': continue
+                if path.suffix=='.env' and '.example.' not in name: continue
+                if 'model_profiles' in path.parts and path.suffix=='.json': continue
+                image=directory=='data/vision-public' and path.suffix.lower() in ('.png','.jpg','.jpeg','.webp')
+                special=name in ('Caddyfile','.npmrc','.gitignore','Dockerfile') or name.endswith('.example.env')
+                if not (path.suffix in SUFFIXES or image or special): continue
+                if path.stat().st_size>25*1024*1024: raise ValueError('Unexpected large source: '+str(path.relative_to(ROOT)))
+                copy(path)
+    for name in ROOT_FILES: copy(ROOT/name)
+    copy(ROOT/'README.md',Path('docs/PROJECT_MANUAL.md'))
+    copy(ROOT/'docs/PUBLIC_README.md',Path('README.md'))
+    copy(ROOT/'docs/DATA_LICENSE.md',Path('DATA_LICENSE.md'))
+    copy(ROOT/'docs/MULTIMODAL_TRAINING.md',Path('TRAINING_ARCHITECTURE.md'))
+    for name in ('Qwen3.5-9B','Qwen3-VL-8B-Instruct'):
+        copy(ROOT/'models'/(name+'.manifest.json'))
+    (output/'models/README.md').write_text('# 模型位置\n\n权重不随Git发布。生产基座位于/root/autodl-tmp/models/Qwen3.5-9B和Qwen3-VL-8B-Instruct；成套微调产物在/root/autodl-tmp/models/services/qwen-light。详见../docs/CLOUD_QUICKSTART.md。Mac本地models/base仅供示范测试。\n')
+    # Source links and local-only history are retained, but remove workstation user paths in prose.
+    for path in output.rglob('*.md'):
+        value=path.read_text()
+        value=value.replace(str(ROOT),'${LOCAL_WORKSPACE}').replace('/Users/jianghanyu/','${LOCAL_HOME}/')
+        path.write_text(value)
+    manual=output/'docs/PROJECT_MANUAL.md'
+    manual.write_text('> 原工业平台完整业务说明与历史验证记录。当前云端训练/服务以AGENTS.md第37节及CLOUD_QUICKSTART.md为准；历史报告、客户配置与本机原件未公开。\n\n'+manual.read_text())
+    index=['# 源码定义与入口索引','', '由本次公开副本AST生成。详细业务约束见AGENTS.md；索引不替代函数实现。','']
+    for path in sorted(output.rglob('*.py')):
+        relative=path.relative_to(output)
+        if 'tests' in relative.parts: continue
+        tree=ast.parse(path.read_text())
+        entries=[]
+        for node in ast.walk(tree):
+            if isinstance(node,(ast.ClassDef,ast.FunctionDef,ast.AsyncFunctionDef)):
+                entries.append((node.lineno,node.name))
+        if entries:
+            index+=['## '+str(relative),'']+[f'- L{line}: `{name}`' for line,name in sorted(entries)]+['']
+    (output/'docs/SOURCE_INDEX.md').write_text('\n'.join(index))
+    files=[{'path':str(p.relative_to(output)),'bytes':p.stat().st_size,'sha256':digest(p)} for p in sorted(output.rglob('*')) if p.is_file()]
+    report={'project':'化妆品喷涂制造工艺AI智能系统','files':files,'public_source_files':len(files),
+            'source_bytes':sum(f['bytes'] for f in files),'models':'official manifests only; cloud weights external',
+            'data':{'text_rows':36,'public_images':20,'public_vision_rows':20,'private_full_images':74,'private_full_rows':82},
+            'excluded':['weights and adapters','credentials and private runtime','customer configurations','meeting documents','local_training and unverified redistribution images','environments and caches','historical reports'],
+            'gpu_validation':'not performed on this Mac'}
+    (output/'PUBLIC_RELEASE_MANIFEST.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+    print(json.dumps({'output':str(output),'files':len(files),'bytes':report['source_bytes']},ensure_ascii=False))
+
+
+if __name__=='__main__': main()

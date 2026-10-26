@@ -1,0 +1,34 @@
+[
+  {
+    "source_id": "S11",
+    "title": [
+      "Detection of Chips on the Threaded Part of Cosmetic Glass Bottles"
+    ],
+    "authors": [
+      "Daiki Tomita",
+      "Yue Bao"
+    ],
+    "doi": [
+      "10.3390/jimaging11030077"
+    ],
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Original figure pixels retained; Chinese contextual Q&A added; not expert reviewed."
+  },
+  {
+    "source_id": "S12",
+    "title": [
+      "Inspection of Defective Glass Bottle Mouths Using Machine Learning"
+    ],
+    "authors": [
+      "Daiki Tomita",
+      "Yue Bao"
+    ],
+    "doi": [
+      "10.3390/jimaging11040105"
+    ],
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Original figure pixels retained; Chinese contextual Q&A added; not expert reviewed."
+  }
+]

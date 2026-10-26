@@ -1,0 +1,269 @@
+{
+  "$defs": {
+    "BusinessActionPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "retest.create",
+            "inventory.reserve",
+            "inventory.release",
+            "purchase.draft",
+            "purchase.submit"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "target_id": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Target Id",
+          "type": "string"
+        },
+        "target_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Target Version",
+          "type": "string"
+        },
+        "material_id": {
+          "default": "",
+          "maxLength": 100,
+          "title": "Material Id",
+          "type": "string"
+        },
+        "quantity": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "default": "0",
+          "ge": 0,
+          "max_digits": 28,
+          "title": "Quantity"
+        },
+        "unit": {
+          "default": "",
+          "maxLength": 20,
+          "title": "Unit",
+          "type": "string"
+        },
+        "reference_id": {
+          "default": "",
+          "maxLength": 160,
+          "title": "Reference Id",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 3,
+          "title": "Reason",
+          "type": "string"
+        },
+        "unit_price": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 9,
+              "ge": 0,
+              "max_digits": 28
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit Price"
+        },
+        "currency": {
+          "default": "CNY",
+          "maxLength": 10,
+          "minLength": 3,
+          "title": "Currency",
+          "type": "string"
+        },
+        "tax_basis": {
+          "default": "tax_exclusive",
+          "enum": [
+            "tax_inclusive",
+            "tax_exclusive"
+          ],
+          "title": "Tax Basis",
+          "type": "string"
+        },
+        "tax_rate": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "default": "0",
+          "ge": 0,
+          "lt": 1,
+          "max_digits": 28,
+          "title": "Tax Rate"
+        }
+      },
+      "required": [
+        "action",
+        "target_id",
+        "target_version",
+        "reason"
+      ],
+      "title": "BusinessActionPayload",
+      "type": "object"
+    },
+    "SourceIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "system": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "System",
+          "type": "string"
+        },
+        "object_reference": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Object Reference",
+          "type": "string"
+        },
+        "source_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Source Version",
+          "type": "string"
+        },
+        "material_code": {
+          "default": "",
+          "maxLength": 100,
+          "title": "Material Code",
+          "type": "string"
+        },
+        "warehouse": {
+          "default": "",
+          "maxLength": 100,
+          "title": "Warehouse",
+          "type": "string"
+        },
+        "lot": {
+          "default": "",
+          "maxLength": 120,
+          "title": "Lot",
+          "type": "string"
+        },
+        "reservation_reference": {
+          "default": "",
+          "maxLength": 160,
+          "title": "Reservation Reference",
+          "type": "string"
+        },
+        "draft_reference": {
+          "default": "",
+          "maxLength": 160,
+          "title": "Draft Reference",
+          "type": "string"
+        }
+      },
+      "required": [
+        "system",
+        "object_reference",
+        "source_version"
+      ],
+      "title": "SourceIdentity",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "contract": {
+      "const": "business-actions-v1",
+      "default": "business-actions-v1",
+      "title": "Contract",
+      "type": "string"
+    },
+    "tenant_id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "site_id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Site Id",
+      "type": "string"
+    },
+    "node_id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Node Id",
+      "type": "string"
+    },
+    "node_epoch": {
+      "maxLength": 100,
+      "minLength": 16,
+      "title": "Node Epoch",
+      "type": "string"
+    },
+    "idempotency_key": {
+      "maxLength": 120,
+      "minLength": 16,
+      "title": "Idempotency Key",
+      "type": "string"
+    },
+    "input_hash": {
+      "maxLength": 64,
+      "minLength": 64,
+      "title": "Input Hash",
+      "type": "string"
+    },
+    "fencing": {
+      "minimum": 1,
+      "title": "Fencing",
+      "type": "integer"
+    },
+    "payload": {
+      "$ref": "#/$defs/BusinessActionPayload"
+    },
+    "source_identity": {
+      "$ref": "#/$defs/SourceIdentity"
+    },
+    "expected_effect": {
+      "maxLength": 60,
+      "minLength": 1,
+      "title": "Expected Effect",
+      "type": "string"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "site_id",
+    "node_id",
+    "node_epoch",
+    "idempotency_key",
+    "input_hash",
+    "fencing",
+    "payload",
+    "source_identity",
+    "expected_effect"
+  ],
+  "title": "BusinessRequest",
+  "type": "object"
+}

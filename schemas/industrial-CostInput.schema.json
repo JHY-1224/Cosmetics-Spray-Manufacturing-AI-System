@@ -1,0 +1,111 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "order_id": {
+      "title": "Order Id",
+      "type": "string"
+    },
+    "allocation_version": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Allocation Version",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "labor_hours": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "max_digits": 28
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Labor Hours"
+    },
+    "hourly_cost": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "max_digits": 28
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Hourly Cost"
+    },
+    "labor_basis": {
+      "default": "",
+      "maxLength": 2000,
+      "title": "Labor Basis",
+      "type": "string"
+    },
+    "estimated_unit_cost": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "max_digits": 28
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Estimated Unit Cost"
+    },
+    "difference_resolutions": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "maxProperties": 1000,
+      "title": "Difference Resolutions",
+      "type": "object"
+    }
+  },
+  "required": [
+    "order_id",
+    "allocation_version",
+    "evidence_ids"
+  ],
+  "title": "CostInput",
+  "type": "object"
+}

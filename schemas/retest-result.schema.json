@@ -1,0 +1,81 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "plan_id": {
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "started_at": {
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "finished_at": {
+      "format": "date-time",
+      "title": "Finished At",
+      "type": "string"
+    },
+    "sample_count": {
+      "minimum": 0,
+      "title": "Sample Count",
+      "type": "integer"
+    },
+    "defective_count": {
+      "minimum": 0,
+      "title": "Defective Count",
+      "type": "integer"
+    },
+    "sample_unit": {
+      "enum": [
+        "bottle",
+        "load",
+        "batch",
+        "sample"
+      ],
+      "title": "Sample Unit",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "conditions_met": {
+      "title": "Conditions Met",
+      "type": "boolean"
+    },
+    "other_constraints_met": {
+      "title": "Other Constraints Met",
+      "type": "boolean"
+    },
+    "notes": {
+      "maxLength": 3000,
+      "minLength": 2,
+      "title": "Notes",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "plan_id",
+    "started_at",
+    "finished_at",
+    "sample_count",
+    "defective_count",
+    "sample_unit",
+    "evidence_ids",
+    "conditions_met",
+    "other_constraints_met",
+    "notes"
+  ],
+  "title": "RetestInput",
+  "type": "object"
+}

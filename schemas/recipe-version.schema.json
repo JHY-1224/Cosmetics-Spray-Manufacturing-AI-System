@@ -1,0 +1,57 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "code": {
+      "maxLength": 80,
+      "minLength": 1,
+      "title": "Code",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 200,
+      "minLength": 2,
+      "title": "Name",
+      "type": "string"
+    },
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "process": {
+      "title": "Process",
+      "type": "string"
+    },
+    "parameters": {
+      "additionalProperties": true,
+      "title": "Parameters",
+      "type": "object"
+    },
+    "source": {
+      "maxLength": 3000,
+      "minLength": 3,
+      "title": "Source",
+      "type": "string"
+    },
+    "previous_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Id"
+    }
+  },
+  "required": [
+    "code",
+    "name",
+    "line_id",
+    "process",
+    "source"
+  ],
+  "title": "RecipeInput",
+  "type": "object"
+}

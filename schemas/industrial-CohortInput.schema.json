@@ -1,0 +1,203 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "external_id": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "External Id",
+      "type": "string"
+    },
+    "granularity": {
+      "enum": [
+        "bottle",
+        "load",
+        "batch",
+        "sample"
+      ],
+      "title": "Granularity",
+      "type": "string"
+    },
+    "object_granularity": {
+      "default": "bottle",
+      "enum": [
+        "bottle",
+        "load",
+        "batch",
+        "sample"
+      ],
+      "title": "Object Granularity",
+      "type": "string"
+    },
+    "product_id": {
+      "title": "Product Id",
+      "type": "string"
+    },
+    "expected_quantity": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "gt": 0,
+      "max_digits": 28,
+      "title": "Expected Quantity"
+    },
+    "closed": {
+      "default": false,
+      "title": "Closed",
+      "type": "boolean"
+    },
+    "object_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10000,
+      "title": "Object Ids",
+      "type": "array"
+    },
+    "inspected_quantity": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "max_digits": 28
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Inspected Quantity"
+    },
+    "final_good_quantity": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "max_digits": 28
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Final Good Quantity"
+    },
+    "released_quantity": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "max_digits": 28
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Released Quantity"
+    },
+    "shipped_quantity": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "max_digits": 28
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Shipped Quantity"
+    },
+    "scrapped_quantity": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "max_digits": 28
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Scrapped Quantity"
+    },
+    "quantity_basis": {
+      "maxLength": 1000,
+      "minLength": 3,
+      "title": "Quantity Basis",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Evidence Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "line_id",
+    "external_id",
+    "granularity",
+    "product_id",
+    "expected_quantity",
+    "quantity_basis",
+    "evidence_ids"
+  ],
+  "title": "CohortInput",
+  "type": "object"
+}

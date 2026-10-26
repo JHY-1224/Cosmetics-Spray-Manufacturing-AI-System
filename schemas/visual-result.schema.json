@@ -1,0 +1,359 @@
+{
+  "$defs": {
+    "Defect": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Category",
+          "type": "string"
+        },
+        "count": {
+          "maximum": 1000000,
+          "minimum": 1,
+          "title": "Count",
+          "type": "integer"
+        },
+        "detection_confidence": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Detection Confidence"
+        },
+        "bbox": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "maxItems": 4,
+              "minItems": 4,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bbox"
+        },
+        "coordinate_system": {
+          "anyOf": [
+            {
+              "enum": [
+                "pixels_xyxy",
+                "normalized_xyxy"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Coordinate System"
+        },
+        "image_width": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Image Width"
+        },
+        "image_height": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Image Height"
+        }
+      },
+      "required": [
+        "category",
+        "count"
+      ],
+      "title": "Defect",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "record_id": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Record Id",
+      "type": "string"
+    },
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "object_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Object Id"
+    },
+    "granularity": {
+      "enum": [
+        "bottle",
+        "load",
+        "batch",
+        "sample"
+      ],
+      "title": "Granularity",
+      "type": "string"
+    },
+    "association": {
+      "enum": [
+        "physical_tracking",
+        "load_record",
+        "batch_record",
+        "manual_confirmed",
+        "unresolved"
+      ],
+      "title": "Association",
+      "type": "string"
+    },
+    "occurred_at": {
+      "format": "date-time",
+      "title": "Occurred At",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "OK",
+        "NG",
+        "failed",
+        "out_of_scope"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "defects": {
+      "items": {
+        "$ref": "#/$defs/Defect"
+      },
+      "maxItems": 1000,
+      "title": "Defects",
+      "type": "array"
+    },
+    "image_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 30,
+      "title": "Image Ids",
+      "type": "array"
+    },
+    "model_version": {
+      "title": "Model Version",
+      "type": "string"
+    },
+    "detection_confidence": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Detection Confidence"
+    },
+    "config_version": {
+      "title": "Config Version",
+      "type": "string"
+    },
+    "applicable": {
+      "default": true,
+      "title": "Applicable",
+      "type": "boolean"
+    },
+    "error": {
+      "default": "",
+      "title": "Error",
+      "type": "string"
+    },
+    "inspected_count": {
+      "default": 1,
+      "maximum": 1000000,
+      "minimum": 1,
+      "title": "Inspected Count",
+      "type": "integer"
+    },
+    "defective_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Defective Count",
+      "type": "integer"
+    },
+    "product_id": {
+      "default": "",
+      "title": "Product Id",
+      "type": "string"
+    },
+    "production_batch_id": {
+      "default": "",
+      "title": "Production Batch Id",
+      "type": "string"
+    },
+    "material_batch_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Material Batch Ids",
+      "type": "array"
+    },
+    "hanger_id": {
+      "default": "",
+      "title": "Hanger Id",
+      "type": "string"
+    },
+    "load_id": {
+      "default": "",
+      "title": "Load Id",
+      "type": "string"
+    },
+    "equipment_run_id": {
+      "default": "",
+      "title": "Equipment Run Id",
+      "type": "string"
+    },
+    "process": {
+      "default": "plastic_spray",
+      "enum": [
+        "plastic_spray",
+        "glass_vacuum"
+      ],
+      "title": "Process",
+      "type": "string"
+    },
+    "station_id": {
+      "default": "",
+      "title": "Station Id",
+      "type": "string"
+    },
+    "passage_id": {
+      "default": "",
+      "title": "Passage Id",
+      "type": "string"
+    },
+    "correction_of": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Correction Of"
+    },
+    "correction_reason": {
+      "default": "",
+      "title": "Correction Reason",
+      "type": "string"
+    },
+    "source_session_id": {
+      "default": "",
+      "maxLength": 100,
+      "title": "Source Session Id",
+      "type": "string"
+    },
+    "inspection_event_id": {
+      "default": "",
+      "maxLength": 120,
+      "title": "Inspection Event Id",
+      "type": "string"
+    },
+    "inspection_round": {
+      "default": 1,
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Inspection Round",
+      "type": "integer"
+    },
+    "inspection_kind": {
+      "default": "unknown",
+      "enum": [
+        "initial",
+        "reinspection",
+        "unknown"
+      ],
+      "title": "Inspection Kind",
+      "type": "string"
+    },
+    "view_id": {
+      "default": "",
+      "maxLength": 100,
+      "title": "View Id",
+      "type": "string"
+    },
+    "furnace_run_id": {
+      "default": "",
+      "maxLength": 120,
+      "title": "Furnace Run Id",
+      "type": "string"
+    },
+    "rack_position": {
+      "default": "",
+      "maxLength": 120,
+      "title": "Rack Position",
+      "type": "string"
+    },
+    "collection_scope": {
+      "default": "unknown",
+      "enum": [
+        "all_results",
+        "ng_only",
+        "unknown"
+      ],
+      "title": "Collection Scope",
+      "type": "string"
+    }
+  },
+  "required": [
+    "record_id",
+    "line_id",
+    "granularity",
+    "association",
+    "occurred_at",
+    "status",
+    "model_version",
+    "config_version"
+  ],
+  "title": "InspectionInput",
+  "type": "object"
+}

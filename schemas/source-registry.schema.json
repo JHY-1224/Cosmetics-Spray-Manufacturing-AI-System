@@ -1,0 +1,186 @@
+{
+  "$defs": {
+    "PointMapping": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "source_field": {
+          "default": "",
+          "maxLength": 200,
+          "title": "Source Field",
+          "type": "string"
+        },
+        "meaning": {
+          "maxLength": 500,
+          "minLength": 2,
+          "title": "Meaning",
+          "type": "string"
+        },
+        "value_type": {
+          "enum": [
+            "measured",
+            "setpoint",
+            "manual",
+            "derived",
+            "uncollected"
+          ],
+          "title": "Value Type",
+          "type": "string"
+        },
+        "data_type": {
+          "default": "number",
+          "enum": [
+            "number",
+            "string",
+            "boolean",
+            "datetime"
+          ],
+          "title": "Data Type",
+          "type": "string"
+        },
+        "unit": {
+          "default": "",
+          "maxLength": 40,
+          "title": "Unit",
+          "type": "string"
+        },
+        "time_field": {
+          "default": "",
+          "maxLength": 120,
+          "title": "Time Field",
+          "type": "string"
+        },
+        "quality_field": {
+          "default": "",
+          "maxLength": 120,
+          "title": "Quality Field",
+          "type": "string"
+        },
+        "identity_fields": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Identity Fields",
+          "type": "array"
+        },
+        "heartbeat_seconds": {
+          "anyOf": [
+            {
+              "maximum": 86400,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Heartbeat Seconds"
+        },
+        "required": {
+          "default": false,
+          "title": "Required",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "meaning",
+        "value_type"
+      ],
+      "title": "PointMapping",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "step_id": {
+      "default": "",
+      "title": "Step Id",
+      "type": "string"
+    },
+    "source_system": {
+      "maxLength": 200,
+      "minLength": 2,
+      "title": "Source System",
+      "type": "string"
+    },
+    "owner": {
+      "maxLength": 120,
+      "minLength": 2,
+      "title": "Owner",
+      "type": "string"
+    },
+    "authentication": {
+      "enum": [
+        "environment_reference",
+        "certificate",
+        "source_token",
+        "manual"
+      ],
+      "title": "Authentication",
+      "type": "string"
+    },
+    "read_scope": {
+      "maxLength": 1000,
+      "minLength": 3,
+      "title": "Read Scope",
+      "type": "string"
+    },
+    "time_source": {
+      "maxLength": 300,
+      "minLength": 2,
+      "title": "Time Source",
+      "type": "string"
+    },
+    "sample_period_seconds": {
+      "anyOf": [
+        {
+          "maximum": 86400,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Sample Period Seconds"
+    },
+    "retention_days": {
+      "default": 90,
+      "maximum": 3650,
+      "minimum": 1,
+      "title": "Retention Days",
+      "type": "integer"
+    },
+    "points": {
+      "items": {
+        "$ref": "#/$defs/PointMapping"
+      },
+      "maxItems": 1000,
+      "title": "Points",
+      "type": "array"
+    }
+  },
+  "required": [
+    "line_id",
+    "source_system",
+    "owner",
+    "authentication",
+    "read_scope",
+    "time_source"
+  ],
+  "title": "SourceRegistry",
+  "type": "object"
+}

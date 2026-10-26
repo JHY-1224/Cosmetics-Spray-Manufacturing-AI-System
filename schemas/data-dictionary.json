@@ -1,0 +1,8388 @@
+{
+  "users": {
+    "columns": [
+      {
+        "name": "username",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "password_hash",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "role",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "allowed_sites",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "allowed_lines",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "active",
+        "type": "BOOLEAN",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "auth_revision",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "auth_origin",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "center_revision",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "central_active",
+        "type": "BOOLEAN",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "lease_expires_at",
+        "type": "DATETIME",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_users_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_users_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_users_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "sessions": {
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "users.id"
+        ]
+      },
+      {
+        "name": "token_hash",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "expires_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "auth_revision",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_sessions_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_sessions_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_sessions_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "masters": {
+    "columns": [
+      {
+        "name": "kind",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "code",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "parent_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "masters.id"
+        ]
+      },
+      {
+        "name": "data",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_masters_kind",
+        "columns": [
+          "kind"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_masters_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_masters_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_masters_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "evidence": {
+    "columns": [
+      {
+        "name": "filename",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "object_key",
+        "type": "VARCHAR(500)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "sha256",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "media_type",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "size",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "replication_status",
+        "type": "VARCHAR(24)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_evidence_replication_status",
+        "columns": [
+          "replication_status"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_evidence_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_evidence_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_evidence_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "inspections": {
+    "columns": [
+      {
+        "name": "source_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "record_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "line_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "object_id",
+        "type": "VARCHAR(120)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "granularity",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "association",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "occurred_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "provenance",
+        "type": "VARCHAR(24)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "result",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_inspections_line_id",
+        "columns": [
+          "line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_inspections_occurred_at",
+        "columns": [
+          "occurred_at"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_inspections_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_inspections_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_inspections_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "passages": {
+    "columns": [
+      {
+        "name": "object_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "granularity",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "route_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "step_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "sequence",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "entered_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "exited_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "data",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_passages_entered_at",
+        "columns": [
+          "entered_at"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_passages_object_id",
+        "columns": [
+          "object_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_passages_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_passages_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_passages_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "measurements": {
+    "columns": [
+      {
+        "name": "source_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "record_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "equipment_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "metric",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "occurred_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "value",
+        "type": "DOUBLE",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "unit",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "quality",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "value_type",
+        "type": "VARCHAR(16)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "data",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_measurements_equipment_id",
+        "columns": [
+          "equipment_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_measurements_occurred_at",
+        "columns": [
+          "occurred_at"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_measurements_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_measurements_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_measurements_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "cases": {
+    "columns": [
+      {
+        "name": "title",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "line_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "process",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "context",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "diagnosis",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "rounds",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "model_calls",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "outcome",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "review_flags",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "anomaly_key",
+        "type": "VARCHAR(120)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_case_anomaly",
+        "columns": [
+          "tenant_id",
+          "site_id",
+          "anomaly_key"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_cases_line_id",
+        "columns": [
+          "line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_cases_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_cases_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_cases_status",
+        "columns": [
+          "status"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_cases_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "plans": {
+    "columns": [
+      {
+        "name": "case_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "cases.id"
+        ]
+      },
+      {
+        "name": "revision",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "content",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "fingerprint",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "context_hash",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "expires_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_plans_case_id",
+        "columns": [
+          "case_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_plans_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_plans_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_plans_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "approvals": {
+    "columns": [
+      {
+        "name": "case_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "cases.id"
+        ]
+      },
+      {
+        "name": "plan_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "plans.id"
+        ]
+      },
+      {
+        "name": "actor_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "approved",
+        "type": "BOOLEAN",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reason",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "fingerprint",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_approvals_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_approvals_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_approvals_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "receipts": {
+    "columns": [
+      {
+        "name": "case_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "cases.id"
+        ]
+      },
+      {
+        "name": "plan_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "plans.id"
+        ]
+      },
+      {
+        "name": "actor_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "content",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "effective_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_receipts_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_receipts_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_receipts_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "retests": {
+    "columns": [
+      {
+        "name": "case_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "cases.id"
+        ]
+      },
+      {
+        "name": "plan_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "plans.id"
+        ]
+      },
+      {
+        "name": "actor_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "result",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "verdict",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_retests_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_retests_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_retests_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "knowledge": {
+    "columns": [
+      {
+        "name": "category",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "title",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "content",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "revision",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reviewer_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "rules",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "previous_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "knowledge.id"
+        ]
+      },
+      {
+        "name": "valid_until",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_knowledge_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_knowledge_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_knowledge_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "knowledge_vectors": {
+    "columns": [
+      {
+        "name": "knowledge_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "knowledge.id"
+        ]
+      },
+      {
+        "name": "embedding",
+        "type": "VECTOR(384)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "model_version",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "content_hash",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_knowledge_vectors_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_knowledge_vectors_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_knowledge_vectors_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "lab_results": {
+    "columns": [
+      {
+        "name": "object_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "metric",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "method",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "value",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "unit",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "occurred_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "operator_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "evidence_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "data",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_lab_results_object_id",
+        "columns": [
+          "object_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_lab_results_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_lab_results_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_lab_results_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "routes": {
+    "columns": [
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "process",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "revision",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "steps",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "disposition",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "previous_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "routes.id"
+        ]
+      },
+      {
+        "name": "reviewer_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_routes_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_routes_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_routes_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "adapters": {
+    "columns": [
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "protocol",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "config",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "health",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "enabled",
+        "type": "BOOLEAN",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "provenance",
+        "type": "VARCHAR(24)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source_registry",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_adapters_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_adapters_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_adapters_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "runs": {
+    "columns": [
+      {
+        "name": "case_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "cases.id"
+        ]
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "data",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_runs_case_id",
+        "columns": [
+          "case_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_runs_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_runs_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_runs_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "audit": {
+    "columns": [
+      {
+        "name": "actor_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "action",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "target_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "request_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "detail",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_audit_action",
+        "columns": [
+          "action"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_audit_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_audit_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_audit_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "commands": {
+    "columns": [
+      {
+        "name": "key",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "actor_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "fingerprint",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "response",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "authorization_hash",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_commands_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_commands_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_commands_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "outbox": {
+    "columns": [
+      {
+        "name": "kind",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "payload",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "attempts",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "next_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "last_error",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "sequence",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "synced",
+        "type": "BOOLEAN",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_outbox_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_outbox_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_outbox_status",
+        "columns": [
+          "status"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_outbox_synced",
+        "columns": [
+          "synced"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_outbox_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "inbox": {
+    "columns": [
+      {
+        "name": "event_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source_node",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "sequence",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "payload",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_inbox_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_inbox_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_inbox_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "sites": {
+    "columns": [
+      {
+        "name": "node_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(160)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "token_hash",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "active",
+        "type": "BOOLEAN",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "last_seen",
+        "type": "DATETIME",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "sequence",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "acknowledged",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "data",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_sites_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_sites_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_sites_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "snapshots": {
+    "columns": [
+      {
+        "name": "source_node",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "entity_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "data",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_snapshots_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_snapshots_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_snapshots_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "remote_requests": {
+    "columns": [
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "target_node",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "kind",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "payload",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "expires_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "result",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_remote_requests_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_remote_requests_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_remote_requests_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "dispositions": {
+    "columns": [
+      {
+        "name": "object_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "route_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "routes.id"
+        ]
+      },
+      {
+        "name": "case_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "cases.id"
+        ]
+      },
+      {
+        "name": "action",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reviewer_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reason",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "cycle",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "return_step_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "data",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_dispositions_object_id",
+        "columns": [
+          "object_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_dispositions_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_dispositions_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_dispositions_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "distributions": {
+    "columns": [
+      {
+        "name": "target_node",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "kind",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "record_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "action",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "generation",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "package",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "result",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "expires_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_distributions_record_id",
+        "columns": [
+          "record_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_distributions_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_distributions_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_distributions_status",
+        "columns": [
+          "status"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_distributions_target_node",
+        "columns": [
+          "target_node"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_distributions_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "raw_records": {
+    "columns": [
+      {
+        "name": "source_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "record_id",
+        "type": "VARCHAR(160)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source_session_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "payload_hash",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "object_key",
+        "type": "VARCHAR(500)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "mapping_version",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source_time",
+        "type": "DATETIME",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "received_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "normalized_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "errors",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_raw_records_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_raw_records_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_raw_records_source_id",
+        "columns": [
+          "source_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_raw_records_status",
+        "columns": [
+          "status"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_raw_records_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "learning_records": {
+    "columns": [
+      {
+        "name": "kind",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "title",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "revision",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reviewer_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "case_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "cases.id"
+        ]
+      },
+      {
+        "name": "file_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "evidence.id"
+        ]
+      },
+      {
+        "name": "previous_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "learning_records.id"
+        ]
+      },
+      {
+        "name": "knowledge_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "knowledge.id"
+        ]
+      },
+      {
+        "name": "payload",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "snapshot",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "activation",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_learning_queue",
+        "columns": [
+          "tenant_id",
+          "site_id",
+          "kind",
+          "status",
+          "created_at"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_learning_records_case_id",
+        "columns": [
+          "case_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_learning_records_kind",
+        "columns": [
+          "kind"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_learning_records_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_learning_records_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_learning_records_status",
+        "columns": [
+          "status"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_learning_records_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "learning_tasks": {
+    "columns": [
+      {
+        "name": "record_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "learning_records.id"
+        ]
+      },
+      {
+        "name": "kind",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "actor_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "authorization_hash",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "attempts",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "lease_token",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "lease_until",
+        "type": "DATETIME",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "next_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "data",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "result",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "error_code",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_learning_tasks_record_id",
+        "columns": [
+          "record_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_learning_tasks_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_learning_tasks_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_learning_tasks_status",
+        "columns": [
+          "status"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_learning_tasks_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "study_groups": {
+    "columns": [
+      {
+        "name": "dataset_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "learning_records.id"
+        ]
+      },
+      {
+        "name": "group_key",
+        "type": "VARCHAR(160)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "split",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_study_groups_dataset_id",
+        "columns": [
+          "dataset_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_study_groups_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_study_groups_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_study_groups_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "decision_definitions": {
+    "columns": [
+      {
+        "name": "kind",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "payload",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "code",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "revision",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reviewer_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "previous_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "valid_from",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "valid_until",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "evidence_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_decision_definitions_code",
+        "columns": [
+          "code"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_decision_definitions_kind",
+        "columns": [
+          "kind"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_decision_definitions_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_decision_definitions_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_decision_definitions_status",
+        "columns": [
+          "status"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_decision_definitions_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "quality_assessments": {
+    "columns": [
+      {
+        "name": "definition_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "decision_definitions.id"
+        ]
+      },
+      {
+        "name": "method_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "decision_definitions.id"
+        ]
+      },
+      {
+        "name": "plan_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "decision_definitions.id"
+        ]
+      },
+      {
+        "name": "object_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "granularity",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "product_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "process",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "step_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "outcome",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source_kind",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source_version",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "original_value",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "value",
+        "type": "NUMERIC(28, 9)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "unit",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "occurred_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "snapshot",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reasons",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "supersedes_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "quality_assessments.id"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_quality_assessments_object_id",
+        "columns": [
+          "object_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_quality_assessments_outcome",
+        "columns": [
+          "outcome"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_quality_assessments_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_quality_assessments_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_quality_assessments_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "process_decisions": {
+    "columns": [
+      {
+        "name": "object_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "route_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "routes.id"
+        ]
+      },
+      {
+        "name": "mode_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "decision_definitions.id"
+        ]
+      },
+      {
+        "name": "from_step_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "next_step_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "snapshot",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reasons",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_process_decisions_object_id",
+        "columns": [
+          "object_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_process_decisions_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_process_decisions_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_process_decisions_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "production_cohorts": {
+    "columns": [
+      {
+        "name": "external_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "granularity",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "product_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "expected_quantity",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "closed",
+        "type": "BOOLEAN",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "object_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "ledger",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "evidence_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_production_cohorts_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_production_cohorts_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_production_cohorts_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "material_items": {
+    "columns": [
+      {
+        "name": "code",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "unit",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "density_kg_l",
+        "type": "NUMERIC(28, 9)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "quality_requirements",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_material_items_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_material_items_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_material_items_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "material_formulations": {
+    "columns": [
+      {
+        "name": "ratio_basis",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "dilution_basis",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "dilution_fraction",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "resolution_kg",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "tolerance_fraction",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "pot_life_minutes",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "technical_version",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "prohibited_pairs",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "code",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "revision",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reviewer_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "previous_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "valid_from",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "valid_until",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "evidence_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_material_formulations_code",
+        "columns": [
+          "code"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_material_formulations_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_material_formulations_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_material_formulations_status",
+        "columns": [
+          "status"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_material_formulations_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "formulation_components": {
+    "columns": [
+      {
+        "name": "formulation_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "material_formulations.id"
+        ]
+      },
+      {
+        "name": "material_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "material_items.id"
+        ]
+      },
+      {
+        "name": "role",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "parts",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "approved_substitute_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_formulation_components_formulation_id",
+        "columns": [
+          "formulation_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_formulation_components_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_formulation_components_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_formulation_components_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "formulation_calculations": {
+    "columns": [
+      {
+        "name": "formulation_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "material_formulations.id"
+        ]
+      },
+      {
+        "name": "formulation_version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "basis",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "target_quantity",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "target_unit",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "snapshot",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "result",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_formulation_calculations_formulation_id",
+        "columns": [
+          "formulation_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_formulation_calculations_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_formulation_calculations_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_formulation_calculations_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "mixing_batches": {
+    "columns": [
+      {
+        "name": "calculation_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "formulation_calculations.id"
+        ]
+      },
+      {
+        "name": "external_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "mixed_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "expires_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "snapshot",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_mixing_batches_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_mixing_batches_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_mixing_batches_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "automation_policies": {
+    "columns": [
+      {
+        "name": "priority",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "effect",
+        "type": "VARCHAR(10)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "automation_level",
+        "type": "VARCHAR(3)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "actor_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "actor_roles",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "actions",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "object_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "max_quantity",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "max_amount",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "currency",
+        "type": "VARCHAR(10)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "window_seconds",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "max_frequency",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "offline_allowed",
+        "type": "BOOLEAN",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "required_evidence_kinds",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "code",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "revision",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reviewer_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "previous_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "valid_from",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "valid_until",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "evidence_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_automation_policies_code",
+        "columns": [
+          "code"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_automation_policies_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_automation_policies_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_automation_policies_status",
+        "columns": [
+          "status"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_automation_policies_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "policy_decisions": {
+    "columns": [
+      {
+        "name": "policy_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "automation_policies.id"
+        ]
+      },
+      {
+        "name": "policy_version",
+        "type": "INTEGER",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "actor_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "action",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "object_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "allowed",
+        "type": "BOOLEAN",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "input_hash",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "snapshot",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reasons",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_policy_decisions_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_policy_decisions_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_policy_decisions_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "digital_tasks": {
+    "columns": [
+      {
+        "name": "kind",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "actor_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "users.id"
+        ]
+      },
+      {
+        "name": "policy_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "automation_policies.id"
+        ]
+      },
+      {
+        "name": "policy_decision_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "policy_decisions.id"
+        ]
+      },
+      {
+        "name": "responsibility",
+        "type": "VARCHAR(160)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "authorization_hash",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "attempts",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "lease_token",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "lease_until",
+        "type": "DATETIME",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "next_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "input",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "target_snapshot",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "result",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "error_code",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "batch_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_digital_queue",
+        "columns": [
+          "tenant_id",
+          "site_id",
+          "status",
+          "next_at"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_digital_tasks_batch_id",
+        "columns": [
+          "batch_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_digital_tasks_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_digital_tasks_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_digital_tasks_status",
+        "columns": [
+          "status"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_digital_tasks_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "domain_approvals": {
+    "columns": [
+      {
+        "name": "resource_kind",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "resource_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "resource_version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "actor_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "users.id"
+        ]
+      },
+      {
+        "name": "approved",
+        "type": "BOOLEAN",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "fingerprint",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reason",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "expires_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_domain_approvals_resource_id",
+        "columns": [
+          "resource_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_domain_approvals_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_domain_approvals_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_domain_approvals_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "business_connectors": {
+    "columns": [
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "system",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "endpoint",
+        "type": "VARCHAR(500)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "credential_reference",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "actions",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "enabled",
+        "type": "BOOLEAN",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "supports_idempotency",
+        "type": "BOOLEAN",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "supports_lookup",
+        "type": "BOOLEAN",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "contract_version",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "authority",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_business_connectors_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_connectors_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_connectors_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "business_commands": {
+    "columns": [
+      {
+        "name": "connector_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "business_connectors.id"
+        ]
+      },
+      {
+        "name": "task_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "digital_tasks.id"
+        ]
+      },
+      {
+        "name": "action",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "contract_version",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "idempotency_key",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "actor_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "users.id"
+        ]
+      },
+      {
+        "name": "policy_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "automation_policies.id"
+        ]
+      },
+      {
+        "name": "approval_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "domain_approvals.id"
+        ]
+      },
+      {
+        "name": "target_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "target_version",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "input_hash",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "input",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "snapshot",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "expected_result",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "fencing",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "lease_token",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "lease_until",
+        "type": "DATETIME",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "external_id",
+        "type": "VARCHAR(160)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "result",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "error_code",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_business_commands_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_commands_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_commands_status",
+        "columns": [
+          "status"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_commands_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "business_command_attempts": {
+    "columns": [
+      {
+        "name": "command_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "business_commands.id"
+        ]
+      },
+      {
+        "name": "fencing",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "kind",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "request_hash",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "response",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "finished_at",
+        "type": "DATETIME",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_business_command_attempts_command_id",
+        "columns": [
+          "command_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_command_attempts_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_command_attempts_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_command_attempts_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "business_receipts": {
+    "columns": [
+      {
+        "name": "command_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "business_commands.id"
+        ]
+      },
+      {
+        "name": "external_id",
+        "type": "VARCHAR(160)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source_revision",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "payload_hash",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "payload",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_business_receipts_command_id",
+        "columns": [
+          "command_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_receipts_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_receipts_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_receipts_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "bills_of_materials": {
+    "columns": [
+      {
+        "name": "product_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "product_version",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "output_quantity",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "output_unit",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "route_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "routes.id"
+        ]
+      },
+      {
+        "name": "code",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "revision",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reviewer_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "previous_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "valid_from",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "valid_until",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "evidence_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_bills_of_materials_code",
+        "columns": [
+          "code"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_bills_of_materials_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_bills_of_materials_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_bills_of_materials_status",
+        "columns": [
+          "status"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_bills_of_materials_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "bom_components": {
+    "columns": [
+      {
+        "name": "bom_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "bills_of_materials.id"
+        ]
+      },
+      {
+        "name": "material_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "material_items.id"
+        ]
+      },
+      {
+        "name": "child_bom_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "bills_of_materials.id"
+        ]
+      },
+      {
+        "name": "quantity",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "unit",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "loss_fraction",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "conversion_factor",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "conversion_basis",
+        "type": "VARCHAR(500)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_bom_components_bom_id",
+        "columns": [
+          "bom_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_bom_components_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_bom_components_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_bom_components_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "business_orders": {
+    "columns": [
+      {
+        "name": "external_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "customer_reference",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source_system",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source_version",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "due_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "currency",
+        "type": "VARCHAR(10)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "tax_basis",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_business_orders_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_orders_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_orders_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "business_order_lines": {
+    "columns": [
+      {
+        "name": "order_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "business_orders.id"
+        ]
+      },
+      {
+        "name": "external_line",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "product_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "product_version",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "quantity",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "unit",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "bom_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "bills_of_materials.id"
+        ]
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_business_order_lines_order_id",
+        "columns": [
+          "order_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_order_lines_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_order_lines_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_order_lines_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "inventory_snapshots": {
+    "columns": [
+      {
+        "name": "material_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "material_items.id"
+        ]
+      },
+      {
+        "name": "warehouse",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "lot",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "quality_status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "quantity_basis",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "on_hand",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "held",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reserved",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "in_transit",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reported_available",
+        "type": "NUMERIC(28, 9)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "unit",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source_system",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source_version",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "observed_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "expires_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "fresh_seconds",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "evidence_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "included_command_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "quality_assessment_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "quality_assessments.id"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_inventory_snapshots_material_id",
+        "columns": [
+          "material_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_inventory_snapshots_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_inventory_snapshots_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_inventory_snapshots_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "supply_plans": {
+    "columns": [
+      {
+        "name": "order_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "business_orders.id"
+        ]
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "snapshot",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "delivery_assessment",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_supply_plans_order_id",
+        "columns": [
+          "order_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_supply_plans_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_supply_plans_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_supply_plans_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "material_demands": {
+    "columns": [
+      {
+        "name": "plan_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "supply_plans.id"
+        ]
+      },
+      {
+        "name": "order_line_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "business_order_lines.id"
+        ]
+      },
+      {
+        "name": "material_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "material_items.id"
+        ]
+      },
+      {
+        "name": "required_quantity",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "available_quantity",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "shortage",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "unit",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "calculation",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_material_demands_plan_id",
+        "columns": [
+          "plan_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_material_demands_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_material_demands_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_material_demands_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "inventory_reservations": {
+    "columns": [
+      {
+        "name": "plan_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "supply_plans.id"
+        ]
+      },
+      {
+        "name": "inventory_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "inventory_snapshots.id"
+        ]
+      },
+      {
+        "name": "quantity",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "command_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "business_commands.id"
+        ]
+      },
+      {
+        "name": "source_reference",
+        "type": "VARCHAR(160)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_inventory_reservations_inventory_id",
+        "columns": [
+          "inventory_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_inventory_reservations_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_inventory_reservations_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_inventory_reservations_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "actual_material_usage": {
+    "columns": [
+      {
+        "name": "material_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "material_items.id"
+        ]
+      },
+      {
+        "name": "inventory_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "inventory_snapshots.id"
+        ]
+      },
+      {
+        "name": "mixing_batch_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "mixing_batches.id"
+        ]
+      },
+      {
+        "name": "order_line_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "business_order_lines.id"
+        ]
+      },
+      {
+        "name": "source_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "quantity",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "unit",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "purpose",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "occurred_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "evidence_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "deviation_reason",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_actual_material_usage_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_actual_material_usage_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_actual_material_usage_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "business_documents": {
+    "columns": [
+      {
+        "name": "kind",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "external_id",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source_system",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "order_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "business_orders.id"
+        ]
+      },
+      {
+        "name": "currency",
+        "type": "VARCHAR(10)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "tax_basis",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "tax_rate",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "occurred_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "evidence_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_business_documents_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_documents_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_documents_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "business_document_lines": {
+    "columns": [
+      {
+        "name": "document_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "business_documents.id"
+        ]
+      },
+      {
+        "name": "external_line",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "order_line_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "business_order_lines.id"
+        ]
+      },
+      {
+        "name": "material_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "material_items.id"
+        ]
+      },
+      {
+        "name": "lot",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "quantity",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "unit",
+        "type": "VARCHAR(20)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "unit_price",
+        "type": "NUMERIC(28, 9)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reference_line_id",
+        "type": "VARCHAR(64)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "business_document_lines.id"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_business_document_lines_document_id",
+        "columns": [
+          "document_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_document_lines_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_document_lines_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_business_document_lines_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "cost_reports": {
+    "columns": [
+      {
+        "name": "order_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "business_orders.id"
+        ]
+      },
+      {
+        "name": "author_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "currency",
+        "type": "VARCHAR(10)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "allocation_version",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "actual_amount",
+        "type": "NUMERIC(28, 9)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "estimated_amount",
+        "type": "NUMERIC(28, 9)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "snapshot",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "reconciliation",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_cost_reports_order_id",
+        "columns": [
+          "order_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_cost_reports_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_cost_reports_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_cost_reports_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  },
+  "tool_invocations": {
+    "columns": [
+      {
+        "name": "actor_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "role",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "tool",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "tool_version",
+        "type": "VARCHAR(40)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(30)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "input_hash",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "input",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "result",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "authorization",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "evidence_ids",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "tenant_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "site_id",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "scope_line_id",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ],
+    "indexes": [
+      {
+        "name": "ix_tool_invocations_scope_line_id",
+        "columns": [
+          "scope_line_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_tool_invocations_site_id",
+        "columns": [
+          "site_id"
+        ],
+        "unique": false
+      },
+      {
+        "name": "ix_tool_invocations_tenant_id",
+        "columns": [
+          "tenant_id"
+        ],
+        "unique": false
+      }
+    ]
+  }
+}

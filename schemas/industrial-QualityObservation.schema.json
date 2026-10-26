@@ -1,0 +1,302 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "standard_id": {
+      "title": "Standard Id",
+      "type": "string"
+    },
+    "plan_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Plan Id"
+    },
+    "cohort_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Cohort Id"
+    },
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "object_id": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Object Id",
+      "type": "string"
+    },
+    "granularity": {
+      "enum": [
+        "bottle",
+        "load",
+        "batch",
+        "sample"
+      ],
+      "title": "Granularity",
+      "type": "string"
+    },
+    "product_id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Product Id",
+      "type": "string"
+    },
+    "product_version": {
+      "default": "",
+      "maxLength": 100,
+      "title": "Product Version",
+      "type": "string"
+    },
+    "substrate_id": {
+      "default": "",
+      "maxLength": 100,
+      "title": "Substrate Id",
+      "type": "string"
+    },
+    "process": {
+      "enum": [
+        "plastic_spray",
+        "glass_vacuum"
+      ],
+      "title": "Process",
+      "type": "string"
+    },
+    "step_id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Step Id",
+      "type": "string"
+    },
+    "equipment_id": {
+      "default": "",
+      "maxLength": 100,
+      "title": "Equipment Id",
+      "type": "string"
+    },
+    "method_id": {
+      "title": "Method Id",
+      "type": "string"
+    },
+    "source_kind": {
+      "enum": [
+        "measurement",
+        "lab",
+        "inspection",
+        "manual"
+      ],
+      "title": "Source Kind",
+      "type": "string"
+    },
+    "source_id": {
+      "default": "",
+      "maxLength": 100,
+      "title": "Source Id",
+      "type": "string"
+    },
+    "source_version": {
+      "default": "",
+      "maxLength": 100,
+      "title": "Source Version",
+      "type": "string"
+    },
+    "original_value": {
+      "default": "",
+      "maxLength": 3000,
+      "title": "Original Value",
+      "type": "string"
+    },
+    "value": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "max_digits": 28
+        },
+        {
+          "maxLength": 3000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Value"
+    },
+    "unit": {
+      "maxLength": 40,
+      "title": "Unit",
+      "type": "string"
+    },
+    "occurred_at": {
+      "format": "date-time",
+      "title": "Occurred At",
+      "type": "string"
+    },
+    "available_at": {
+      "format": "date-time",
+      "title": "Available At",
+      "type": "string"
+    },
+    "quality": {
+      "enum": [
+        "Good",
+        "manual_verified",
+        "Bad",
+        "Uncertain",
+        "missing"
+      ],
+      "title": "Quality",
+      "type": "string"
+    },
+    "association": {
+      "enum": [
+        "physical_tracking",
+        "load_record",
+        "batch_record",
+        "manual_confirmed",
+        "unresolved"
+      ],
+      "title": "Association",
+      "type": "string"
+    },
+    "calibration_valid_until": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Calibration Valid Until"
+    },
+    "qualification_id": {
+      "default": "",
+      "maxLength": 120,
+      "title": "Qualification Id",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "uncertainty": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "default": "0",
+      "ge": 0,
+      "max_digits": 28,
+      "title": "Uncertainty"
+    },
+    "inspection_round": {
+      "default": 1,
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Inspection Round",
+      "type": "integer"
+    },
+    "sample_count": {
+      "default": 1,
+      "maximum": 1000000,
+      "minimum": 1,
+      "title": "Sample Count",
+      "type": "integer"
+    },
+    "model_confidence": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "le": 1,
+          "max_digits": 28
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Model Confidence"
+    },
+    "supersedes_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Supersedes Id"
+    },
+    "correction_reason": {
+      "default": "",
+      "maxLength": 3000,
+      "title": "Correction Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "standard_id",
+    "line_id",
+    "object_id",
+    "granularity",
+    "product_id",
+    "process",
+    "step_id",
+    "method_id",
+    "source_kind",
+    "unit",
+    "occurred_at",
+    "available_at",
+    "quality",
+    "association",
+    "evidence_ids"
+  ],
+  "title": "QualityObservation",
+  "type": "object"
+}

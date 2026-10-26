@@ -1,0 +1,39 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "action": {
+      "enum": [
+        "complete",
+        "cancel"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 4,
+      "title": "Reason",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Evidence Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "version",
+    "action",
+    "reason"
+  ],
+  "title": "TaskDecision",
+  "type": "object"
+}

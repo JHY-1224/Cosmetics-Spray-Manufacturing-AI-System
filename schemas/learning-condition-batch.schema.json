@@ -1,0 +1,124 @@
+{
+  "$defs": {
+    "ConditionValue": {
+      "additionalProperties": false,
+      "properties": {
+        "definition_id": {
+          "title": "Definition Id",
+          "type": "string"
+        },
+        "definition_version": {
+          "minimum": 1,
+          "title": "Definition Version",
+          "type": "integer"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "unit": {
+          "default": "",
+          "maxLength": 40,
+          "title": "Unit",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "available_at": {
+          "format": "date-time",
+          "title": "Available At",
+          "type": "string"
+        },
+        "quality": {
+          "enum": [
+            "Good",
+            "Bad",
+            "Uncertain",
+            "missing",
+            "manual_verified"
+          ],
+          "title": "Quality",
+          "type": "string"
+        },
+        "source_kind": {
+          "default": "manual",
+          "enum": [
+            "manual",
+            "source_record"
+          ],
+          "title": "Source Kind",
+          "type": "string"
+        },
+        "raw_record_id": {
+          "default": "",
+          "title": "Raw Record Id",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "reason": {
+          "maxLength": 1000,
+          "minLength": 3,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "definition_id",
+        "definition_version",
+        "occurred_at",
+        "available_at",
+        "quality",
+        "reason"
+      ],
+      "title": "ConditionValue",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "values": {
+      "items": {
+        "$ref": "#/$defs/ConditionValue"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Values",
+      "type": "array"
+    }
+  },
+  "required": [
+    "version",
+    "values"
+  ],
+  "title": "ConditionBatch",
+  "type": "object"
+}

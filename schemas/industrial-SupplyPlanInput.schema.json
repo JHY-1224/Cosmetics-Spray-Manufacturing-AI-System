@@ -1,0 +1,115 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "order_id": {
+      "title": "Order Id",
+      "type": "string"
+    },
+    "order_version": {
+      "minimum": 1,
+      "title": "Order Version",
+      "type": "integer"
+    },
+    "inventory_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "minItems": 1,
+      "title": "Inventory Ids",
+      "type": "array"
+    },
+    "capacity_basis": {
+      "default": "",
+      "maxLength": 1000,
+      "title": "Capacity Basis",
+      "type": "string"
+    },
+    "capacity_per_day": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "gt": 0,
+          "max_digits": 28
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Capacity Per Day"
+    },
+    "calendar_available_days": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "max_digits": 28
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Calendar Available Days"
+    },
+    "changeover_days": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "max_digits": 28
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Changeover Days"
+    },
+    "arrival_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Arrival At"
+    }
+  },
+  "required": [
+    "order_id",
+    "order_version",
+    "inventory_ids"
+  ],
+  "title": "SupplyPlanInput",
+  "type": "object"
+}

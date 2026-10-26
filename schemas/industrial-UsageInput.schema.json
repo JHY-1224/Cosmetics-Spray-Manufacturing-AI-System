@@ -1,0 +1,95 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "material_id": {
+      "title": "Material Id",
+      "type": "string"
+    },
+    "inventory_id": {
+      "title": "Inventory Id",
+      "type": "string"
+    },
+    "order_line_id": {
+      "title": "Order Line Id",
+      "type": "string"
+    },
+    "source_id": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Source Id",
+      "type": "string"
+    },
+    "quantity": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "gt": 0,
+      "max_digits": 28,
+      "title": "Quantity"
+    },
+    "unit": {
+      "enum": [
+        "kg",
+        "g",
+        "L",
+        "mL",
+        "piece"
+      ],
+      "title": "Unit",
+      "type": "string"
+    },
+    "purpose": {
+      "enum": [
+        "production",
+        "rework",
+        "scrap"
+      ],
+      "title": "Purpose",
+      "type": "string"
+    },
+    "occurred_at": {
+      "format": "date-time",
+      "title": "Occurred At",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "deviation_reason": {
+      "default": "",
+      "maxLength": 3000,
+      "title": "Deviation Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "line_id",
+    "material_id",
+    "inventory_id",
+    "order_line_id",
+    "source_id",
+    "quantity",
+    "unit",
+    "purpose",
+    "occurred_at",
+    "evidence_ids"
+  ],
+  "title": "UsageInput",
+  "type": "object"
+}

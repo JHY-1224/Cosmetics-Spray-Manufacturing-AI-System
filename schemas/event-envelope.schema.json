@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Quality event envelope",
+  "type": "object",
+  "required": [
+    "id",
+    "sequence",
+    "kind",
+    "payload",
+    "occurred_at"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "kind": {
+      "enum": [
+        "case.changed",
+        "inspection.recorded",
+        "workflow.reviewed",
+        "case.analysis.requested"
+      ]
+    },
+    "payload": {
+      "type": "object"
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false,
+  "description": "经已注册站点身份/HMAC绑定；来源、目标、发送时间在签名批次body中；服务端记录接收时间与确认序号"
+}

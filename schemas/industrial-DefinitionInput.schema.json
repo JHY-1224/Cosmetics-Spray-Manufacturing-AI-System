@@ -1,0 +1,623 @@
+{
+  "$defs": {
+    "IndustrialScope": {
+      "additionalProperties": false,
+      "properties": {
+        "line_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Line Id",
+          "type": "string"
+        },
+        "process": {
+          "enum": [
+            "plastic_spray",
+            "glass_vacuum"
+          ],
+          "title": "Process",
+          "type": "string"
+        },
+        "product_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Ids",
+          "type": "array"
+        },
+        "product_families": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Families",
+          "type": "array"
+        },
+        "substrate_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Substrate Ids",
+          "type": "array"
+        },
+        "shapes": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Shapes",
+          "type": "array"
+        },
+        "step_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Step Ids",
+          "type": "array"
+        },
+        "route_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Route Ids",
+          "type": "array"
+        },
+        "product_versions": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Versions",
+          "type": "array"
+        },
+        "equipment_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Equipment Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "line_id",
+        "process"
+      ],
+      "title": "IndustrialScope",
+      "type": "object"
+    },
+    "MethodSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "method",
+          "default": "method",
+          "title": "Kind",
+          "type": "string"
+        },
+        "item": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Item",
+          "type": "string"
+        },
+        "method_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Method Version",
+          "type": "string"
+        },
+        "result_type": {
+          "enum": [
+            "numeric",
+            "enumerated",
+            "visual"
+          ],
+          "title": "Result Type",
+          "type": "string"
+        },
+        "unit": {
+          "maxLength": 40,
+          "title": "Unit",
+          "type": "string"
+        },
+        "granularity": {
+          "enum": [
+            "bottle",
+            "load",
+            "batch",
+            "sample"
+          ],
+          "title": "Granularity",
+          "type": "string"
+        },
+        "calibration_required": {
+          "default": false,
+          "title": "Calibration Required",
+          "type": "boolean"
+        },
+        "qualification_required": {
+          "default": false,
+          "title": "Qualification Required",
+          "type": "boolean"
+        },
+        "max_age_seconds": {
+          "default": 86400,
+          "maximum": 2678400,
+          "minimum": 1,
+          "title": "Max Age Seconds",
+          "type": "integer"
+        },
+        "approved_unit_factors": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "decimal_places": 9,
+            "gt": 0,
+            "max_digits": 28
+          },
+          "maxProperties": 20,
+          "title": "Approved Unit Factors",
+          "type": "object"
+        }
+      },
+      "required": [
+        "item",
+        "method_version",
+        "result_type",
+        "unit",
+        "granularity"
+      ],
+      "title": "MethodSpec",
+      "type": "object"
+    },
+    "ProcessModeSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "process_mode",
+          "default": "process_mode",
+          "title": "Kind",
+          "type": "string"
+        },
+        "route_id": {
+          "title": "Route Id",
+          "type": "string"
+        },
+        "from_step_id": {
+          "title": "From Step Id",
+          "type": "string"
+        },
+        "next_step_id": {
+          "title": "Next Step Id",
+          "type": "string"
+        },
+        "required_standard_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Required Standard Ids",
+          "type": "array"
+        },
+        "required_material_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Required Material Ids",
+          "type": "array"
+        },
+        "equipment_qualification_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Equipment Qualification Ids",
+          "type": "array"
+        },
+        "sop_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Sop Ids",
+          "type": "array"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "decimal_places": 9,
+            "max_digits": 28
+          },
+          "maxProperties": 100,
+          "title": "Parameters",
+          "type": "object"
+        },
+        "parameter_units": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "maxProperties": 100,
+          "title": "Parameter Units",
+          "type": "object"
+        },
+        "max_cycles": {
+          "default": 1,
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Max Cycles",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "route_id",
+        "from_step_id",
+        "next_step_id",
+        "sop_ids"
+      ],
+      "title": "ProcessModeSpec",
+      "type": "object"
+    },
+    "QualificationSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "qualification",
+          "default": "qualification",
+          "title": "Kind",
+          "type": "string"
+        },
+        "equipment_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Equipment Id",
+          "type": "string"
+        },
+        "method_id": {
+          "title": "Method Id",
+          "type": "string"
+        },
+        "calibration_included": {
+          "default": false,
+          "title": "Calibration Included",
+          "type": "boolean"
+        },
+        "certificate_reference": {
+          "maxLength": 500,
+          "minLength": 3,
+          "title": "Certificate Reference",
+          "type": "string"
+        }
+      },
+      "required": [
+        "equipment_id",
+        "method_id",
+        "certificate_reference"
+      ],
+      "title": "QualificationSpec",
+      "type": "object"
+    },
+    "QualityPlanSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "quality_plan",
+          "default": "quality_plan",
+          "title": "Kind",
+          "type": "string"
+        },
+        "standard_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Standard Ids",
+          "type": "array"
+        },
+        "granularity": {
+          "enum": [
+            "bottle",
+            "load",
+            "batch",
+            "sample"
+          ],
+          "title": "Granularity",
+          "type": "string"
+        },
+        "sampling": {
+          "enum": [
+            "all_objects",
+            "sampled_lot"
+          ],
+          "title": "Sampling",
+          "type": "string"
+        },
+        "required_sample_count": {
+          "maximum": 1000000,
+          "minimum": 1,
+          "title": "Required Sample Count",
+          "type": "integer"
+        },
+        "maximum_failed_samples": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Maximum Failed Samples",
+          "type": "integer"
+        },
+        "sampling_rule_reference": {
+          "maxLength": 500,
+          "minLength": 3,
+          "title": "Sampling Rule Reference",
+          "type": "string"
+        },
+        "visual_review_below": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 9,
+              "ge": 0,
+              "le": 1,
+              "max_digits": 28
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Visual Review Below"
+        }
+      },
+      "required": [
+        "standard_ids",
+        "granularity",
+        "sampling",
+        "required_sample_count",
+        "sampling_rule_reference"
+      ],
+      "title": "QualityPlanSpec",
+      "type": "object"
+    },
+    "StandardSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "quality_standard",
+          "default": "quality_standard",
+          "title": "Kind",
+          "type": "string"
+        },
+        "item": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Item",
+          "type": "string"
+        },
+        "customer_reference": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Customer Reference",
+          "type": "string"
+        },
+        "method_id": {
+          "title": "Method Id",
+          "type": "string"
+        },
+        "unit": {
+          "maxLength": 40,
+          "title": "Unit",
+          "type": "string"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 9,
+              "max_digits": 28
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 9,
+              "max_digits": 28
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "allowed_values": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Allowed Values",
+          "type": "array"
+        },
+        "rounding_places": {
+          "default": 6,
+          "maximum": 9,
+          "minimum": 0,
+          "title": "Rounding Places",
+          "type": "integer"
+        },
+        "rounding": {
+          "default": "none",
+          "enum": [
+            "half_up",
+            "half_even",
+            "none"
+          ],
+          "title": "Rounding",
+          "type": "string"
+        },
+        "uncertainty_policy": {
+          "default": "review_overlap",
+          "enum": [
+            "review_overlap",
+            "conservative",
+            "ignore_approved"
+          ],
+          "title": "Uncertainty Policy",
+          "type": "string"
+        },
+        "lower_inclusive": {
+          "default": true,
+          "title": "Lower Inclusive",
+          "type": "boolean"
+        },
+        "upper_inclusive": {
+          "default": true,
+          "title": "Upper Inclusive",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "item",
+        "customer_reference",
+        "method_id",
+        "unit"
+      ],
+      "title": "StandardSpec",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "code": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Code",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 200,
+      "minLength": 2,
+      "title": "Name",
+      "type": "string"
+    },
+    "scope": {
+      "$ref": "#/$defs/IndustrialScope"
+    },
+    "valid_from": {
+      "format": "date-time",
+      "title": "Valid From",
+      "type": "string"
+    },
+    "valid_until": {
+      "format": "date-time",
+      "title": "Valid Until",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "previous_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Id"
+    },
+    "spec": {
+      "discriminator": {
+        "mapping": {
+          "method": "#/$defs/MethodSpec",
+          "process_mode": "#/$defs/ProcessModeSpec",
+          "qualification": "#/$defs/QualificationSpec",
+          "quality_plan": "#/$defs/QualityPlanSpec",
+          "quality_standard": "#/$defs/StandardSpec"
+        },
+        "propertyName": "kind"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/MethodSpec"
+        },
+        {
+          "$ref": "#/$defs/StandardSpec"
+        },
+        {
+          "$ref": "#/$defs/QualityPlanSpec"
+        },
+        {
+          "$ref": "#/$defs/ProcessModeSpec"
+        },
+        {
+          "$ref": "#/$defs/QualificationSpec"
+        }
+      ],
+      "title": "Spec"
+    }
+  },
+  "required": [
+    "code",
+    "name",
+    "scope",
+    "valid_until",
+    "evidence_ids",
+    "spec"
+  ],
+  "title": "DefinitionInput",
+  "type": "object"
+}

@@ -1,0 +1,62 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "reviewed_text": {
+      "maxLength": 200000,
+      "title": "Reviewed Text",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 3,
+      "title": "Reason",
+      "type": "string"
+    },
+    "confirmed_fields": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 200,
+      "title": "Confirmed Fields",
+      "type": "array"
+    },
+    "time_ranges": {
+      "items": {
+        "maxItems": 2,
+        "minItems": 2,
+        "prefixItems": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "type": "array"
+      },
+      "maxItems": 100,
+      "title": "Time Ranges",
+      "type": "array"
+    },
+    "uncertainties": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Uncertainties",
+      "type": "array"
+    }
+  },
+  "required": [
+    "version",
+    "reviewed_text",
+    "reason"
+  ],
+  "title": "MaterialCheck",
+  "type": "object"
+}

@@ -1,0 +1,22 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 4,
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "reason"
+  ],
+  "title": "RevisionInput",
+  "type": "object"
+}

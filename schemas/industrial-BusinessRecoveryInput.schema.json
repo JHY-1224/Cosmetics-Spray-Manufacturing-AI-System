@@ -1,0 +1,28 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "node_epoch": {
+      "maxLength": 100,
+      "minLength": 16,
+      "title": "Node Epoch",
+      "type": "string"
+    },
+    "source_handover_confirmed": {
+      "title": "Source Handover Confirmed",
+      "type": "boolean"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 10,
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "node_epoch",
+    "source_handover_confirmed",
+    "reason"
+  ],
+  "title": "BusinessRecoveryInput",
+  "type": "object"
+}

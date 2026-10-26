@@ -1,0 +1,155 @@
+{
+  "status": "passed",
+  "rows": 36,
+  "max_length": 4096,
+  "train_sha256": "02a7d13f9a19753e8843182f364d4269e6ec5a4b870e118b7d3d4bd411e43bd9",
+  "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+  "max_tokens": 1927,
+  "samples": [
+    {
+      "tokens": 499,
+      "supervised_tokens": 80
+    },
+    {
+      "tokens": 503,
+      "supervised_tokens": 108
+    },
+    {
+      "tokens": 656,
+      "supervised_tokens": 102
+    },
+    {
+      "tokens": 553,
+      "supervised_tokens": 109
+    },
+    {
+      "tokens": 489,
+      "supervised_tokens": 144
+    },
+    {
+      "tokens": 427,
+      "supervised_tokens": 84
+    },
+    {
+      "tokens": 315,
+      "supervised_tokens": 69
+    },
+    {
+      "tokens": 372,
+      "supervised_tokens": 88
+    },
+    {
+      "tokens": 336,
+      "supervised_tokens": 84
+    },
+    {
+      "tokens": 175,
+      "supervised_tokens": 69
+    },
+    {
+      "tokens": 415,
+      "supervised_tokens": 84
+    },
+    {
+      "tokens": 694,
+      "supervised_tokens": 81
+    },
+    {
+      "tokens": 346,
+      "supervised_tokens": 68
+    },
+    {
+      "tokens": 1136,
+      "supervised_tokens": 112
+    },
+    {
+      "tokens": 472,
+      "supervised_tokens": 92
+    },
+    {
+      "tokens": 1224,
+      "supervised_tokens": 63
+    },
+    {
+      "tokens": 583,
+      "supervised_tokens": 72
+    },
+    {
+      "tokens": 1456,
+      "supervised_tokens": 85
+    },
+    {
+      "tokens": 1197,
+      "supervised_tokens": 80
+    },
+    {
+      "tokens": 1190,
+      "supervised_tokens": 73
+    },
+    {
+      "tokens": 1205,
+      "supervised_tokens": 85
+    },
+    {
+      "tokens": 1031,
+      "supervised_tokens": 60
+    },
+    {
+      "tokens": 534,
+      "supervised_tokens": 57
+    },
+    {
+      "tokens": 517,
+      "supervised_tokens": 72
+    },
+    {
+      "tokens": 532,
+      "supervised_tokens": 60
+    },
+    {
+      "tokens": 163,
+      "supervised_tokens": 57
+    },
+    {
+      "tokens": 1522,
+      "supervised_tokens": 69
+    },
+    {
+      "tokens": 1681,
+      "supervised_tokens": 82
+    },
+    {
+      "tokens": 1917,
+      "supervised_tokens": 55
+    },
+    {
+      "tokens": 1522,
+      "supervised_tokens": 124
+    },
+    {
+      "tokens": 894,
+      "supervised_tokens": 81
+    },
+    {
+      "tokens": 883,
+      "supervised_tokens": 77
+    },
+    {
+      "tokens": 1743,
+      "supervised_tokens": 89
+    },
+    {
+      "tokens": 1927,
+      "supervised_tokens": 75
+    },
+    {
+      "tokens": 643,
+      "supervised_tokens": 93
+    },
+    {
+      "tokens": 653,
+      "supervised_tokens": 70
+    }
+  ],
+  "gpu_training": "not_executed"
+}

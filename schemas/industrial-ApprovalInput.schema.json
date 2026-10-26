@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "approved": {
+      "title": "Approved",
+      "type": "boolean"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 3,
+      "title": "Reason",
+      "type": "string"
+    },
+    "expires_at": {
+      "format": "date-time",
+      "title": "Expires At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "approved",
+    "reason",
+    "expires_at"
+  ],
+  "title": "ApprovalInput",
+  "type": "object"
+}

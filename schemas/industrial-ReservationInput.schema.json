@@ -1,0 +1,41 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "inventory_id": {
+      "title": "Inventory Id",
+      "type": "string"
+    },
+    "plan_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Plan Id"
+    },
+    "quantity": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "gt": 0,
+      "max_digits": 28,
+      "title": "Quantity"
+    }
+  },
+  "required": [
+    "inventory_id",
+    "quantity"
+  ],
+  "title": "ReservationInput",
+  "type": "object"
+}

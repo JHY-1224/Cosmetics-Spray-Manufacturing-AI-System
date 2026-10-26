@@ -1,0 +1,44 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "action": {
+      "enum": [
+        "submit",
+        "publish",
+        "reject",
+        "retire",
+        "rollback"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 4,
+      "title": "Reason",
+      "type": "string"
+    },
+    "confirm_labels": {
+      "default": false,
+      "title": "Confirm Labels",
+      "type": "boolean"
+    },
+    "acknowledge_conflicts": {
+      "default": false,
+      "title": "Acknowledge Conflicts",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "version",
+    "action",
+    "reason"
+  ],
+  "title": "LearningDecision",
+  "type": "object"
+}

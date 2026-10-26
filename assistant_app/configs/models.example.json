@@ -1,0 +1,1 @@
+{"text":{"base":"Qwen3.5-9B","mode":"finetuned_lora","port":5101,"path_env":"ASSISTANT_TEXT_MODEL_PATH","adapter_env":"ASSISTANT_TEXT_ADAPTER_PATH","base_preview_requires_explicit_opt_in":true},"vision":{"base":"Qwen3-VL-8B-Instruct","mode":"vision_base","port":5102,"path_env":"ASSISTANT_VISION_MODEL_PATH"},"note":"说明性清单；实际运行只读取ASSISTANT_环境变量，未验证GPU兼容性时不会自动启动推理。"}

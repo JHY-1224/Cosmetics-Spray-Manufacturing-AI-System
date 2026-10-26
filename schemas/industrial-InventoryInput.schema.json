@@ -1,0 +1,218 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "material_id": {
+      "title": "Material Id",
+      "type": "string"
+    },
+    "warehouse": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Warehouse",
+      "type": "string"
+    },
+    "lot": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Lot",
+      "type": "string"
+    },
+    "quality_status": {
+      "enum": [
+        "released",
+        "quarantined",
+        "pending",
+        "rejected"
+      ],
+      "title": "Quality Status",
+      "type": "string"
+    },
+    "quantity_basis": {
+      "enum": [
+        "gross",
+        "net_available"
+      ],
+      "title": "Quantity Basis",
+      "type": "string"
+    },
+    "on_hand": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "ge": 0,
+      "max_digits": 28,
+      "title": "On Hand"
+    },
+    "held": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "default": "0",
+      "ge": 0,
+      "max_digits": 28,
+      "title": "Held"
+    },
+    "reserved": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "default": "0",
+      "ge": 0,
+      "max_digits": 28,
+      "title": "Reserved"
+    },
+    "in_transit": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "decimal_places": 9,
+      "default": "0",
+      "ge": 0,
+      "max_digits": 28,
+      "title": "In Transit"
+    },
+    "reported_available": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "ge": 0,
+          "max_digits": 28
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reported Available"
+    },
+    "unit": {
+      "enum": [
+        "kg",
+        "g",
+        "L",
+        "mL",
+        "piece"
+      ],
+      "title": "Unit",
+      "type": "string"
+    },
+    "source_system": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Source System",
+      "type": "string"
+    },
+    "source_version": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Source Version",
+      "type": "string"
+    },
+    "observed_at": {
+      "format": "date-time",
+      "title": "Observed At",
+      "type": "string"
+    },
+    "expires_at": {
+      "format": "date-time",
+      "title": "Expires At",
+      "type": "string"
+    },
+    "fresh_seconds": {
+      "maximum": 2678400,
+      "minimum": 1,
+      "title": "Fresh Seconds",
+      "type": "integer"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "included_command_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "title": "Included Command Ids",
+      "type": "array"
+    },
+    "included_usage_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "title": "Included Usage Ids",
+      "type": "array"
+    },
+    "quality_assessment_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Quality Assessment Id"
+    }
+  },
+  "required": [
+    "line_id",
+    "material_id",
+    "warehouse",
+    "lot",
+    "quality_status",
+    "quantity_basis",
+    "on_hand",
+    "unit",
+    "source_system",
+    "source_version",
+    "observed_at",
+    "expires_at",
+    "fresh_seconds",
+    "evidence_ids"
+  ],
+  "title": "InventoryInput",
+  "type": "object"
+}

@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" -v runtime_password="$DB_RUNTIME_PASSWORD" <<'SQL'
+CREATE ROLE quality_runtime LOGIN NOSUPERUSER NOBYPASSRLS PASSWORD :'runtime_password';
+GRANT USAGE ON SCHEMA public TO quality_runtime;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO quality_runtime;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE, SELECT ON SEQUENCES TO quality_runtime;
+SQL

@@ -1,0 +1,948 @@
+{
+  "$defs": {
+    "Applicability": {
+      "additionalProperties": false,
+      "properties": {
+        "line_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Line Id",
+          "type": "string"
+        },
+        "process": {
+          "enum": [
+            "plastic_spray",
+            "glass_vacuum"
+          ],
+          "title": "Process",
+          "type": "string"
+        },
+        "product_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Ids",
+          "type": "array"
+        },
+        "product_families": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Families",
+          "type": "array"
+        },
+        "substrate_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Substrate Ids",
+          "type": "array"
+        },
+        "shapes": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Shapes",
+          "type": "array"
+        },
+        "step_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Step Ids",
+          "type": "array"
+        },
+        "route_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Route Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "line_id",
+        "process"
+      ],
+      "title": "Applicability",
+      "type": "object"
+    },
+    "ConditionInput": {
+      "additionalProperties": false,
+      "properties": {
+        "stable_id": {
+          "pattern": "^[a-zA-Z][a-zA-Z0-9_.-]{0,99}$",
+          "title": "Stable Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 200,
+          "minLength": 2,
+          "title": "Name",
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/$defs/Applicability"
+        },
+        "dimension": {
+          "enum": [
+            "equipment",
+            "material",
+            "process",
+            "environment",
+            "management"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "data_type": {
+          "enum": [
+            "number",
+            "enum",
+            "boolean",
+            "text"
+          ],
+          "title": "Data Type",
+          "type": "string"
+        },
+        "unit": {
+          "default": "",
+          "maxLength": 40,
+          "title": "Unit",
+          "type": "string"
+        },
+        "allowed_values": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 200,
+          "title": "Allowed Values",
+          "type": "array"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "value_type": {
+          "enum": [
+            "measured",
+            "setpoint",
+            "manual",
+            "derived",
+            "uncollected"
+          ],
+          "title": "Value Type",
+          "type": "string"
+        },
+        "event_semantics": {
+          "maxLength": 500,
+          "minLength": 2,
+          "title": "Event Semantics",
+          "type": "string"
+        },
+        "quality_required": {
+          "default": "Good",
+          "enum": [
+            "Good",
+            "manual_verified"
+          ],
+          "title": "Quality Required",
+          "type": "string"
+        },
+        "max_age_seconds": {
+          "default": 3600,
+          "maximum": 604800,
+          "minimum": 1,
+          "title": "Max Age Seconds",
+          "type": "integer"
+        },
+        "critical": {
+          "default": false,
+          "title": "Critical",
+          "type": "boolean"
+        },
+        "source_id": {
+          "default": "",
+          "maxLength": 100,
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_field": {
+          "default": "",
+          "maxLength": 200,
+          "title": "Source Field",
+          "type": "string"
+        },
+        "meaning": {
+          "maxLength": 2000,
+          "minLength": 3,
+          "title": "Meaning",
+          "type": "string"
+        }
+      },
+      "required": [
+        "stable_id",
+        "name",
+        "scope",
+        "dimension",
+        "data_type",
+        "value_type",
+        "event_semantics",
+        "meaning"
+      ],
+      "title": "ConditionInput",
+      "type": "object"
+    },
+    "ExperienceInput": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "case_version": {
+          "minimum": 1,
+          "title": "Case Version",
+          "type": "integer"
+        },
+        "title": {
+          "maxLength": 200,
+          "minLength": 2,
+          "title": "Title",
+          "type": "string"
+        },
+        "opinions": {
+          "items": {
+            "$ref": "#/$defs/Opinion"
+          },
+          "maxItems": 30,
+          "title": "Opinions",
+          "type": "array"
+        },
+        "material_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Material Ids",
+          "type": "array"
+        },
+        "labels": {
+          "items": {
+            "$ref": "#/$defs/ExpertLabel"
+          },
+          "maxItems": 100,
+          "title": "Labels",
+          "type": "array"
+        },
+        "conclusion": {
+          "default": "unverified",
+          "enum": [
+            "unverified",
+            "reviewed_experience",
+            "retest_supported",
+            "failed",
+            "normal_control"
+          ],
+          "title": "Conclusion",
+          "type": "string"
+        },
+        "outcome_notes": {
+          "default": "",
+          "maxLength": 10000,
+          "title": "Outcome Notes",
+          "type": "string"
+        },
+        "other_factors": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Other Factors",
+          "type": "array"
+        },
+        "feedback": {
+          "default": "",
+          "maxLength": 10000,
+          "title": "Feedback",
+          "type": "string"
+        },
+        "previous_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Previous Id"
+        }
+      },
+      "required": [
+        "case_id",
+        "case_version",
+        "title"
+      ],
+      "title": "ExperienceInput",
+      "type": "object"
+    },
+    "ExpertLabel": {
+      "additionalProperties": false,
+      "properties": {
+        "task": {
+          "enum": [
+            "post_inspection_diagnosis",
+            "pre_inspection_prediction"
+          ],
+          "title": "Task",
+          "type": "string"
+        },
+        "label_type": {
+          "enum": [
+            "inspection",
+            "root_cause",
+            "rectification_effect"
+          ],
+          "title": "Label Type",
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        },
+        "basis_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Basis Ids",
+          "type": "array"
+        },
+        "grade": {
+          "default": "hypothesis",
+          "enum": [
+            "hypothesis",
+            "expert_checked",
+            "retest_supported"
+          ],
+          "title": "Grade",
+          "type": "string"
+        },
+        "formed_at": {
+          "format": "date-time",
+          "title": "Formed At",
+          "type": "string"
+        },
+        "allow_evaluation": {
+          "default": false,
+          "title": "Allow Evaluation",
+          "type": "boolean"
+        },
+        "allow_training": {
+          "default": false,
+          "title": "Allow Training",
+          "type": "boolean"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 3,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "task",
+        "label_type",
+        "value",
+        "formed_at",
+        "reason"
+      ],
+      "title": "ExpertLabel",
+      "type": "object"
+    },
+    "HandoffInput": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "maxLength": 200,
+          "minLength": 2,
+          "title": "Title",
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/$defs/Applicability"
+        },
+        "stages": {
+          "items": {
+            "$ref": "#/$defs/HandoffStage"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "title": "Stages",
+          "type": "array"
+        },
+        "gaps": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Gaps",
+          "type": "array"
+        }
+      },
+      "required": [
+        "title",
+        "scope",
+        "stages"
+      ],
+      "title": "HandoffInput",
+      "type": "object"
+    },
+    "HandoffStage": {
+      "additionalProperties": false,
+      "properties": {
+        "segment": {
+          "enum": [
+            "device_to_server",
+            "server_to_platform",
+            "platform_processing"
+          ],
+          "title": "Segment",
+          "type": "string"
+        },
+        "owner": {
+          "maxLength": 120,
+          "minLength": 2,
+          "title": "Owner",
+          "type": "string"
+        },
+        "receiver": {
+          "maxLength": 120,
+          "minLength": 2,
+          "title": "Receiver",
+          "type": "string"
+        },
+        "location": {
+          "maxLength": 300,
+          "minLength": 2,
+          "title": "Location",
+          "type": "string"
+        },
+        "format": {
+          "maxLength": 300,
+          "minLength": 2,
+          "title": "Format",
+          "type": "string"
+        },
+        "authorization": {
+          "maxLength": 300,
+          "minLength": 2,
+          "title": "Authorization",
+          "type": "string"
+        },
+        "error_handling": {
+          "maxLength": 1000,
+          "minLength": 3,
+          "title": "Error Handling",
+          "type": "string"
+        },
+        "sample_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Sample Ids",
+          "type": "array"
+        },
+        "acceptance_evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Acceptance Evidence Ids",
+          "type": "array"
+        },
+        "state": {
+          "default": "unconfirmed",
+          "enum": [
+            "unconfirmed",
+            "fixture_validated",
+            "sample_validated",
+            "field_connected",
+            "field_accepted"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "segment",
+        "owner",
+        "receiver",
+        "location",
+        "format",
+        "authorization",
+        "error_handling"
+      ],
+      "title": "HandoffStage",
+      "type": "object"
+    },
+    "MetricCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "metric": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Metric",
+          "type": "string"
+        },
+        "operator": {
+          "enum": [
+            "gt",
+            "gte",
+            "lt",
+            "lte",
+            "eq",
+            "between",
+            "outside"
+          ],
+          "title": "Operator",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Value"
+        },
+        "upper": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Upper"
+        },
+        "unit": {
+          "default": "",
+          "maxLength": 40,
+          "title": "Unit",
+          "type": "string"
+        },
+        "value_type": {
+          "default": "measured",
+          "enum": [
+            "measured",
+            "setpoint",
+            "manual",
+            "derived"
+          ],
+          "title": "Value Type",
+          "type": "string"
+        },
+        "equipment_id": {
+          "default": "",
+          "maxLength": 120,
+          "title": "Equipment Id",
+          "type": "string"
+        },
+        "aggregation": {
+          "default": "last",
+          "enum": [
+            "last",
+            "mean",
+            "min",
+            "max"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "max_age_seconds": {
+          "default": 3600,
+          "maximum": 604800,
+          "minimum": 1,
+          "title": "Max Age Seconds",
+          "type": "integer"
+        },
+        "min_samples": {
+          "default": 1,
+          "maximum": 100000,
+          "minimum": 1,
+          "title": "Min Samples",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "metric",
+        "operator",
+        "value"
+      ],
+      "title": "MetricCondition",
+      "type": "object"
+    },
+    "Opinion": {
+      "additionalProperties": false,
+      "properties": {
+        "expert_name": {
+          "maxLength": 120,
+          "minLength": 2,
+          "title": "Expert Name",
+          "type": "string"
+        },
+        "dimension": {
+          "enum": [
+            "equipment",
+            "material",
+            "process",
+            "environment",
+            "management"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "hypothesis": {
+          "maxLength": 2000,
+          "minLength": 3,
+          "title": "Hypothesis",
+          "type": "string"
+        },
+        "support_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Support Ids",
+          "type": "array"
+        },
+        "counter_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Counter Ids",
+          "type": "array"
+        },
+        "checked_facts": {
+          "default": "",
+          "maxLength": 5000,
+          "title": "Checked Facts",
+          "type": "string"
+        },
+        "check_process": {
+          "default": "",
+          "maxLength": 5000,
+          "title": "Check Process",
+          "type": "string"
+        },
+        "applicability": {
+          "maxLength": 2000,
+          "minLength": 3,
+          "title": "Applicability",
+          "type": "string"
+        },
+        "unknowns": {
+          "default": "",
+          "maxLength": 2000,
+          "title": "Unknowns",
+          "type": "string"
+        },
+        "origin": {
+          "default": "human",
+          "enum": [
+            "human",
+            "model_draft"
+          ],
+          "title": "Origin",
+          "type": "string"
+        }
+      },
+      "required": [
+        "expert_name",
+        "dimension",
+        "hypothesis",
+        "applicability"
+      ],
+      "title": "Opinion",
+      "type": "object"
+    },
+    "ParameterWindow": {
+      "additionalProperties": false,
+      "properties": {
+        "min": {
+          "title": "Min",
+          "type": "number"
+        },
+        "max": {
+          "title": "Max",
+          "type": "number"
+        },
+        "unit": {
+          "maxLength": 40,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "min",
+        "max",
+        "unit"
+      ],
+      "title": "ParameterWindow",
+      "type": "object"
+    },
+    "RuleInput": {
+      "additionalProperties": false,
+      "properties": {
+        "dimension": {
+          "anyOf": [
+            {
+              "enum": [
+                "equipment",
+                "material",
+                "process",
+                "environment",
+                "management"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dimension"
+        },
+        "defects": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 300,
+          "title": "Defects",
+          "type": "array"
+        },
+        "aliases": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 300,
+          "title": "Aliases",
+          "type": "array"
+        },
+        "cause": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cause"
+        },
+        "required_metrics": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Required Metrics",
+          "type": "array"
+        },
+        "next_checks": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Next Checks",
+          "type": "array"
+        },
+        "relative_score": {
+          "default": 0,
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Relative Score",
+          "type": "number"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "$ref": "#/$defs/ParameterWindow"
+          },
+          "title": "Parameters",
+          "type": "object"
+        },
+        "trigger": {
+          "additionalProperties": true,
+          "title": "Trigger",
+          "type": "object"
+        },
+        "conditions": {
+          "items": {
+            "$ref": "#/$defs/MetricCondition"
+          },
+          "maxItems": 100,
+          "title": "Conditions",
+          "type": "array"
+        },
+        "counter_conditions": {
+          "items": {
+            "$ref": "#/$defs/MetricCondition"
+          },
+          "maxItems": 100,
+          "title": "Counter Conditions",
+          "type": "array"
+        },
+        "exclude_when_false": {
+          "default": false,
+          "title": "Exclude When False",
+          "type": "boolean"
+        }
+      },
+      "title": "RuleInput",
+      "type": "object"
+    },
+    "RuleProposal": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "maxLength": 200,
+          "minLength": 2,
+          "title": "Title",
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/$defs/Applicability"
+        },
+        "rule": {
+          "$ref": "#/$defs/RuleInput"
+        },
+        "definition_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Definition Ids",
+          "type": "array"
+        },
+        "experience_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Experience Ids",
+          "type": "array"
+        },
+        "sop_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Sop Ids",
+          "type": "array"
+        },
+        "rationale": {
+          "maxLength": 5000,
+          "minLength": 4,
+          "title": "Rationale",
+          "type": "string"
+        },
+        "previous_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Previous Id"
+        }
+      },
+      "required": [
+        "title",
+        "scope",
+        "rule",
+        "definition_ids",
+        "rationale"
+      ],
+      "title": "RuleProposal",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "payload": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExperienceInput"
+        },
+        {
+          "$ref": "#/$defs/ConditionInput"
+        },
+        {
+          "$ref": "#/$defs/RuleProposal"
+        },
+        {
+          "$ref": "#/$defs/HandoffInput"
+        }
+      ],
+      "title": "Payload"
+    }
+  },
+  "required": [
+    "version",
+    "payload"
+  ],
+  "title": "DraftSave",
+  "type": "object"
+}

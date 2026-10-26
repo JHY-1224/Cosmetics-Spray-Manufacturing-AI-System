@@ -1,0 +1,69 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "kind": {
+      "enum": [
+        "knowledge",
+        "route",
+        "definition",
+        "formulation",
+        "policy",
+        "bom"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "record_id": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Record Id",
+      "type": "string"
+    },
+    "target_nodes": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Target Nodes",
+      "type": "array"
+    },
+    "action": {
+      "default": "publish",
+      "enum": [
+        "publish",
+        "retire",
+        "rollback"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "expires_in_hours": {
+      "default": 24,
+      "maximum": 168,
+      "minimum": 1,
+      "title": "Expires In Hours",
+      "type": "integer"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 4,
+      "title": "Reason",
+      "type": "string"
+    },
+    "expected_hash": {
+      "default": "",
+      "maxLength": 64,
+      "title": "Expected Hash",
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind",
+    "record_id",
+    "target_nodes",
+    "reason"
+  ],
+  "title": "RolloutInput",
+  "type": "object"
+}

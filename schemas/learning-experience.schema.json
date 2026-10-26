@@ -1,0 +1,258 @@
+{
+  "$defs": {
+    "ExpertLabel": {
+      "additionalProperties": false,
+      "properties": {
+        "task": {
+          "enum": [
+            "post_inspection_diagnosis",
+            "pre_inspection_prediction"
+          ],
+          "title": "Task",
+          "type": "string"
+        },
+        "label_type": {
+          "enum": [
+            "inspection",
+            "root_cause",
+            "rectification_effect"
+          ],
+          "title": "Label Type",
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        },
+        "basis_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Basis Ids",
+          "type": "array"
+        },
+        "grade": {
+          "default": "hypothesis",
+          "enum": [
+            "hypothesis",
+            "expert_checked",
+            "retest_supported"
+          ],
+          "title": "Grade",
+          "type": "string"
+        },
+        "formed_at": {
+          "format": "date-time",
+          "title": "Formed At",
+          "type": "string"
+        },
+        "allow_evaluation": {
+          "default": false,
+          "title": "Allow Evaluation",
+          "type": "boolean"
+        },
+        "allow_training": {
+          "default": false,
+          "title": "Allow Training",
+          "type": "boolean"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 3,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "task",
+        "label_type",
+        "value",
+        "formed_at",
+        "reason"
+      ],
+      "title": "ExpertLabel",
+      "type": "object"
+    },
+    "Opinion": {
+      "additionalProperties": false,
+      "properties": {
+        "expert_name": {
+          "maxLength": 120,
+          "minLength": 2,
+          "title": "Expert Name",
+          "type": "string"
+        },
+        "dimension": {
+          "enum": [
+            "equipment",
+            "material",
+            "process",
+            "environment",
+            "management"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "hypothesis": {
+          "maxLength": 2000,
+          "minLength": 3,
+          "title": "Hypothesis",
+          "type": "string"
+        },
+        "support_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Support Ids",
+          "type": "array"
+        },
+        "counter_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Counter Ids",
+          "type": "array"
+        },
+        "checked_facts": {
+          "default": "",
+          "maxLength": 5000,
+          "title": "Checked Facts",
+          "type": "string"
+        },
+        "check_process": {
+          "default": "",
+          "maxLength": 5000,
+          "title": "Check Process",
+          "type": "string"
+        },
+        "applicability": {
+          "maxLength": 2000,
+          "minLength": 3,
+          "title": "Applicability",
+          "type": "string"
+        },
+        "unknowns": {
+          "default": "",
+          "maxLength": 2000,
+          "title": "Unknowns",
+          "type": "string"
+        },
+        "origin": {
+          "default": "human",
+          "enum": [
+            "human",
+            "model_draft"
+          ],
+          "title": "Origin",
+          "type": "string"
+        }
+      },
+      "required": [
+        "expert_name",
+        "dimension",
+        "hypothesis",
+        "applicability"
+      ],
+      "title": "Opinion",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "title": "Case Id",
+      "type": "string"
+    },
+    "case_version": {
+      "minimum": 1,
+      "title": "Case Version",
+      "type": "integer"
+    },
+    "title": {
+      "maxLength": 200,
+      "minLength": 2,
+      "title": "Title",
+      "type": "string"
+    },
+    "opinions": {
+      "items": {
+        "$ref": "#/$defs/Opinion"
+      },
+      "maxItems": 30,
+      "title": "Opinions",
+      "type": "array"
+    },
+    "material_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 50,
+      "title": "Material Ids",
+      "type": "array"
+    },
+    "labels": {
+      "items": {
+        "$ref": "#/$defs/ExpertLabel"
+      },
+      "maxItems": 100,
+      "title": "Labels",
+      "type": "array"
+    },
+    "conclusion": {
+      "default": "unverified",
+      "enum": [
+        "unverified",
+        "reviewed_experience",
+        "retest_supported",
+        "failed",
+        "normal_control"
+      ],
+      "title": "Conclusion",
+      "type": "string"
+    },
+    "outcome_notes": {
+      "default": "",
+      "maxLength": 10000,
+      "title": "Outcome Notes",
+      "type": "string"
+    },
+    "other_factors": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Other Factors",
+      "type": "array"
+    },
+    "feedback": {
+      "default": "",
+      "maxLength": 10000,
+      "title": "Feedback",
+      "type": "string"
+    },
+    "previous_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Id"
+    }
+  },
+  "required": [
+    "case_id",
+    "case_version",
+    "title"
+  ],
+  "title": "ExperienceInput",
+  "type": "object"
+}

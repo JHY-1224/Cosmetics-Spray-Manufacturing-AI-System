@@ -1,0 +1,122 @@
+{
+  "$defs": {
+    "ActualWeighing": {
+      "additionalProperties": false,
+      "properties": {
+        "material_id": {
+          "title": "Material Id",
+          "type": "string"
+        },
+        "inventory_id": {
+          "title": "Inventory Id",
+          "type": "string"
+        },
+        "quantity": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "gt": 0,
+          "max_digits": 28,
+          "title": "Quantity"
+        },
+        "unit": {
+          "enum": [
+            "kg",
+            "g",
+            "L",
+            "mL"
+          ],
+          "title": "Unit",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "deviation_reason": {
+          "default": "",
+          "maxLength": 2000,
+          "title": "Deviation Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "material_id",
+        "inventory_id",
+        "quantity",
+        "unit",
+        "evidence_ids"
+      ],
+      "title": "ActualWeighing",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "calculation_id": {
+      "title": "Calculation Id",
+      "type": "string"
+    },
+    "external_id": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "External Id",
+      "type": "string"
+    },
+    "mixed_at": {
+      "format": "date-time",
+      "title": "Mixed At",
+      "type": "string"
+    },
+    "order_line_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Order Line Id"
+    },
+    "weighings": {
+      "items": {
+        "$ref": "#/$defs/ActualWeighing"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Weighings",
+      "type": "array"
+    },
+    "actual_confirmation": {
+      "title": "Actual Confirmation",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "line_id",
+    "calculation_id",
+    "external_id",
+    "mixed_at",
+    "weighings",
+    "actual_confirmation"
+  ],
+  "title": "MixingInput",
+  "type": "object"
+}

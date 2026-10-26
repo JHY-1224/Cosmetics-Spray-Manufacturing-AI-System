@@ -1,0 +1,143 @@
+{
+  "$defs": {
+    "OrderLineInput": {
+      "additionalProperties": false,
+      "properties": {
+        "external_line": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "External Line",
+          "type": "string"
+        },
+        "product_id": {
+          "title": "Product Id",
+          "type": "string"
+        },
+        "product_version": {
+          "title": "Product Version",
+          "type": "string"
+        },
+        "quantity": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 9,
+          "gt": 0,
+          "max_digits": 28,
+          "title": "Quantity"
+        },
+        "unit": {
+          "maxLength": 20,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "bom_id": {
+          "title": "Bom Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "external_line",
+        "product_id",
+        "product_version",
+        "quantity",
+        "unit",
+        "bom_id"
+      ],
+      "title": "OrderLineInput",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "line_id": {
+      "title": "Line Id",
+      "type": "string"
+    },
+    "external_id": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "External Id",
+      "type": "string"
+    },
+    "customer_reference": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Customer Reference",
+      "type": "string"
+    },
+    "source_system": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Source System",
+      "type": "string"
+    },
+    "source_version": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Source Version",
+      "type": "string"
+    },
+    "due_at": {
+      "format": "date-time",
+      "title": "Due At",
+      "type": "string"
+    },
+    "currency": {
+      "maxLength": 10,
+      "minLength": 3,
+      "title": "Currency",
+      "type": "string"
+    },
+    "tax_basis": {
+      "enum": [
+        "tax_inclusive",
+        "tax_exclusive"
+      ],
+      "title": "Tax Basis",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "lines": {
+      "items": {
+        "$ref": "#/$defs/OrderLineInput"
+      },
+      "maxItems": 200,
+      "minItems": 1,
+      "title": "Lines",
+      "type": "array"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "line_id",
+    "external_id",
+    "customer_reference",
+    "source_system",
+    "source_version",
+    "due_at",
+    "currency",
+    "tax_basis",
+    "lines",
+    "version"
+  ],
+  "title": "OrderRevisionInput",
+  "type": "object"
+}

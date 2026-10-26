@@ -1,0 +1,200 @@
+{
+  "$defs": {
+    "Applicability": {
+      "additionalProperties": false,
+      "properties": {
+        "line_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Line Id",
+          "type": "string"
+        },
+        "process": {
+          "enum": [
+            "plastic_spray",
+            "glass_vacuum"
+          ],
+          "title": "Process",
+          "type": "string"
+        },
+        "product_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Ids",
+          "type": "array"
+        },
+        "product_families": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Families",
+          "type": "array"
+        },
+        "substrate_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Substrate Ids",
+          "type": "array"
+        },
+        "shapes": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Shapes",
+          "type": "array"
+        },
+        "step_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Step Ids",
+          "type": "array"
+        },
+        "route_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Route Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "line_id",
+        "process"
+      ],
+      "title": "Applicability",
+      "type": "object"
+    },
+    "DatasetItem": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "case_version": {
+          "minimum": 1,
+          "title": "Case Version",
+          "type": "integer"
+        },
+        "sample_role": {
+          "enum": [
+            "normal",
+            "abnormal",
+            "failed"
+          ],
+          "title": "Sample Role",
+          "type": "string"
+        },
+        "expected_match": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Match"
+        },
+        "label_basis": {
+          "maxLength": 2000,
+          "minLength": 3,
+          "title": "Label Basis",
+          "type": "string"
+        },
+        "decision_time": {
+          "format": "date-time",
+          "title": "Decision Time",
+          "type": "string"
+        },
+        "label_time": {
+          "format": "date-time",
+          "title": "Label Time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "case_id",
+        "case_version",
+        "sample_role",
+        "label_basis",
+        "decision_time",
+        "label_time"
+      ],
+      "title": "DatasetItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "maxLength": 200,
+      "minLength": 2,
+      "title": "Title",
+      "type": "string"
+    },
+    "scope": {
+      "$ref": "#/$defs/Applicability"
+    },
+    "split": {
+      "enum": [
+        "functional",
+        "development",
+        "validation",
+        "locked_test"
+      ],
+      "title": "Split",
+      "type": "string"
+    },
+    "task": {
+      "default": "post_inspection_diagnosis",
+      "enum": [
+        "post_inspection_diagnosis",
+        "pre_inspection_prediction"
+      ],
+      "title": "Task",
+      "type": "string"
+    },
+    "items": {
+      "items": {
+        "$ref": "#/$defs/DatasetItem"
+      },
+      "maxItems": 200,
+      "minItems": 1,
+      "title": "Items",
+      "type": "array"
+    },
+    "usage_rights": {
+      "maxLength": 2000,
+      "minLength": 4,
+      "title": "Usage Rights",
+      "type": "string"
+    },
+    "target_definition": {
+      "maxLength": 1000,
+      "minLength": 3,
+      "title": "Target Definition",
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "scope",
+    "split",
+    "items",
+    "usage_rights",
+    "target_definition"
+  ],
+  "title": "DatasetInput",
+  "type": "object"
+}

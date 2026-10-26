@@ -1,0 +1,2 @@
+# Optional official SDK, MIT. No GPU stack. Install in a dedicated channel environment.
+lark-oapi==1.7.5

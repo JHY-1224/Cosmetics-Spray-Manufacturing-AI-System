@@ -1,0 +1,20 @@
+{
+  "suite": "cosmetics-dev60-v1-20261025",
+  "case_count": 60,
+  "categories": {
+    "evidence_reading": 12,
+    "general_regression": 12,
+    "quantitative_json": 12,
+    "safety_permissions": 12,
+    "workflow": 12
+  },
+  "json_exact_cases": 24,
+  "schema_only_cases": 1,
+  "training_source_overlapping_cases": 4,
+  "independent_expert_holdout": false,
+  "expert_reviewed": false,
+  "authoring": "assistant-authored synthetic development tests; not model/expert validated",
+  "pending_rights_pool_used": false,
+  "cases_sha256": "d526904662b6fe0d10f1065d6c0c2860ea5d486f2f15ced2b78ae06f0c4d75c6",
+  "train_sha256": "02a7d13f9a19753e8843182f364d4269e6ec5a4b870e118b7d3d4bd411e43bd9"
+}

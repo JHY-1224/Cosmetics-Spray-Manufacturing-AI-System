@@ -1,0 +1,367 @@
+{
+  "properties": {
+    "mode": {
+      "default": "demo",
+      "enum": [
+        "demo",
+        "integration",
+        "production"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "node_role": {
+      "default": "site",
+      "enum": [
+        "center",
+        "site"
+      ],
+      "title": "Node Role",
+      "type": "string"
+    },
+    "tenant_id": {
+      "default": "demo-customer",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "site_id": {
+      "default": "factory-a",
+      "title": "Site Id",
+      "type": "string"
+    },
+    "site_timezone": {
+      "default": "Asia/Shanghai",
+      "title": "Site Timezone",
+      "type": "string"
+    },
+    "node_id": {
+      "default": "site-a",
+      "title": "Node Id",
+      "type": "string"
+    },
+    "database_url": {
+      "default": "sqlite:///var/site.db",
+      "title": "Database Url",
+      "type": "string"
+    },
+    "migration_database_url": {
+      "default": "",
+      "title": "Migration Database Url",
+      "type": "string"
+    },
+    "data_dir": {
+      "default": "var",
+      "format": "path",
+      "title": "Data Dir",
+      "type": "string"
+    },
+    "session_hours": {
+      "default": 8,
+      "title": "Session Hours",
+      "type": "integer"
+    },
+    "offline_auth_hours": {
+      "default": 24,
+      "title": "Offline Auth Hours",
+      "type": "integer"
+    },
+    "cookie_secure": {
+      "default": false,
+      "title": "Cookie Secure",
+      "type": "boolean"
+    },
+    "trusted_origins": {
+      "default": [
+        "http://127.0.0.1:8000",
+        "http://localhost:8000",
+        "http://localhost:5173"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "Trusted Origins",
+      "type": "array"
+    },
+    "approved_hosts": {
+      "default": [
+        "127.0.0.1",
+        "localhost"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "Approved Hosts",
+      "type": "array"
+    },
+    "storage_backend": {
+      "default": "local",
+      "enum": [
+        "local",
+        "s3"
+      ],
+      "title": "Storage Backend",
+      "type": "string"
+    },
+    "s3_endpoint": {
+      "default": "",
+      "title": "S3 Endpoint",
+      "type": "string"
+    },
+    "s3_bucket": {
+      "default": "quality-evidence",
+      "title": "S3 Bucket",
+      "type": "string"
+    },
+    "s3_access_key": {
+      "default": "",
+      "title": "S3 Access Key",
+      "type": "string"
+    },
+    "s3_secret_key": {
+      "default": "",
+      "title": "S3 Secret Key",
+      "type": "string"
+    },
+    "rabbitmq_url": {
+      "default": "",
+      "title": "Rabbitmq Url",
+      "type": "string"
+    },
+    "center_url": {
+      "default": "",
+      "title": "Center Url",
+      "type": "string"
+    },
+    "sync_token": {
+      "default": "",
+      "title": "Sync Token",
+      "type": "string"
+    },
+    "package_secret": {
+      "default": "",
+      "title": "Package Secret",
+      "type": "string"
+    },
+    "package_public_key": {
+      "default": "",
+      "title": "Package Public Key",
+      "type": "string"
+    },
+    "center_delegations": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "default": {},
+      "title": "Center Delegations",
+      "type": "object"
+    },
+    "identity_bindings": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "default": {},
+      "title": "Identity Bindings",
+      "type": "object"
+    },
+    "local_recovery_key": {
+      "default": "",
+      "title": "Local Recovery Key",
+      "type": "string"
+    },
+    "model_url": {
+      "default": "",
+      "title": "Model Url",
+      "type": "string"
+    },
+    "model_name": {
+      "default": "",
+      "title": "Model Name",
+      "type": "string"
+    },
+    "model_api_key": {
+      "default": "",
+      "title": "Model Api Key",
+      "type": "string"
+    },
+    "model_approved": {
+      "default": false,
+      "title": "Model Approved",
+      "type": "boolean"
+    },
+    "model_external": {
+      "default": false,
+      "title": "Model External",
+      "type": "boolean"
+    },
+    "model_timeout": {
+      "default": 20,
+      "title": "Model Timeout",
+      "type": "number"
+    },
+    "model_max_output_tokens": {
+      "default": 2500,
+      "maximum": 8192,
+      "minimum": 256,
+      "title": "Model Max Output Tokens",
+      "type": "integer"
+    },
+    "model_concurrency": {
+      "default": 2,
+      "title": "Model Concurrency",
+      "type": "integer"
+    },
+    "learning_concurrency": {
+      "default": 2,
+      "maximum": 4,
+      "minimum": 1,
+      "title": "Learning Concurrency",
+      "type": "integer"
+    },
+    "learning_timeout": {
+      "default": 30,
+      "maximum": 120,
+      "minimum": 2,
+      "title": "Learning Timeout",
+      "type": "integer"
+    },
+    "learning_queue_limit": {
+      "default": 100,
+      "maximum": 10000,
+      "minimum": 1,
+      "title": "Learning Queue Limit",
+      "type": "integer"
+    },
+    "digital_concurrency": {
+      "default": 2,
+      "maximum": 4,
+      "minimum": 1,
+      "title": "Digital Concurrency",
+      "type": "integer"
+    },
+    "digital_timeout": {
+      "default": 30,
+      "maximum": 120,
+      "minimum": 2,
+      "title": "Digital Timeout",
+      "type": "integer"
+    },
+    "digital_queue_limit": {
+      "default": 100,
+      "maximum": 10000,
+      "minimum": 1,
+      "title": "Digital Queue Limit",
+      "type": "integer"
+    },
+    "business_send_enabled": {
+      "default": false,
+      "title": "Business Send Enabled",
+      "type": "boolean"
+    },
+    "business_timeout": {
+      "default": 10,
+      "maximum": 30,
+      "minimum": 1,
+      "title": "Business Timeout",
+      "type": "integer"
+    },
+    "business_queue_limit": {
+      "default": 100,
+      "maximum": 10000,
+      "minimum": 1,
+      "title": "Business Queue Limit",
+      "type": "integer"
+    },
+    "model_allowed_data": {
+      "default": [
+        "process_labels",
+        "evidence_references"
+      ],
+      "items": {
+        "enum": [
+          "process_labels",
+          "evidence_references",
+          "candidates",
+          "aggregated_features",
+          "case_notes",
+          "approved_knowledge",
+          "embedding_query"
+        ],
+        "type": "string"
+      },
+      "title": "Model Allowed Data",
+      "type": "array"
+    },
+    "model_cost_per_1k": {
+      "default": 0,
+      "title": "Model Cost Per 1K",
+      "type": "number"
+    },
+    "max_case_tokens": {
+      "default": 50000,
+      "title": "Max Case Tokens",
+      "type": "integer"
+    },
+    "max_case_cost": {
+      "default": 25,
+      "title": "Max Case Cost",
+      "type": "number"
+    },
+    "max_upload_bytes": {
+      "default": 10485760,
+      "title": "Max Upload Bytes",
+      "type": "integer"
+    },
+    "max_investigations": {
+      "default": 3,
+      "title": "Max Investigations",
+      "type": "integer"
+    },
+    "max_case_hours": {
+      "default": 168,
+      "title": "Max Case Hours",
+      "type": "integer"
+    },
+    "max_model_calls": {
+      "default": 6,
+      "title": "Max Model Calls",
+      "type": "integer"
+    },
+    "cache_max_bytes": {
+      "default": 2147483648,
+      "title": "Cache Max Bytes",
+      "type": "integer"
+    },
+    "retention_days": {
+      "default": 90,
+      "title": "Retention Days",
+      "type": "integer"
+    },
+    "warning_ratio": {
+      "default": 0.8,
+      "title": "Warning Ratio",
+      "type": "number"
+    },
+    "otlp_endpoint": {
+      "default": "",
+      "title": "Otlp Endpoint",
+      "type": "string"
+    },
+    "embedding_url": {
+      "default": "",
+      "title": "Embedding Url",
+      "type": "string"
+    },
+    "embedding_model": {
+      "default": "",
+      "title": "Embedding Model",
+      "type": "string"
+    },
+    "embedding_dimensions": {
+      "default": 384,
+      "title": "Embedding Dimensions",
+      "type": "integer"
+    }
+  },
+  "title": "Settings",
+  "type": "object"
+}

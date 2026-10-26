@@ -1,0 +1,221 @@
+{
+  "$defs": {
+    "Applicability": {
+      "additionalProperties": false,
+      "properties": {
+        "line_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Line Id",
+          "type": "string"
+        },
+        "process": {
+          "enum": [
+            "plastic_spray",
+            "glass_vacuum"
+          ],
+          "title": "Process",
+          "type": "string"
+        },
+        "product_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Ids",
+          "type": "array"
+        },
+        "product_families": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Product Families",
+          "type": "array"
+        },
+        "substrate_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Substrate Ids",
+          "type": "array"
+        },
+        "shapes": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Shapes",
+          "type": "array"
+        },
+        "step_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Step Ids",
+          "type": "array"
+        },
+        "route_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Route Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "line_id",
+        "process"
+      ],
+      "title": "Applicability",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "stable_id": {
+      "pattern": "^[a-zA-Z][a-zA-Z0-9_.-]{0,99}$",
+      "title": "Stable Id",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 200,
+      "minLength": 2,
+      "title": "Name",
+      "type": "string"
+    },
+    "scope": {
+      "$ref": "#/$defs/Applicability"
+    },
+    "dimension": {
+      "enum": [
+        "equipment",
+        "material",
+        "process",
+        "environment",
+        "management"
+      ],
+      "title": "Dimension",
+      "type": "string"
+    },
+    "data_type": {
+      "enum": [
+        "number",
+        "enum",
+        "boolean",
+        "text"
+      ],
+      "title": "Data Type",
+      "type": "string"
+    },
+    "unit": {
+      "default": "",
+      "maxLength": 40,
+      "title": "Unit",
+      "type": "string"
+    },
+    "allowed_values": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 200,
+      "title": "Allowed Values",
+      "type": "array"
+    },
+    "minimum": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Minimum"
+    },
+    "maximum": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Maximum"
+    },
+    "value_type": {
+      "enum": [
+        "measured",
+        "setpoint",
+        "manual",
+        "derived",
+        "uncollected"
+      ],
+      "title": "Value Type",
+      "type": "string"
+    },
+    "event_semantics": {
+      "maxLength": 500,
+      "minLength": 2,
+      "title": "Event Semantics",
+      "type": "string"
+    },
+    "quality_required": {
+      "default": "Good",
+      "enum": [
+        "Good",
+        "manual_verified"
+      ],
+      "title": "Quality Required",
+      "type": "string"
+    },
+    "max_age_seconds": {
+      "default": 3600,
+      "maximum": 604800,
+      "minimum": 1,
+      "title": "Max Age Seconds",
+      "type": "integer"
+    },
+    "critical": {
+      "default": false,
+      "title": "Critical",
+      "type": "boolean"
+    },
+    "source_id": {
+      "default": "",
+      "maxLength": 100,
+      "title": "Source Id",
+      "type": "string"
+    },
+    "source_field": {
+      "default": "",
+      "maxLength": 200,
+      "title": "Source Field",
+      "type": "string"
+    },
+    "meaning": {
+      "maxLength": 2000,
+      "minLength": 3,
+      "title": "Meaning",
+      "type": "string"
+    }
+  },
+  "required": [
+    "stable_id",
+    "name",
+    "scope",
+    "dimension",
+    "data_type",
+    "value_type",
+    "event_semantics",
+    "meaning"
+  ],
+  "title": "ConditionInput",
+  "type": "object"
+}

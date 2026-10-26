@@ -1,0 +1,61 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "site_id": {
+      "default": "",
+      "maxLength": 80,
+      "title": "Site Id",
+      "type": "string"
+    },
+    "line_id": {
+      "default": "",
+      "maxLength": 100,
+      "title": "Line Id",
+      "type": "string"
+    },
+    "product_id": {
+      "default": "",
+      "maxLength": 120,
+      "title": "Product Id",
+      "type": "string"
+    },
+    "process": {
+      "default": "",
+      "enum": [
+        "",
+        "plastic_spray",
+        "glass_vacuum"
+      ],
+      "title": "Process",
+      "type": "string"
+    },
+    "start": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Start"
+    },
+    "end": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "End"
+    }
+  },
+  "title": "QueryScope",
+  "type": "object"
+}
