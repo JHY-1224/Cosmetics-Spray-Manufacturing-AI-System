@@ -57,3 +57,22 @@ def conversation(row):
             content.append({'type': 'image', 'image': image.convert('RGB')})
     return {'messages': [{'role': 'user', 'content': content},
                          {'role': 'assistant', 'content': [{'type': 'text', 'text': row['answer']}]}]}
+
+
+def _conversation_batch(batch):
+    """HF transforms receive batches, even for a single integer index."""
+    return {'messages': [conversation({'question': question, 'answer': answer, '_paths': paths})['messages']
+                         for question, answer, paths in zip(
+                             batch['question'], batch['answer'], batch['_paths'], strict=True)]}
+
+
+def training_dataset(rows):
+    """Use TRL's required HF Dataset type; decode images lazily for the collator.
+
+    Store only text/paths in Arrow. PIL objects cannot be inferred as Arrow columns.
+    Keep skip_prepare_dataset=True and remove_unused_columns=False in SFTConfig.
+    """
+    from datasets import Dataset
+    data = Dataset.from_list([{'question': row['question'], 'answer': row['answer'],
+                               '_paths': [str(path) for path in row['_paths']]} for row in rows])
+    return data.with_transform(_conversation_batch)

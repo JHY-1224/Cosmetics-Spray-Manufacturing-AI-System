@@ -22,6 +22,8 @@
 
 ```bash
 cd /root/autodl-tmp/code/Cosmetics-Spray-Manufacturing-AI-System
+# 本次已验证的训练环境；不要用 base Python 代替
+source /root/autodl-tmp/envs/cosmetics-unsloth/bin/activate
 ```
 
 使用你已经配置的Unsloth环境执行训练；vLLM环境执行推理；Web使用独立轻量环境。
@@ -154,4 +156,8 @@ test -d /root/autodl-tmp/code/fine-tuning-project2-v4 && rm -rf -- /root/autodl-
 
 ## 当前验证范围
 
-本机已验证数据合同、原图哈希、路径约束、来源分组和服务目录逻辑。尚未在你的4090执行本次CUDA训练或双模型vLLM容量验收；不宣称已经训练好、已经部署或具备指定高并发吞吐。
+本机已验证数据合同、原图哈希、路径约束、来源分组和服务目录逻辑。2026-10-26云端已验证Unsloth导入、CUDA autograd及8B权重加载；首次冒烟在训练器初始化时因旧 VisionRows 类型被拒绝，尚未完成优化器步骤。修复后的HF Dataset接口已在相同云端datasets 4.8.5上检查全部82条图片/答案与批量取样。真实训练及双模型vLLM容量仍待验收。
+
+### 旧版 VisionRows 报错
+
+遇到 `train_dataset must be a Dataset or IterableDataset, got VisionRows`，在项目根目录执行 `git pull --ff-only`，然后重跑上面的8B单步冒烟命令。新版使用HF Dataset和按需图片转换。无需重装依赖、重新下载基座、重解压数据或修改unsloth_compiled_cache；失败run原样保留，新运行另建目录。成功须以训练结束打印 `Saved vision adapter:` 为准，权重加载到100%还不代表完成训练。

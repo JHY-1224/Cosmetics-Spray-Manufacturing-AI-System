@@ -28,6 +28,11 @@
 
 不能只拿图片文件名、OCR自动结果或网页图片标题充当完整的正确答案。
 
+训练入口通过 `dataset.py:training_dataset` 构建真正的 Hugging Face `datasets.Dataset`。
+Arrow 只保存问题、答案和图片路径，`with_transform` 在取样时打开 RGB 图片并生成上述 messages；支持单条、批量索引和 select。
+保持 `skip_prepare_dataset=True`、`remove_unused_columns=False`，由 Unsloth 视觉 collator 处理图片和回答监督。
+不能把仅有 `__len__` / `__getitem__` 的普通 Python 类传给 TRL 1.15.0；它会在训练器初始化时拒绝。
+
 ## 本轮整理结果
 
 - 本地完整开发包：`local_training/qwen-vl-20261026/`，74张图片、82条问答。

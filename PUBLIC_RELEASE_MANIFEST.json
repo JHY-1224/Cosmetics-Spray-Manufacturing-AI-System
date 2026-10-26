@@ -18,8 +18,8 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 352288,
-      "sha256": "34603b9d224b608ad2fec73aac419115a3582a755a3fc8312d5edf6dbdfd2e4e"
+      "bytes": 354254,
+      "sha256": "0e0177d743ef4e74cf3ca552fb83beb9821e6b964de3a9915972f125c20b983a"
     },
     {
       "path": "DATA_LICENSE.md",
@@ -43,8 +43,8 @@
     },
     {
       "path": "TRAINING_ARCHITECTURE.md",
-      "bytes": 4074,
-      "sha256": "3db953c30c4d92937eeed29c1d6cc072a657d1e1bac0c1b3961c02ecc50ec04a"
+      "bytes": 4587,
+      "sha256": "4da59307f8accc8e8453b141f3a31a42d80c56449380c7a3d26d762b2f072b00"
     },
     {
       "path": "alembic.ini",
@@ -593,8 +593,8 @@
     },
     {
       "path": "day1/multimodal/dataset.py",
-      "bytes": 2973,
-      "sha256": "4342390d2f5fc645688915161757dd2ebca7d68ff5e336c84f62fde2ba2e0099"
+      "bytes": 3903,
+      "sha256": "8a141c8567a2fe76de3cbb0ef770992e343170eb188fb134fd93d79cd5f5fb9f"
     },
     {
       "path": "day1/multimodal/prepare_images.py",
@@ -603,8 +603,8 @@
     },
     {
       "path": "day1/multimodal/train_vl.py",
-      "bytes": 6439,
-      "sha256": "4954380fcca91233955b851d75f9962a132b285184691f531a69d7f1f019acd2"
+      "bytes": 6315,
+      "sha256": "08dc5d230586063dd94770636d8d67827876843e36507dadba236fea9f4abbab"
     },
     {
       "path": "day1/multimodal/verify_vl.py",
@@ -628,8 +628,8 @@
     },
     {
       "path": "day1/tests/test_multimodal.py",
-      "bytes": 2596,
-      "sha256": "a7f848f932f2859b5947aa5dd5376222c92d9e1878e26092d0e513d9d22d9732"
+      "bytes": 4384,
+      "sha256": "1f44426ddd8cd9c2a2cd16f4c412ea5af5ce8aa9937ba269991d59f34c943c5c"
     },
     {
       "path": "day1/tests/test_pipeline.py",
@@ -723,8 +723,8 @@
     },
     {
       "path": "docs/CLOUD_QUICKSTART.md",
-      "bytes": 9236,
-      "sha256": "eab589337c5292a654e2a20b94c08daa9458db5163040811ef53ee23addde4b5"
+      "bytes": 10049,
+      "sha256": "bc1ed18b1cc06fac02bb7f8cc62cec07fff62c972b616e9a3a938b329f7d588b"
     },
     {
       "path": "docs/DATA_LICENSE.md",
@@ -743,8 +743,8 @@
     },
     {
       "path": "docs/MULTIMODAL_TRAINING.md",
-      "bytes": 4074,
-      "sha256": "3db953c30c4d92937eeed29c1d6cc072a657d1e1bac0c1b3961c02ecc50ec04a"
+      "bytes": 4587,
+      "sha256": "4da59307f8accc8e8453b141f3a31a42d80c56449380c7a3d26d762b2f072b00"
     },
     {
       "path": "docs/PROJECT_MANUAL.md",
@@ -758,13 +758,13 @@
     },
     {
       "path": "docs/RELEASE_STATUS.md",
-      "bytes": 1423,
-      "sha256": "9ceec04fcb3100f2a6b552304eb97ca7a0a1c2a328251816803d96de30d68a4f"
+      "bytes": 1967,
+      "sha256": "ebc815d46dff8962ead29eeb928a7bdc72419da2dc541840cdca37b26fe450ca"
     },
     {
       "path": "docs/SOURCE_INDEX.md",
-      "bytes": 26522,
-      "sha256": "a67bcf610a4b8063aa44795275a15928892e6e15911ecab284fba62050a7a8c0"
+      "bytes": 26519,
+      "sha256": "66b45b4628b162d624b615259bfccc8e19ee836141af38e375055206cc3b5ebc"
     },
     {
       "path": "docs/VALIDATION_AND_DELIVERY.md",
@@ -2193,7 +2193,7 @@
     }
   ],
   "public_source_files": 438,
-  "source_bytes": 25878336,
+  "source_bytes": 25885276,
   "models": "official manifests only; cloud weights external",
   "data": {
     "text_rows": 36,

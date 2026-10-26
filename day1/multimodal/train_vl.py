@@ -13,7 +13,7 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from dataset import load_records, conversation
+from dataset import load_records, training_dataset
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -77,10 +77,7 @@ def main():
         model, processor, max_seq_length=1_000_000, resize='max',
         train_on_responses_only=True, instruction_part='<|im_start|>user\n',
         response_part='<|im_start|>assistant\n', completion_only_loss=True)
-    class VisionRows:
-        def __len__(self): return len(train)
-        def __getitem__(self, index): return conversation(train[index])
-    data = VisionRows()
+    data = training_dataset(train)
     # Validate every expanded image/text sequence and supervision before allocating a run.
     for i in range(len(data)):
         batch = collator([data[i]])

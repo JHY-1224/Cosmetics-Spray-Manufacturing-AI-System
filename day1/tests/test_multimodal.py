@@ -34,6 +34,44 @@ def test_image_pixels_loaded_not_just_filename(sample):
     assert result['messages'][1]['content'][0]['text']==row['answer']
 
 
+def test_training_dataset_uses_hf_type_and_lazy_pixels(sample, monkeypatch):
+    hf = pytest.importorskip('datasets', reason='HF dataset contract requires the training environment')
+    path, row = sample
+    write(path, [row])
+    rows = dataset.load_records(path)
+    original = dataset.conversation
+    calls = []
+    def tracked(value):
+        calls.append(value)
+        return original(value)
+    monkeypatch.setattr(dataset, 'conversation', tracked)
+    data = dataset.training_dataset(rows)
+    assert isinstance(data, hf.Dataset)
+    assert not calls  # Do not eagerly decode the full collection into memory.
+    item = data[0]
+    assert len(calls) == 1
+    assert set(item) == {'messages'}
+    image = item['messages'][0]['content'][1]['image']
+    assert image.mode == 'RGB' and image.getpixel((0, 0)) == (255, 255, 255)
+    assert item['messages'][1]['content'][0]['text'] == row['answer']
+
+
+def test_training_dataset_batch_select_and_multiple_images(sample):
+    pytest.importorskip('datasets', reason='HF dataset contract requires the training environment')
+    path, row = sample
+    write(path, [row])
+    first = dataset.load_records(path)[0]
+    other = {**first, 'question': '另一问题', 'answer': '另一答案', '_paths': first['_paths'] * 2}
+    data = dataset.training_dataset([first, other])
+    batch = data[[1, 0]]
+    assert len(batch['messages']) == 2
+    assert batch['messages'][0][0]['content'][0]['text'] == '另一问题'
+    assert len(batch['messages'][0][0]['content']) == 3
+    assert all(isinstance(c['image'], Image.Image) for c in batch['messages'][0][0]['content'][1:])
+    assert data.select([1])[0]['messages'][1]['content'][0]['text'] == '另一答案'
+    assert next(iter(data))['messages'][0]['content'][0]['text'] == row['question']
+
+
 def test_unreviewed_requires_development_opt_in(sample):
     path,row=sample;row['expert_reviewed']=False;write(path,[row])
     with pytest.raises(ValueError,match='expert review'): dataset.load_records(path)

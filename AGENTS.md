@@ -4059,3 +4059,11 @@ Web另用轻量环境启动`run_assistant.py --env-file assistant_app/.env`。�
 - 云端入口默认值补充：9B包装训练入口和8B入口均默认读取/root/autodl-tmp/models；Mac检查必须显式传本地--model-dir。前端分组改为“自部署微调服务”和“基座预览”，避免将Mac示范模型误称生产部署。单组Qwen轻量级服务包含两组件。
 - 完整训练包归档为reports/public-release-20261026/qwen-vl-full-20261026.tar.gz，19,861,779字节，SHA256为7baeb891d8da0d852db5822d1bac242d1ee7c3904c17143cd3024554621fadcf；只含74图和82条开发标签及审核页，不含权重或密钥。同字节归档及.sha256校验文件已纳入仓库根目录，Git clone直接获取；旧版git pull --ff-only。云端校验及不覆盖旧文件的解压步骤见CLOUD_QUICKSTART.md。此前“另行手工上传”的流程已被此次明确要求替代。
 - 本轮前端TypeScript和Vite构建通过；生产GPU尚未执行，不能据此前端构建或mock目录测试宣称模型训练/加载成功。
+
+### 37.8 云端环境与视觉Dataset兼容修复（2026-10-26后续）
+
+已通过Cursor现有SSH终端核验训练环境 `/root/autodl-tmp/envs/cosmetics-unsloth/bin/python`，激活命令为 `source /root/autodl-tmp/envs/cosmetics-unsloth/bin/activate`。复用原torch 2.8.0+cu128、torchvision 0.23.0+cu128、triton 3.4.0及CUDA依赖；Unsloth/unsloth_zoo 2026.10.8、transformers 5.17.0、trl 1.15.0、datasets 4.8.5，xformers按兼容约束使用0.0.32.post2。此为保留现有GPU栈的云端兼容配置，不能误称与原uv.lock的全部GPU版本相同，也不据此改写锁文件。pip check、Unsloth导入和CUDA autograd已通过；GPU实际报告47.373 GiB显存。两基座已由用户终端完成官方文件校验。
+
+用户首次8B单步冒烟已加载750/750权重，但SFTTrainer在初始化时拒绝普通Python类VisionRows；尚未开始成功的优化器步骤。修复在 `dataset.py:training_dataset/_conversation_batch`：使用HF Dataset.from_list保存可序列化文本和路径，再with_transform按单条/批量请求构造真实RGB图片messages；train_vl.py使用此数据集。不能改成torch Dataset来绕过，因为TRL 1.15.0核验的是datasets.Dataset/IterableDataset。保留逐条展开长度/有效标签检查、assistant监督、skip_prepare_dataset=True和remove_unused_columns=False，不改数据或权重，不修改生成缓存。
+
+修复后的Dataset接口已在现有云端datasets 4.8.5验证全部82条图片/答案、批量索引和select；检查只在内存执行，没有启动GPU训练或覆盖云端源文件。本机图像合同7项通过，新增HF接口回归2项因轻量环境没有datasets而跳过；云端全量接口检查另有实际终端结果。用户自行 `git pull --ff-only` 后重跑原8B --max-steps 1命令，成功须打印Saved vision adapter。失败run保留，重试另建run，不重装或重下模型。CUDA训练、LoRA产物与vLLM服务仍须后续真实验证。

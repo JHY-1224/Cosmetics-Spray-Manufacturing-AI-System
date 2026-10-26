@@ -262,6 +262,8 @@
 
 - L7: `load_records`
 - L52: `conversation`
+- L62: `_conversation_batch`
+- L69: `training_dataset`
 
 ## day1/multimodal/prepare_images.py
 
@@ -271,9 +273,6 @@
 ## day1/multimodal/train_vl.py
 
 - L21: `main`
-- L80: `VisionRows`
-- L81: `__len__`
-- L82: `__getitem__`
 
 ## day1/multimodal/verify_vl.py
 
