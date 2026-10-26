@@ -18,13 +18,13 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 351863,
-      "sha256": "2b5221c6d01734bb621a6eac26f6043aead95a6acef22e2fdc8b42be311bad98"
+      "bytes": 352288,
+      "sha256": "34603b9d224b608ad2fec73aac419115a3582a755a3fc8312d5edf6dbdfd2e4e"
     },
     {
       "path": "DATA_LICENSE.md",
-      "bytes": 1610,
-      "sha256": "e75fbddf93153acf3816689087d3a8e8909302010d99b16b667b32eb10b1bd81"
+      "bytes": 1878,
+      "sha256": "5671b2357cdbf469b81891030a4a36624654978b325d2275a88b94e1af89de04"
     },
     {
       "path": "Dockerfile",
@@ -38,13 +38,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 4158,
-      "sha256": "1a1df98fa3355bb1d70bd18edafa125e9a63ea155acd8261da538c4f415deee1"
+      "bytes": 4471,
+      "sha256": "cbd8a44691348e2206cfe02bd2790d8254783150bbde2733badd4d2f4cee3a23"
     },
     {
       "path": "TRAINING_ARCHITECTURE.md",
-      "bytes": 3973,
-      "sha256": "f9147036e4c8f813003803f6b9196b1c6a97034a6c891b08d3a05567e0775c71"
+      "bytes": 4074,
+      "sha256": "3db953c30c4d92937eeed29c1d6cc072a657d1e1bac0c1b3961c02ecc50ec04a"
     },
     {
       "path": "alembic.ini",
@@ -723,13 +723,13 @@
     },
     {
       "path": "docs/CLOUD_QUICKSTART.md",
-      "bytes": 8837,
-      "sha256": "c05ba7ae99c2a80a501f526420c0872dcf0c0d19bd3861824ecce31bfd53d0a4"
+      "bytes": 9236,
+      "sha256": "eab589337c5292a654e2a20b94c08daa9458db5163040811ef53ee23addde4b5"
     },
     {
       "path": "docs/DATA_LICENSE.md",
-      "bytes": 1610,
-      "sha256": "e75fbddf93153acf3816689087d3a8e8909302010d99b16b667b32eb10b1bd81"
+      "bytes": 1878,
+      "sha256": "5671b2357cdbf469b81891030a4a36624654978b325d2275a88b94e1af89de04"
     },
     {
       "path": "docs/DEPLOYMENT_AND_OPERATIONS.md",
@@ -743,8 +743,8 @@
     },
     {
       "path": "docs/MULTIMODAL_TRAINING.md",
-      "bytes": 3973,
-      "sha256": "f9147036e4c8f813003803f6b9196b1c6a97034a6c891b08d3a05567e0775c71"
+      "bytes": 4074,
+      "sha256": "3db953c30c4d92937eeed29c1d6cc072a657d1e1bac0c1b3961c02ecc50ec04a"
     },
     {
       "path": "docs/PROJECT_MANUAL.md",
@@ -753,18 +753,18 @@
     },
     {
       "path": "docs/PUBLIC_README.md",
-      "bytes": 4158,
-      "sha256": "1a1df98fa3355bb1d70bd18edafa125e9a63ea155acd8261da538c4f415deee1"
+      "bytes": 4471,
+      "sha256": "cbd8a44691348e2206cfe02bd2790d8254783150bbde2733badd4d2f4cee3a23"
     },
     {
       "path": "docs/RELEASE_STATUS.md",
-      "bytes": 1366,
-      "sha256": "6a7f81e268777bd68998cc367ef79e98a9844ebc67b70603fa8ab1082486932f"
+      "bytes": 1423,
+      "sha256": "9ceec04fcb3100f2a6b552304eb97ca7a0a1c2a328251816803d96de30d68a4f"
     },
     {
       "path": "docs/SOURCE_INDEX.md",
       "bytes": 26522,
-      "sha256": "669cca8fe758ef02133e53c4fe8f8b8a2998302ece2d99e9ea73d2a960d6b4c7"
+      "sha256": "a67bcf610a4b8063aa44795275a15928892e6e15911ecab284fba62050a7a8c0"
     },
     {
       "path": "docs/VALIDATION_AND_DELIVERY.md",
@@ -1412,6 +1412,16 @@
       "sha256": "6c31fd175af77759d233fcf604ce92c2b26486411b21bbe3b4bf73ef239293c9"
     },
     {
+      "path": "qwen-vl-full-20261026.tar.gz",
+      "bytes": 19861779,
+      "sha256": "7baeb891d8da0d852db5822d1bac242d1ee7c3904c17143cd3024554621fadcf"
+    },
+    {
+      "path": "qwen-vl-full-20261026.tar.gz.sha256",
+      "bytes": 95,
+      "sha256": "18fd9f9451f461462af0dc5d0ba7229ffcf118c733eef196cecb23bfb16b2cde"
+    },
+    {
       "path": "requirements.txt",
       "bytes": 2449,
       "sha256": "a97bcd903b7cad2f048b003d3e5bf4ba5ee31ef2119b36273a61ef1aecb2c5db"
@@ -1868,8 +1878,8 @@
     },
     {
       "path": "scripts/prepare_public_release.py",
-      "bytes": 5619,
-      "sha256": "f3ce3734471cb50145d0d80f02261e48b61574fef87046a932b5a5a1c2e38e2f"
+      "bytes": 6056,
+      "sha256": "e5fd094a0d88a268596f0e49803f0eb12f47b2e167d6774a7cc2128db16ef838"
     },
     {
       "path": "scripts/release_manifest.py",
@@ -2182,22 +2192,24 @@
       "sha256": "432092f6317b2ebe15fc2f361b19631c5487f53f2f5c2845c53322e715e70b95"
     }
   ],
-  "public_source_files": 436,
-  "source_bytes": 6013780,
+  "public_source_files": 438,
+  "source_bytes": 25878336,
   "models": "official manifests only; cloud weights external",
   "data": {
     "text_rows": 36,
-    "public_images": 20,
-    "public_vision_rows": 20,
-    "private_full_images": 74,
-    "private_full_rows": 82
+    "cc_by_subset_images": 20,
+    "cc_by_subset_rows": 20,
+    "bundled_full_images": 74,
+    "bundled_full_rows": 82,
+    "rights_unverified_images": 54,
+    "bundle": "qwen-vl-full-20261026.tar.gz"
   },
   "excluded": [
     "weights and adapters",
     "credentials and private runtime",
     "customer configurations",
     "meeting documents",
-    "local_training and unverified redistribution images",
+    "unpacked local_training and other unselected data",
     "environments and caches",
     "historical reports"
   ],

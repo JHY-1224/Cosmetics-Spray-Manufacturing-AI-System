@@ -8,6 +8,8 @@ from pathlib import Path
 import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
+BUNDLE = 'qwen-vl-full-20261026.tar.gz'
+BUNDLE_SHA256 = '7baeb891d8da0d852db5822d1bac242d1ee7c3904c17143cd3024554621fadcf'
 DIRECTORIES = ('quality','frontend','assistant_app','migrations','deploy','schemas','scripts','tests','day1','day2','docs','data/vision-public')
 ROOT_FILES = ('.env.example','.dockerignore','.gitignore','Dockerfile','requirements.txt','pyproject.toml','alembic.ini','LICENSE','AGENTS.md')
 SKIP = {'node_modules','__pycache__','dist','test-results','playwright-report','.pytest_cache','.ruff_cache','outputs','dataset','.data','.git','configs-private'}
@@ -44,6 +46,11 @@ def main():
                 if path.stat().st_size>25*1024*1024: raise ValueError('Unexpected large source: '+str(path.relative_to(ROOT)))
                 copy(path)
     for name in ROOT_FILES: copy(ROOT/name)
+    # Explicitly requested training bundle; do not include arbitrary local archives.
+    if digest(ROOT/BUNDLE) != BUNDLE_SHA256:
+        raise ValueError('Training bundle differs from the approved snapshot')
+    copy(ROOT/BUNDLE)
+    copy(ROOT/(BUNDLE+'.sha256'))
     copy(ROOT/'README.md',Path('docs/PROJECT_MANUAL.md'))
     copy(ROOT/'docs/PUBLIC_README.md',Path('README.md'))
     copy(ROOT/'docs/DATA_LICENSE.md',Path('DATA_LICENSE.md'))
@@ -73,8 +80,8 @@ def main():
     files=[{'path':str(p.relative_to(output)),'bytes':p.stat().st_size,'sha256':digest(p)} for p in sorted(output.rglob('*')) if p.is_file()]
     report={'project':'化妆品喷涂制造工艺AI智能系统','files':files,'public_source_files':len(files),
             'source_bytes':sum(f['bytes'] for f in files),'models':'official manifests only; cloud weights external',
-            'data':{'text_rows':36,'public_images':20,'public_vision_rows':20,'private_full_images':74,'private_full_rows':82},
-            'excluded':['weights and adapters','credentials and private runtime','customer configurations','meeting documents','local_training and unverified redistribution images','environments and caches','historical reports'],
+            'data':{'text_rows':36,'cc_by_subset_images':20,'cc_by_subset_rows':20,'bundled_full_images':74,'bundled_full_rows':82,'rights_unverified_images':54,'bundle':BUNDLE},
+            'excluded':['weights and adapters','credentials and private runtime','customer configurations','meeting documents','unpacked local_training and other unselected data','environments and caches','historical reports'],
             'gpu_validation':'not performed on this Mac'}
     (output/'PUBLIC_RELEASE_MANIFEST.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
     print(json.dumps({'output':str(output),'files':len(files),'bytes':report['source_bytes']},ensure_ascii=False))

@@ -29,6 +29,7 @@
 |`day1/3-train/`|9B文本Unsloth训练|
 |`day1/multimodal/`|8B图文数据整理、校验、训练和CUDA视觉冒烟|
 |`data/vision-public/`|20张CC BY 4.0图像及20条上下文开发问答|
+|`qwen-vl-full-20261026.tar.gz`|完整74图、82问答开发包；克隆后解压，保留原来源与许可状态|
 |`models/`|基座校验清单；无权重|
 |`tests/`、各模块`tests/`|隔离测试|
 
@@ -51,7 +52,7 @@ python day1/0-download-model/1-download.py --verify-only --model-root /root/auto
 
 本地完整图像训练开发包为74张图、82条问答，包括工艺照片、配料表、文字、参数页与简图。
 其中74条是主题/资料边界标签，8条是细项读取；不是全量逐字OCR，也未经过领域专家审核。
-公开仓库只附有明确CC BY 4.0来源的20张图；其余完整包保留本地，需另行传到自己的云服务器。
+完整74图和82条问答已随根目录 `qwen-vl-full-20261026.tar.gz` 纳入Git，克隆即可取得，无需另外上传；按云端手册校验、解压后训练。`data/vision-public/`仍保留20张明确CC BY 4.0来源的子集。其余54张图的许可状态仍未核实，完整包不适用代码MIT许可证。
 文本36条和图文样本都是有限开发数据，validation/test暂为空，不支持宣称生产准确率。
 
 模型建议不会操作PLC、自动加料、审批、放行或确认唯一根因。提示词约束与权限、隔离、限流、结果校验共同工作，不能保证所有提示词注入都被阻止。
@@ -61,5 +62,5 @@ python day1/0-download-model/1-download.py --verify-only --model-root /root/auto
 
 代码使用[MIT](LICENSE)。数据、图像、基座和依赖各自遵循原许可，详见[数据许可](DATA_LICENSE.md)。
 基座来自官方[Qwen3.5-9B](https://modelscope.cn/models/Qwen/Qwen3.5-9B)与[Qwen3-VL-8B-Instruct](https://modelscope.cn/models/Qwen/Qwen3-VL-8B-Instruct)。
-模型权重、API密钥、业务数据库、客户配置、会议记录、私有训练包及历史运行报告不在Git中。
+模型权重、API密钥、业务数据库、客户配置、会议记录、其他私有资料及历史运行报告不在Git中。
 公开文件与SHA256见 `PUBLIC_RELEASE_MANIFEST.json`。

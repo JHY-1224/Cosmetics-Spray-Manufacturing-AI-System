@@ -1451,9 +1451,9 @@
 
 ## scripts/prepare_public_release.py
 
-- L17: `digest`
-- L21: `main`
-- L28: `copy`
+- L19: `digest`
+- L23: `main`
+- L30: `copy`
 
 ## scripts/run_local.py
 

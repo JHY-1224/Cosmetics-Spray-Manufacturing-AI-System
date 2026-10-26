@@ -14,7 +14,7 @@
   vision-verification.json                                 视觉产物核验
 ```
 
-代码和模型分开保存。Git不包含基座、训练权重、密钥或完整私有资料包。
+代码和模型分开保存。Git不包含基座、训练权重、密钥或客户私有资料。完整74图开发包随仓库根目录的归档分发。
 前端只登记一个“Qwen轻量级服务”，与阿里云并列。内部先由8B读图，再将结构化证据交给9B；纯文本直接走9B。
 这与参考医疗项目的VL→LLM调用顺序相同，不是将两个权重文件合并成一个神经网络。
 
@@ -39,7 +39,7 @@ python day1/0-download-model/1-download.py --verify-only --model-root /root/auto
 ## 2. 数据与训练
 
 文本36条在 `day1/2-prepare-data/train.messages.jsonl`。视觉公开开发集在 `data/vision-public/metadata.jsonl`。
-使用全部74张图片时，把本机完整目录 `local_training/qwen-vl-20261026/` 私下传到云端同一项目的 `local_training/` 下；只git clone不会得到这54张未公开图片。
+完整74张图片和82条问答已包含在仓库根目录 `qwen-vl-full-20261026.tar.gz`，git clone会一并下载，无需再手工上传。先按下方“完整训练包解压”校验并解压到 `local_training/qwen-vl-20261026/`。其中54图保留许可未核实标记，不适用代码MIT许可证。
 
 先检查，不启动GPU训练：
 
@@ -132,14 +132,15 @@ cd ../..
 训练/vLLM环境与Web依赖分开；Web依赖固定在`assistant_app/requirements.txt`，飞书扩展在`requirements-feishu.txt`。
 若缺依赖，先核对镜像与锁定版本，再在对应环境安装；不要将Web全部依赖强行覆盖进已配置好的CUDA环境。
 
-## 完整训练包传入与旧项目处理
+## 完整训练包解压与旧项目处理
 
-本机另备`qwen-vl-full-20261026.tar.gz`，含全部74张图和82条标签，不含基座和凭据。
-通过AutoDL文件管理器上传至新项目目录后执行：
+仓库根目录已附`qwen-vl-full-20261026.tar.gz`，含全部74张图和82条标签，不含基座和凭据。
+已克隆旧版的用户先执行 `git pull --ff-only`。在项目根目录依次执行；校验失败时停止。`--keep-old-files`保护已经解压后修改的文件，若提示目标已存在，不要强行覆盖：
 
 ```bash
+sha256sum -c qwen-vl-full-20261026.tar.gz.sha256
 mkdir -p local_training
-tar -xzf qwen-vl-full-20261026.tar.gz -C local_training
+tar --keep-old-files -xzf qwen-vl-full-20261026.tar.gz -C local_training
 python day1/multimodal/train_vl.py --data local_training/qwen-vl-20261026/metadata.jsonl --allow-unreviewed --dry-run
 ```
 

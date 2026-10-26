@@ -4019,7 +4019,7 @@ Settings.validate_mode还执行时区、会话/离线租约、预算、容量及
 - `day1/multimodal/prepare_images.py`读取入选清单，先核对全部原图SHA256，再创建全新目录；不覆盖已审核的输出。
 - 完整本地包`local_training/qwen-vl-20261026/`含74图、82问答：74条主题/来源边界标签，8条逐图核对的配料、比例、单位、行列和续页缺项读取。含图片、metadata.jsonl、dataset-card.json、ATTRIBUTION.json、review.html。
 - 全包16个来源组；S11/S12同研究团队的相关论文视作一组。全部是开发train，validation/test为空，`expert_reviewed=false`。不得称为74图已完整逐字OCR，不得称已形成真实涂层缺陷因果/现场整改评估集。
-- 公开子集`data/vision-public/`含20张CC BY 4.0论文图与20问答，作者、DOI、许可及中文标签改编说明保留。其余54图仍在完整本地包，公开再分发权限未确认；Git clone不包含这54图，完整训练须另行传包。
+- 公开子集`data/vision-public/`含20张CC BY 4.0论文图与20问答，作者、DOI、许可及中文标签改编说明保留。完整74图/82问答归档`qwen-vl-full-20261026.tar.gz`已按用户明确要求加入Git白名单，clone后直接校验解压，无需单独传包。其余54图许可状态仍未核实，原有来源与rights_status不改写，不能称为MIT数据。
 - JSONL保存id、file_name、images(path/sha256)、question、answer、source_group、source_url、split、expert_reviewed、rights_status及label_basis。相对路径随包迁移，不能存Mac绝对图片路径。
 - `dataset.py:load_records`拒绝空集、重复ID、缺问题/答案/来源、1—3张以外图片、路径逃逸、缺图/哈希变化、不支持图像/过大像素、同来源跨split及同图跨split。未专家审核时必须显式`--allow-unreviewed`，仅用于开发，不授予第三方权利。
 - `conversation`真正打开PIL图像，构成user文本+image和assistant文本，不能只把文件名输入模型。
@@ -4050,12 +4050,12 @@ Web另用轻量环境启动`run_assistant.py --env-file assistant_app/.env`。�
 
 本轮目标测试100项通过，包含助手、模型目录、数据合同、原图哈希和跨来源泄漏拒绝；完整82条视觉样本及36条文本样本dry-run通过。未执行本轮CUDA训练、GPU显存峰值、vLLM双模型推理、真实飞书或生产负载验收。测试报告在本地reports/public-release-20261026，公开摘要在docs/RELEASE_STATUS.md，不用历史报告代替本次实测。
 
-公开代码MIT，数据/模型分别遵循原许可。发布必须通过显式白名单导出、凭据扫描、文件大小/哈希清单和干净副本检查。排除模型权重、.env、业务库、会话上传、客户配置、关键通话原件、local_training、未经确认可公开的图片、环境缓存与历史reports。用户授权创建公开GitHub仓库、commit/push；必须整理完成才执行，不能将此前上传意图当成可以泄露私密配置。
+公开代码MIT，数据/模型分别遵循原许可。发布必须通过显式白名单导出、凭据扫描、文件大小/哈希清单和干净副本检查。排除模型权重、.env、业务库、会话上传、客户配置、关键通话原件、local_training目录、其他未经核对的数据、环境缓存与历史reports。用户本次明确指定的完整74图归档是单独的固定SHA256白名单项；上传授权不改变第三方素材许可。用户授权创建公开GitHub仓库、commit/push；必须整理完成才执行，不能将此前上传意图当成可以泄露私密配置。
 
 项目中文名称为“化妆品喷涂制造工艺AI智能系统”。GitHub已验证仓库名只接受ASCII；URL使用Cosmetics-Spray-Manufacturing-AI-System，中文名称保留在描述与README。发布成功与否以远端实际状态为准，本文不是上传成功证明。
 
 云端旧目录fine-tuning-project2-v4的删除只在用户明确选择后按绝对路径操作，不扩大到code、models或envs。不从本机执行无法确认的远程删除；保留需要的旧训练产物，Git不能恢复未提交业务数据或权重。
 
 - 云端入口默认值补充：9B包装训练入口和8B入口均默认读取/root/autodl-tmp/models；Mac检查必须显式传本地--model-dir。前端分组改为“自部署微调服务”和“基座预览”，避免将Mac示范模型误称生产部署。单组Qwen轻量级服务包含两组件。
-- 完整训练包归档为reports/public-release-20261026/qwen-vl-full-20261026.tar.gz，19,861,779字节，SHA256为7baeb891d8da0d852db5822d1bac242d1ee7c3904c17143cd3024554621fadcf；只含74图和82条开发标签及审核页，不含权重或密钥。云端上传/解压步骤见CLOUD_QUICKSTART.md。该完整包不通过公开GitHub分发。
+- 完整训练包归档为reports/public-release-20261026/qwen-vl-full-20261026.tar.gz，19,861,779字节，SHA256为7baeb891d8da0d852db5822d1bac242d1ee7c3904c17143cd3024554621fadcf；只含74图和82条开发标签及审核页，不含权重或密钥。同字节归档及.sha256校验文件已纳入仓库根目录，Git clone直接获取；旧版git pull --ff-only。云端校验及不覆盖旧文件的解压步骤见CLOUD_QUICKSTART.md。此前“另行手工上传”的流程已被此次明确要求替代。
 - 本轮前端TypeScript和Vite构建通过；生产GPU尚未执行，不能据此前端构建或mock目录测试宣称模型训练/加载成功。

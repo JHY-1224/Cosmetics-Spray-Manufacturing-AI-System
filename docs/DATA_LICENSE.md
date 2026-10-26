@@ -12,11 +12,11 @@
 - 数据范围、缺项和审核状态：`day1/2-prepare-data/DATA_CARD.md`
 
 根目录 MIT LICENSE 适用于本项目代码，不替代第三方文章、模型或数据的原有许可。
-原始采集资料、候选数据和用途待确认记录不属于此次公开发布。
+原始采集资料目录、客户资料及用途待确认的其他记录不属于此次公开发布。
 
 图像子集来自Daiki Tomita、Yue Bao的两篇CC BY 4.0论文：
 Detection of Chips on the Threaded Part of Cosmetic Glass Bottles（DOI:10.3390/jimaging11030077），
 Inspection of Defective Glass Bottle Mouths Using Machine Learning（DOI:10.3390/jimaging11040105）。
 原图像素保留，新增中文上下文问答；并非领域专家标签，不能改变原图的研究对象或实验边界。
 署名和变更说明见 `data/vision-public/ATTRIBUTION.json`。两论文存在相关素材，按同一来源组处理。
-完整本地图像包中的54份其他来源资料未确认公开再分发权限，不适用本项目MIT许可证。
+完整图像包 `qwen-vl-full-20261026.tar.gz` 按项目所有者本次明确要求随Git仓库提供。包内54份其他来源资料的再分发许可仍未核实；公开可下载不代表已取得这些权利，不适用本项目MIT许可证。包内metadata.jsonl逐项保留source_url与rights_status，原权利归原作者/权利人，不因本次上传改变。
