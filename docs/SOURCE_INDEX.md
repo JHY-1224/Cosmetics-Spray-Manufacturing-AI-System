@@ -78,11 +78,11 @@
 - L107: `paths`
 - L113: `children`
 - L126: `entries`
-- L182: `resolve`
-- L200: `artifact`
-- L213: `listing`
-- L218: `inspect`
-- L234: `close`
+- L187: `resolve`
+- L205: `artifact`
+- L218: `listing`
+- L223: `inspect`
+- L239: `close`
 
 ## assistant_app/backend/model_clients.py
 

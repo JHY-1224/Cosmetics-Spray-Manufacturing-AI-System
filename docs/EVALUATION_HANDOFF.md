@@ -2,11 +2,17 @@
 
 ## 当前范围：基础/中等轻量试用（覆盖下方旧114题与训练计划）
 
+后续授权增量：阿里云手动备用已启用，云端5001 Web已于2026-10-27 18:19正常重启，PID40711；Qwen轻量级仍为默认，两GPU模型进程保持运行。文字与单图备用合成任务实际完成，所有模式仍共用V3策略。详见docs/ALIYUN_BACKUP_20261027.md。该两项冒烟不改变下方96题成绩，完成本次备用启用后继续休息。
+
+**本轮已结束并按用户要求休息：96/96正常完成、0请求失败；逐题复核83通过/13未通过（86.46%），未达到至少87/96目标。完整结果与原因在docs/LIGHTWEIGHT_PILOT_20261027_RESULT.md，逐题证据在reports/lightweight-pilot-acceptance-20261027-v2/formal/content-review.json。新增38条观察（13失败+25注释）已保存本地；不追加训练或测试，云端服务保留运行、Mac本地应用停止。**
+
 最新纠正：16题只是新增启动冒烟，不能代替完整验收。原114题按任务结构保留80题、递延34题，另加16道日常工艺题，正式v2共96题、至少87通过；逐题分类与冻结哈希在evaluation/lightweight-pilot-v2/，未按答对/答错筛题。用户已有“能源制造业知识库系统”可留后续复用，本轮仅预留资料调用/引用边界，不接库。
 
-当前启动遇到真实代码兼容缺陷：model_inventory.adapter_inventory只接受target_modules列表，而本次Unsloth的9B/8B产物均为PEFT合法regex字符串。云端只读证据显示496/504张量均为语言层LoRA；v1部署在启动前拒绝并已退出，5001尚未起来。正在修复本地并同步三端；支持regex时同时核对实际语言层路径、目标匹配、A/B成对和rank，仍拒绝视觉/泛匹配及不完整矩阵，不跳过检查。失败日志在reports/lightweight-pilot-deployment-20261027-v1/与云端同任务目录；旧权重/数据不改。
+启动兼容缺陷已修复：model_inventory.adapter_inventory原来只接受target_modules列表，而本次Unsloth的9B/8B产物均为PEFT合法regex字符串。现在同时核对实际语言层路径、目标匹配、A/B成对和rank，仍拒绝视觉/泛匹配及不完整矩阵。提交d20725660d7533acd011cf6b68b170cf27641acf已同步GitHub与云端，含清单524文件一致，公开副本及云端221通过/3跳过。双模型和云端5001已启动；v1失败证据及旧权重/数据保留，没有为此重训。
 
-用户明确轻量版先供工厂初用，不用难题验收；本轮使用evaluation/lightweight-pilot-v1/的固定16道简单/中等题，至少15通过即超过90%，另验基本文字/图片/多轮/运行。旧难题保留本地evaluation/local-only/known-challenges-20261027/，留给未来27B/32B等重量级与95%–98%目标。统一提示词、防注入、垂直、不编造、异常数据提醒是本轮重点，不扩成ERP或全面性能工程。已经通读《通话录音-第二步对接.txt》，完整阶段约定见docs/LIGHTWEIGHT_PILOT_AND_ROADMAP.md。
+用户明确轻量版先供工厂初用，不用难题验收；本轮正式使用evaluation/lightweight-pilot-v2/的96题，至少87通过；v1的16题为新增工艺/冒烟题。旧难题保留本地evaluation/local-only/known-challenges-20261027/，留给未来27B/32B等重量级与95%–98%目标。统一提示词、防注入、垂直、不编造、异常数据提醒是本轮重点。已经通读《通话录音-第二步对接.txt》，完整约定见docs/LIGHTWEIGHT_PILOT_AND_ROADMAP.md。
+
+用户最新要求：只完成当前96题、统计和本地问题总结后休息，停止继续测试/训练/优化；云端Web与双模型保持运行。Mac本地旧应用PID18189已停止，status_assistant.py确认running=false；Mac5001监听属于Cursor的SSH转发，不是本地模型服务，保留。试用地址http://127.0.0.1:5001，需要保持Cursor SSH连接。96题原始结果在reports/lightweight-pilot-acceptance-20261027-v2/formal/；恢复先读现有run与评审，禁止重复请求或重启旧114题。单图真实链路已通过；多图、多轮、异常恢复与重启没有本轮新增实测，不能补写成已通过。
 
 云端114题共同提示词任务已按用户改范围停止：监督PID35196/模型PID35254的本轮进程经身份核验后退出，22条已生成结果保留，显存1MiB、5111端口释放。operator-stop证据在reports/9b-cause-20261027-v1/shared-full-operator-stop.json及云端同任务目录。不能把这次用户停止当质量失败。3epoch候选训练从未启动，不要继续旧计划。当前三端源码已同步1b0741c，515文件一致、云端211通过/3跳过；共享SYSTEM/VISION仍供所有模型使用。
 
