@@ -10,7 +10,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from assistant_app.backend.model_clients import ModelClients, ModelError
-from assistant_app.backend.prompts import SYSTEM, VISION, policy_metadata
+from assistant_app.backend.runtime_prompts import SYSTEM, VISION, policy_metadata
 from assistant_app.backend.quantity_review import quantity_notices
 from assistant_app.backend.schemas import VisionEvidence
 from assistant_app.backend.settings import Settings

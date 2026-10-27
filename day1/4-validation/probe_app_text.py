@@ -19,13 +19,31 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / 'day1/multimodal'))
 from verify_official_base import load_evaluation
 from assistant_app.backend.prompts import SYSTEM, policy_metadata
+from assistant_app.backend import runtime_prompts
 from day1.generation import stop_token_ids
 
 CASES_SHA = '960bcba3298b40e969ed75f754f29963211a8ecf4aecff61e561af09e9849661'
 
 
+def captured_policy(metadata):
+    """Validate legacy captures without silently rewriting their system policy."""
+    saved = metadata.get('policy', {})
+    legacy = policy_metadata()
+    current = runtime_prompts.policy_metadata()
+    if saved.get('version') == legacy['version']:
+        expected, text = legacy, SYSTEM
+    elif saved.get('version') == current['version']:
+        expected, text = current, runtime_prompts.SYSTEM
+    else:
+        raise ValueError('Unknown captured application policy version')
+    if any(saved.get(key) != expected[key] for key in ('text_sha256', 'vision_sha256')):
+        raise ValueError('Captured application policy hash changed')
+    return text
+
+
 def checked_messages(folder, kit):
     metadata = json.loads((folder / 'capture.json').read_text())
+    system = captured_policy(metadata)
     path = folder / 'messages.jsonl'
     if hashlib.sha256(path.read_bytes()).hexdigest() != metadata['messages_sha256']:
         raise ValueError('Captured messages changed')
@@ -41,7 +59,7 @@ def checked_messages(folder, kit):
         messages = row['messages']
         if row['split'] != 'development' or len(messages) != 2:
             raise ValueError('Require single-turn development captures')
-        if messages[0] != {'role': 'system', 'content': SYSTEM} or messages[1]['role'] != 'user':
+        if messages[0] != {'role': 'system', 'content': system} or messages[1]['role'] != 'user':
             raise ValueError('Application system policy or user role changed')
         current = json.loads(messages[1]['content'])
         if current['user_original_question'] != expected[row['id']]['prompt'] or current['vision_evidence']:

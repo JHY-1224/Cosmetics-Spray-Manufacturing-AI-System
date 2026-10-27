@@ -128,6 +128,11 @@
 - L26: `material_label`
 - L32: `quantity_notices`
 
+## assistant_app/backend/runtime_prompts.py
+
+- L15: `_read`
+- L26: `policy_metadata`
+
 ## assistant_app/backend/schemas.py
 
 - L5: `Strict`
@@ -252,6 +257,11 @@
 - L48: `case`
 - L147: `build`
 
+## day1/2-prepare-data/prepare_shared_policy_view.py
+
+- L22: `digest`
+- L26: `build`
+
 ## day1/2-prepare-data/prepare_teaching_supplement.py
 
 - L27: `number`
@@ -286,11 +296,22 @@
 - L44: `capture`
 - L86: `main`
 
+## day1/4-validation/diagnose_text_failures.py
+
+- L32: `sha`
+- L36: `json_rows`
+- L40: `inputs_only`
+- L51: `table_excerpt`
+- L71: `prepare`
+- L102: `run`
+- L183: `main`
+
 ## day1/4-validation/probe_app_text.py
 
-- L27: `checked_messages`
-- L52: `infer`
-- L134: `main`
+- L28: `captured_policy`
+- L44: `checked_messages`
+- L70: `infer`
+- L152: `main`
 
 ## day1/4-validation/probe_teaching_holdout.py
 

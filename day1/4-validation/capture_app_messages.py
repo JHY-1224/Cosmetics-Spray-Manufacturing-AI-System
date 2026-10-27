@@ -17,7 +17,7 @@ sys.path.insert(0, str(ROOT))
 from fastapi.testclient import TestClient
 from assistant_app.backend.app import create_app
 from assistant_app.backend.settings import Settings
-from assistant_app.backend.prompts import policy_metadata, SYSTEM
+from assistant_app.backend.runtime_prompts import policy_metadata, SYSTEM
 
 CASES_SHA = '960bcba3298b40e969ed75f754f29963211a8ecf4aecff61e561af09e9849661'
 

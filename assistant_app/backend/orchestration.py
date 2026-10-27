@@ -8,7 +8,7 @@ from pydantic import ValidationError
 from .model_clients import ModelError, text_artifact_state, vision_artifact_state
 from .schemas import VisionEvidence
 from .visual_units import canonical_units
-from .prompts import SYSTEM, VISION, injection_signals, policy_metadata
+from .runtime_prompts import SYSTEM, VISION, injection_signals, policy_metadata
 
 TERMINAL = ('done', 'failed', 'cancelled', 'interrupted')
 
