@@ -140,6 +140,9 @@ class ModelCatalog:
                 if not adapter and config.get('model_type') not in ('qwen3_5',):
                     continue
                 merged = not adapter and (path.parent / 'run-manifest.json').is_file()
+                # Stored weights alone must not expose a separate trial route.
+                if not adapter and not merged and not s.allow_base_preview:
+                    continue
                 ident = 'local-' + hashlib.sha256(str(path).encode()).hexdigest()[:20]
                 name = (path.parent.parent.name + ' · ' + path.parent.name if adapter or merged else path.name)
                 local = self.local_settings(path, adapter, merged)
@@ -157,6 +160,8 @@ class ModelCatalog:
                     if file.is_symlink():
                         raise ValueError('symlink profile')
                     profile = ProfileFile.model_validate(read_json(file))
+                    if profile.category == 'local_base' and not s.allow_base_preview:
+                        continue
                     if profile.id in entries:
                         raise ValueError('duplicate profile id')
                     data = profile.model_dump(exclude_none=True, exclude={'id', 'name', 'category'})
