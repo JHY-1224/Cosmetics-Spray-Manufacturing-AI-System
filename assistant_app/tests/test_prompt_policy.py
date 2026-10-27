@@ -77,6 +77,28 @@ def test_ordinary_formulation_and_security_discussion_not_rejected(environment):
     assert json.loads(models.calls[-1][1][-1]['content'])['user_original_question'] == question
 
 
+def test_celsius_typography_is_audited_without_rewriting_original_reading(environment):
+    client, _, models = environment
+    conv = new(client)
+    images = upload(client, conv)
+    original = '烘箱温度设定 62 ° C'
+    evidence = {'image_id': images[0], 'image_kind': 'parameter_table',
+        'visible_observations': [original],
+        'extracted_fields': [{'label': '烘箱温度设定', 'raw_text': original,
+            'value_text': '62', 'unit_text': '° C', 'location': '第1行', 'status': 'readable'}],
+        'uncertain_items': [], 'missing_context': [], 'warnings': []}
+    models.vision_bad = json.dumps(evidence, ensure_ascii=False)
+    ident = submit(client, conv, '读取温度', images).json()['request_id']
+    result = wait(client, ident)
+    assert result['phase'] == 'done'
+    field = result['vision'][0]['extracted_fields'][0]
+    assert (field['value_text'], field['unit_text'], field['raw_text']) == ('62', '°C', original)
+    change = result['metadata']['calls'][0]['unit_typography_normalizations'][0]
+    assert (change['original'], change['canonical']) == ('° C', '°C')
+    current = json.loads(models.calls[-1][1][-1]['content'])
+    assert current['vision_evidence'][0]['extracted_fields'][0] == field
+
+
 def test_failed_text_retains_policy_and_visual_audit(environment):
     client, _, models = environment
     conv = new(client)

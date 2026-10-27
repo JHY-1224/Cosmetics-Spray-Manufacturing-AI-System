@@ -7,6 +7,7 @@ from pydantic import ValidationError
 
 from .model_clients import ModelError, text_artifact_state, vision_artifact_state
 from .schemas import VisionEvidence
+from .visual_units import canonical_units
 from .prompts import SYSTEM, VISION, injection_signals, policy_metadata
 
 TERMINAL = ('done', 'failed', 'cancelled', 'interrupted')
@@ -80,6 +81,10 @@ class Jobs:
                                 raise ValueError('image identity mismatch')
                         except (ValidationError, ValueError):
                             raise ModelError('vision_schema_invalid', '图像读取结果格式无效，未生成推断摘要') from None
+                        normalized, unit_changes = canonical_units(result.model_dump())
+                        result = VisionEvidence.model_validate(normalized)
+                        if unit_changes:
+                            info = {**info, 'unit_typography_normalizations': unit_changes}
                         evidence.append({'order': index + 1, **result.model_dump(), 'human_verified': False})
                         signals['image_' + str(index + 1)] = injection_signals(result.model_dump())
                         meta.append({'kind': 'vision', **info})

@@ -50,15 +50,47 @@ def read_messages(path):
     return rows
 
 
-def verified_rows():
-    metadata = json.loads((PREPARED / 'dataset-manifest.json').read_text())
-    path = PREPARED / 'train.messages.jsonl'
+def verified_rows(prepared_dir=PREPARED):
+    prepared_dir = Path(prepared_dir).resolve()
+    metadata = json.loads((prepared_dir / 'dataset-manifest.json').read_text())
+    path = prepared_dir / 'train.messages.jsonl'
     if sha256(path) != metadata['train_sha256']:
         raise ValueError('Prepared data changed: rerun preparation and review the manifest')
     rows = read_messages(path)
     if not rows or len(rows) != metadata['train_rows']:
         raise ValueError('Empty data or inconsistent row count')
     return rows, metadata
+
+
+def audit_text_labels(tokenizer, messages, item):
+    """Check every native answer/EOS span and reject user/header supervision.
+
+    Some native templates append a newline after EOS. Only contiguous whitespace
+    immediately following an expected assistant EOS is allowed as an extra target.
+    """
+    ids, actual = item['input_ids'], item['labels']
+    if len(ids) != len(actual) or item['attention_mask'] != [1] * len(ids):
+        raise ValueError('Unpadded text tensor shape/attention mismatch')
+    expected = _tokenize_full_template(tokenizer, messages, ids)['labels']
+    eos_positions = [i for i, value in enumerate(expected) if value == tokenizer.eos_token_id]
+    if len(eos_positions) != sum(m['role'] == 'assistant' for m in messages):
+        raise ValueError('Native assistant EOS count mismatch')
+    allowed_separator = set()
+    for end in eos_positions:
+        pos = end + 1
+        while pos < len(ids) and not tokenizer.decode([ids[pos]], skip_special_tokens=False).strip():
+            allowed_separator.add(pos)
+            pos += 1
+    if any(b != -100 and a != b for a, b in zip(actual, expected, strict=True)):
+        raise ValueError('Missing or incorrect assistant answer/EOS labels')
+    if any(a != -100 and (a != ids[i] or (expected[i] == -100 and i not in allowed_separator))
+           for i, a in enumerate(actual)):
+        raise ValueError('Unexpected system/user/header supervision')
+    return dict(input_tokens=len(ids), assistant_answers=len(eos_positions),
+                eos_supervised=len(eos_positions),
+                supervised_tokens=sum(v != -100 for v in actual),
+                supervised_native_separators=sum(actual[i] != -100 for i in allowed_separator),
+                passed=True)
 
 
 def tokenize_example(tokenizer, messages, max_length):

@@ -24,6 +24,8 @@ def load_records(path, allow_unreviewed=False):
             raise ValueError(f'{ident}: expert review pending; --allow-unreviewed is for development only')
         if not all(isinstance(row.get(k), str) and row[k].strip() for k in ('question', 'answer', 'source_url')):
             raise ValueError(f'{ident}: missing question, answer or provenance')
+        if 'system' in row and (not isinstance(row['system'], str) or not row['system'].strip()):
+            raise ValueError(f'{ident}: system must be a nonempty policy string')
         images = row.get('images')
         if not isinstance(images, list) or not 1 <= len(images) <= 3:
             raise ValueError(f'{ident}: require 1–3 images')
@@ -55,15 +57,19 @@ def conversation(row):
     for path in row['_paths']:
         with Image.open(path) as image:
             content.append({'type': 'image', 'image': image.convert('RGB')})
-    return {'messages': [{'role': 'user', 'content': content},
-                         {'role': 'assistant', 'content': [{'type': 'text', 'text': row['answer']}]}]}
+    messages = [{'role': 'system', 'content': row['system']}] if row.get('system') else []
+    messages.extend([{'role': 'user', 'content': content},
+                     {'role': 'assistant', 'content': [{'type': 'text', 'text': row['answer']}]}])
+    return {'messages': messages}
 
 
 def _conversation_batch(batch):
     """HF transforms receive batches, even for a single integer index."""
-    return {'messages': [conversation({'question': question, 'answer': answer, '_paths': paths})['messages']
-                         for question, answer, paths in zip(
-                             batch['question'], batch['answer'], batch['_paths'], strict=True)]}
+    return {'messages': [conversation({'question': question, 'answer': answer,
+                                      '_paths': paths, 'system': system})['messages']
+                         for question, answer, paths, system in zip(
+                             batch['question'], batch['answer'], batch['_paths'],
+                             batch['system'], strict=True)]}
 
 
 def training_dataset(rows):
@@ -74,5 +80,6 @@ def training_dataset(rows):
     """
     from datasets import Dataset
     data = Dataset.from_list([{'question': row['question'], 'answer': row['answer'],
+                               'system': row.get('system', ''),
                                '_paths': [str(path) for path in row['_paths']]} for row in rows])
     return data.with_transform(_conversation_batch)

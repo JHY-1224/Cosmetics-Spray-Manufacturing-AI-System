@@ -78,6 +78,38 @@ def test_unreviewed_requires_development_opt_in(sample):
     assert len(dataset.load_records(path,allow_unreviewed=True))==1
 
 
+def test_optional_system_is_preserved_without_changing_old_rows(sample):
+    path, row = sample
+    row['system'] = '只输出可见证据 JSON；缺失数值为 null。'
+    write(path, [row])
+    messages = dataset.conversation(dataset.load_records(path)[0])['messages']
+    assert [m['role'] for m in messages] == ['system', 'user', 'assistant']
+    assert messages[0]['content'] == row['system']
+    assert messages[1]['content'][0]['text'] == row['question']
+
+
+def test_system_survives_lazy_hf_transform_and_mixed_batch(sample):
+    pytest.importorskip('datasets', reason='HF dataset contract requires the training environment')
+    path, row = sample
+    write(path, [row])
+    original = dataset.load_records(path)[0]
+    policy = '保持缺项为空，不推断现场数值。'
+    data = dataset.training_dataset([original, {**original, 'system': policy}])
+    batch = data[[1, 0]]['messages']
+    assert batch[0][0] == {'role': 'system', 'content': policy}
+    assert [m['role'] for m in batch[1]] == ['user', 'assistant']
+    assert data.select([1])[0]['messages'][0]['content'] == policy
+
+
+@pytest.mark.parametrize('system', ['', '  ', None, {'role': 'system'}])
+def test_invalid_system_is_rejected(sample, system):
+    path, row = sample
+    row['system'] = system
+    write(path, [row])
+    with pytest.raises(ValueError, match='system must be'):
+        dataset.load_records(path)
+
+
 def test_replaced_image_rejected(sample):
     path,row=sample;write(path,[row]);(path.parent/'sample.png').write_bytes(b'changed')
     with pytest.raises(ValueError,match='hash mismatch'): dataset.load_records(path)

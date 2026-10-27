@@ -10,7 +10,8 @@ import shutil
 ROOT = Path(__file__).resolve().parents[1]
 BUNDLE = 'qwen-vl-full-20261026.tar.gz'
 BUNDLE_SHA256 = '7baeb891d8da0d852db5822d1bac242d1ee7c3904c17143cd3024554621fadcf'
-DIRECTORIES = ('quality','frontend','assistant_app','migrations','deploy','schemas','scripts','tests','day1','day2','docs','data/vision-public')
+DIRECTORIES = ('quality','frontend','assistant_app','migrations','deploy','schemas','scripts','tests','day1','day2','docs',
+               'data/vision-public','data/text-training','data/evaluation-inputs','evaluation')
 ROOT_FILES = ('.env.example','.dockerignore','.gitignore','Dockerfile','requirements.txt','pyproject.toml','alembic.ini','LICENSE','AGENTS.md')
 SKIP = {'node_modules','__pycache__','dist','test-results','playwright-report','.pytest_cache','.ruff_cache','outputs','dataset','.data','.git','configs-private'}
 SUFFIXES = {'.py','.sh','.toml','.lock','.json','.jsonl','.yaml','.yml','.ts','.tsx','.mjs','.mts','.js','.css','.html','.md','.txt','.svg','.csv','.sql','.example','.command','.conf','.node'}
@@ -42,7 +43,9 @@ def main():
                 if 'model_profiles' in path.parts and path.suffix=='.json': continue
                 image=directory=='data/vision-public' and path.suffix.lower() in ('.png','.jpg','.jpeg','.webp')
                 special=name in ('Caddyfile','.npmrc','.gitignore','Dockerfile') or name.endswith('.example.env')
-                if not (path.suffix in SUFFIXES or image or special): continue
+                evaluation_archive = directory=='evaluation' and name in (
+                    'evaluation-kit-20261026.tar.gz','evaluation-kit-20261026.tar.gz.sha256')
+                if not (path.suffix in SUFFIXES or image or special or evaluation_archive): continue
                 if path.stat().st_size>25*1024*1024: raise ValueError('Unexpected large source: '+str(path.relative_to(ROOT)))
                 copy(path)
     for name in ROOT_FILES: copy(ROOT/name)
@@ -82,7 +85,9 @@ def main():
             'source_bytes':sum(f['bytes'] for f in files),'models':'official manifests only; cloud weights external',
             'data':{'text_rows':36,'cc_by_subset_images':20,'cc_by_subset_rows':20,'bundled_full_images':74,'bundled_full_rows':82,'rights_unverified_images':54,'bundle':BUNDLE},
             'excluded':['weights and adapters','credentials and private runtime','customer configurations','meeting documents','unpacked local_training and other unselected data','environments and caches','historical reports'],
-            'gpu_validation':'not performed on this Mac'}
+            'gpu_validation':'not performed on this Mac; target-cloud status in docs/RELEASE_STATUS.md',
+            'candidate_text_training':{'rows':456,'parameter_holdout_rows':96,'quality_accepted':False},
+            'evaluation_archive_sha256':'8b1ec491b099ae91383918a3c46ebbcd3124823e6a3d59362a0dcff0ddb6a399'}
     (output/'PUBLIC_RELEASE_MANIFEST.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
     print(json.dumps({'output':str(output),'files':len(files),'bytes':report['source_bytes']},ensure_ascii=False))
 

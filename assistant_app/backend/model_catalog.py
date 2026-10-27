@@ -219,9 +219,10 @@ class ModelCatalog:
             route = self.resolve(ident)
             state = self.artifact(route.settings)
             valid = state in ('approved_cloud', 'base_preview', 'finetuned_lora', 'finetuned_merged')
-            online = await route.client.available('text') if valid else False
-            if online and route.settings.vision_mode in ('finetuned_lora', 'finetuned_merged'):
-                online = await route.client.available('vision')
+            # Each choice is a multimodal route, including an explicit vision base.
+            # Text readiness alone must not make a broken image route selectable.
+            online = all(await asyncio.gather(route.client.available('text'),
+                                              route.client.available('vision'))) if valid else False
             # Every choice points to an explicit served model; files alone never mean it is deployed.
             return {**route.profile, 'state': state if not valid else 'ready' if online else 'not_deployed',
                     'selectable': valid and online}

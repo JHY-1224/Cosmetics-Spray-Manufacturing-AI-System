@@ -11,9 +11,13 @@ import importlib.metadata
 import json
 import os
 from pathlib import Path
+import sys
 import time
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
+from day1.generation import stop_token_ids
+
 CASES = Path(__file__).with_name('smoke-cases.json')
 
 
@@ -100,12 +104,14 @@ def infer(adapter, cases, output, max_length, max_new_tokens):
         raise RuntimeError('未检测到活动adapter，拒绝把基座冒充微调结果')
     versions = {name: importlib.metadata.version(name)
                 for name in ('unsloth', 'transformers', 'peft', 'torch')}
+    stop_ids = stop_token_ids(model.generation_config.eos_token_id, tokenizer.eos_token_id)
     (output / 'environment.json').write_text(json.dumps({
         'packages': versions, 'gpu': torch.cuda.get_device_name(0),
         'comparison': 'same_4bit_base_and_adapter_tokenizer; adapter disabled vs enabled',
         'max_length': max_length, 'max_new_tokens': max_new_tokens,
         'do_sample': False, 'seed': 3407, 'enable_thinking': False,
         'active_adapters': model.active_adapters,
+        'explicit_eos_token_ids': stop_ids,
     }, ensure_ascii=False, indent=2))
     eos = tokenizer.eos_token_id
     with (output / 'responses.jsonl').open('x', encoding='utf-8') as report:
@@ -128,12 +134,11 @@ def infer(adapter, cases, output, max_length, max_new_tokens):
                 with context, torch.inference_mode():
                     generated = model.generate(
                         **inputs, max_new_tokens=max_new_tokens, do_sample=False,
+                        eos_token_id=stop_ids,
                         pad_token_id=tokenizer.pad_token_id if tokenizer.pad_token_id is not None else eos)
                 torch.cuda.synchronize()
                 ids = generated[0, count:].tolist()
                 # A configured stop token is stronger evidence than output length alone.
-                stop = model.generation_config.eos_token_id
-                stop_ids = stop if isinstance(stop, list) else [stop if stop is not None else eos]
                 row = {'id': case['id'], 'variant': variant, 'prompt_tokens': count,
                        'completion_tokens': len(ids), 'elapsed_seconds': round(time.monotonic() - start, 3),
                        'peak_allocated_gib': round(torch.cuda.max_memory_allocated() / 1024**3, 3),

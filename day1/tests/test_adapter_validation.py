@@ -119,7 +119,7 @@ class AdapterValidationTests(unittest.TestCase):
             device = 'cuda:0'
             peft_config = {'default': {}}
             active_adapters = ['default']
-            generation_config = SimpleNamespace(eos_token_id=2)
+            generation_config = SimpleNamespace(eos_token_id=99)
 
             def eval(self):
                 pass
@@ -133,6 +133,7 @@ class AdapterValidationTests(unittest.TestCase):
                     self.disabled = False
 
             def generate(self, **kwargs):
+                assert kwargs['eos_token_id'] == [99, 2]
                 self_check.append(self.disabled)
                 return Generated([10 if self.disabled else 20, 2])
 
@@ -171,6 +172,8 @@ class AdapterValidationTests(unittest.TestCase):
         self.assertEqual([row['answer'] for row in rows], ['base answer', 'tuned answer'])
         self.assertTrue(all(row['ended_with_eos'] for row in rows))
         self.assertTrue(all(row['review_status'] == 'pending_human_review' for row in rows))
+        environment = json.loads((output / 'environment.json').read_text())
+        self.assertEqual(environment['explicit_eos_token_ids'], [99, 2])
 
 
 if __name__ == '__main__':

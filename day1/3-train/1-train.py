@@ -6,13 +6,14 @@ Outputs are per-run and never overwrite an earlier run or the base weights.
 import argparse
 from datetime import datetime
 import importlib.metadata
+import hashlib
 import json
 import os
 from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from pipeline import ROOT, native_tokenizer, verified_rows, tokenize_example, AssistantCollator
+from pipeline import ROOT, PREPARED, native_tokenizer, verified_rows, tokenize_example, AssistantCollator, audit_text_labels
 
 
 def main():
@@ -21,16 +22,24 @@ def main():
     parser.add_argument('--model-dir', type=Path, help='Explicit offline base path for this environment')
     parser.add_argument('--dry-run', action='store_true')
     parser.add_argument('--output-root', type=Path, help='Root for versioned adapter runs')
+    parser.add_argument('--prepared-dir', type=Path, default=PREPARED,
+                        help='Versioned prepared dataset; original default remains unchanged')
+    parser.add_argument('--max-steps', type=int, default=-1, help='1 for a separate CUDA smoke run')
     parser.add_argument('--merge', action='store_true', help='Also export BF16 merged weights after adapter save')
     args = parser.parse_args()
+    if args.max_steps == 0 or args.max_steps < -1:
+        parser.error('Require max-steps=-1 or a positive smoke step count')
     config = json.loads(args.config.read_text())
     if args.model_dir:
         config['model_dir'] = str(args.model_dir.expanduser().resolve())
-    rows, manifest = verified_rows()
+    rows, manifest = verified_rows(args.prepared_dir)
     model_dir = ROOT / config['model_dir']
     state = {'train_rows': len(rows), 'validation_rows': manifest['validation_rows'],
              'test_rows': manifest['test_rows'], 'model_dir': str(model_dir), 'config': config,
-             'weights_verified': (model_dir / 'download-verified.json').is_file()}
+             'weights_verified': (model_dir / 'download-verified.json').is_file(),
+             'prepared_dir': str(args.prepared_dir.resolve()),
+             'max_steps': args.max_steps, 'purpose': 'smoke' if args.max_steps > 0 else 'development_sft',
+             'script_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
     print(json.dumps(state, ensure_ascii=False, indent=2), flush=True)
     if args.dry_run:
         return
@@ -54,6 +63,22 @@ def main():
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token = tokenizer.eos_token
     tokenized = [tokenize_example(tokenizer, row['messages'], config['max_length']) for row in rows]
+    supervision = [dict(id=row.get('id', str(i)), **audit_text_labels(tokenizer, row['messages'], item))
+                   for i, (row, item) in enumerate(zip(rows, tokenized, strict=True))]
+    collator = AssistantCollator(tokenizer.pad_token_id)
+    # Exercise the exact collator passed to SFTTrainer, before any optimizer step.
+    for item in tokenized:
+        batch = collator([item])
+        if any(batch[key][0].tolist() != item[key] for key in ('input_ids', 'labels', 'attention_mask')):
+            raise ValueError('Training collator changed prevalidated text supervision')
+    ordered = sorted(tokenized, key=lambda x: len(x['input_ids']))
+    shortest, longest = ordered[0], ordered[-1]
+    padded = collator([shortest, longest])
+    if padded['labels'][0, len(shortest['labels']):].ne(-100).any():
+        raise ValueError('Padding is unexpectedly supervised')
+    state['supervision_audit'] = dict(rows=len(rows), passed=True,
+        assistant_answers=sum(r['assistant_answers'] for r in supervision), padding_passed=True,
+        max_tokens=max(r['input_tokens'] for r in supervision))
     model = FastModel.get_peft_model(
         model, finetune_vision_layers=False, finetune_language_layers=True,
         finetune_attention_modules=True, finetune_mlp_modules=True,
@@ -73,15 +98,20 @@ def main():
                              for name in ('unsloth', 'transformers', 'trl', 'torch', 'datasets')},
                 'enable_thinking': False, 'supervision': 'all assistant answers + EOS; no truncation'}
     (output / 'run-manifest.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2))
+    (output / 'supervision-audit.json').write_text(json.dumps({
+        'summary': state['supervision_audit'], 'rows': supervision,
+        'data_sha256': manifest['train_sha256'],
+        'template_sha256': hashlib.sha256(tokenizer.get_chat_template().encode()).hexdigest(),
+        'input_ids_and_labels': tokenized}, ensure_ascii=False))
     training_keys = ('per_device_train_batch_size', 'gradient_accumulation_steps', 'warmup_steps',
                      'num_train_epochs', 'learning_rate', 'logging_steps', 'optim',
                      'weight_decay', 'lr_scheduler_type', 'seed')
     trainer = SFTTrainer(
         model=model, processing_class=tokenizer, train_dataset=Dataset.from_list(tokenized),
-        data_collator=AssistantCollator(tokenizer.pad_token_id),
+        data_collator=collator,
         args=SFTConfig(
             **{key: config[key] for key in training_keys}, output_dir=str(output),
-            max_length=config['max_length'], packing=False, report_to='none',
+            max_length=config['max_length'], max_steps=args.max_steps, packing=False, report_to='none',
             bf16=is_bfloat16_supported(), fp16=not is_bfloat16_supported(),
             dataset_kwargs={'skip_prepare_dataset': True}, remove_unused_columns=False,
             save_strategy='epoch', save_total_limit=config.get('save_total_limit', 3), eval_strategy='no'))

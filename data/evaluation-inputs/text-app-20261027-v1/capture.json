@@ -1,0 +1,14 @@
+{
+  "status": "captured_actual_app_messages_no_inference",
+  "cases": 18,
+  "cases_sha256": "960bcba3298b40e969ed75f754f29963211a8ecf4aecff61e561af09e9849661",
+  "messages_sha256": "bda37d6182676c571354693093f4808c7ab9f77a29d857f9ba0182122ebacfa2",
+  "policy": {
+    "version": "industrial-assistant-v2",
+    "text_sha256": "c08b01b2d1f124b1463cbb80bad2cceffe7080387161b94a345c1599a1f43018",
+    "vision_sha256": "93ab1ebf5b40426f4e79adf1822523052f447a1bc7de5e86c9052e6844beb5ad",
+    "signals_are_security_guarantee": false
+  },
+  "review_answers_sent": false,
+  "production_accepted": false
+}

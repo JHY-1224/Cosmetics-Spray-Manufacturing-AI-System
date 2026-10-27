@@ -82,7 +82,7 @@
 - L200: `artifact`
 - L213: `listing`
 - L218: `inspect`
-- L233: `close`
+- L234: `close`
 
 ## assistant_app/backend/model_clients.py
 
@@ -107,15 +107,15 @@
 
 ## assistant_app/backend/orchestration.py
 
-- L15: `Jobs`
-- L16: `__init__`
-- L22: `start`
-- L27: `phase`
-- L31: `authorize`
-- L39: `run`
-- L128: `history`
-- L149: `cancel`
-- L158: `close`
+- L16: `Jobs`
+- L17: `__init__`
+- L23: `start`
+- L28: `phase`
+- L32: `authorize`
+- L40: `run`
+- L133: `history`
+- L154: `cancel`
+- L163: `close`
 
 ## assistant_app/backend/prompts.py
 
@@ -173,6 +173,10 @@
 - L73: `boundaries`
 - L110: `feishu_enabled`
 
+## assistant_app/backend/visual_units.py
+
+- L10: `canonical_units`
+
 ## assistant_app/scripts/check_models.py
 
 - L15: `main`
@@ -184,12 +188,17 @@
 
 ## assistant_app/scripts/launch_model.py
 
-- L17: `main`
+- L17: `generation_stop_ids`
+- L41: `runtime_options`
+- L60: `main`
 
 ## assistant_app/scripts/launch_qwen_light.py
 
-- L15: `main`
-- L29: `stop`
+- L20: `NoRedirect`
+- L21: `redirect_request`
+- L25: `wait_ready`
+- L53: `main`
+- L92: `stop`
 
 ## assistant_app/scripts/preflight.py
 
@@ -229,9 +238,29 @@
 
 - L13: `main`
 
+## day1/2-prepare-data/prepare_app_training.py
+
+- L23: `current_input`
+- L30: `app_view`
+- L48: `build`
+- L89: `main`
+
+## day1/2-prepare-data/prepare_balanced_teaching.py
+
+- L31: `n`
+- L35: `parameters`
+- L48: `case`
+- L147: `build`
+
+## day1/2-prepare-data/prepare_teaching_supplement.py
+
+- L27: `number`
+- L31: `teaching_case`
+- L94: `build`
+
 ## day1/3-train/1-train.py
 
-- L18: `main`
+- L19: `main`
 
 ## day1/4-validation/2-chat.py
 
@@ -240,12 +269,54 @@
 
 ## day1/4-validation/3-test-adapter.py
 
-- L20: `read_json`
-- L24: `file_digest`
-- L32: `load_cases`
-- L48: `inspect_adapter`
-- L81: `infer`
-- L149: `main`
+- L24: `read_json`
+- L28: `file_digest`
+- L36: `load_cases`
+- L52: `inspect_adapter`
+- L85: `infer`
+- L154: `main`
+
+## day1/4-validation/capture_app_messages.py
+
+- L25: `CaptureModels`
+- L28: `__init__`
+- L31: `close`
+- L34: `available`
+- L37: `call`
+- L44: `capture`
+- L86: `main`
+
+## day1/4-validation/probe_app_text.py
+
+- L27: `checked_messages`
+- L52: `infer`
+- L134: `main`
+
+## day1/4-validation/probe_teaching_holdout.py
+
+- L13: `checked_holdout`
+- L37: `main`
+
+## day1/4-validation/probe_text_http.py
+
+- L23: `generation_parameters`
+- L34: `run`
+- L93: `main`
+
+## day1/4-validation/probe_text_policy.py
+
+- L15: `policy_rows`
+- L27: `main`
+
+## day1/4-validation/probe_text_reasoning.py
+
+- L22: `final_tokens`
+- L29: `main`
+
+## day1/4-validation/replay_text_training.py
+
+- L19: `prepare`
+- L46: `main`
 
 ## day1/5-evaluation/build_cases.py
 
@@ -258,25 +329,87 @@
 - L147: `write_frozen`
 - L153: `main`
 
+## day1/generation.py
+
+- L4: `stop_token_ids`
+
+## day1/multimodal/audit_supervision.py
+
+- L24: `check_labels`
+- L65: `native_tail`
+- L86: `main`
+- L147: `audit`
+
+## day1/multimodal/audit_unit_typography.py
+
+- L19: `audit`
+
 ## day1/multimodal/dataset.py
 
 - L7: `load_records`
-- L52: `conversation`
-- L62: `_conversation_batch`
-- L69: `training_dataset`
+- L54: `conversation`
+- L66: `_conversation_batch`
+- L75: `training_dataset`
+
+## day1/multimodal/evaluate.py
+
+- L26: `digest`
+- L30: `load_suite`
+- L65: `normalize`
+- L70: `equivalent`
+- L81: `score`
+- L108: `repeated_tail`
+- L122: `messages`
+- L131: `summarize`
+- L154: `run`
+- L207: `main`
+
+## day1/multimodal/evaluate_http.py
+
+- L23: `selected_cases`
+- L33: `http_messages`
+- L44: `summary`
+- L65: `run`
+- L133: `main`
+
+## day1/multimodal/prepare_aligned.py
+
+- L24: `field`
+- L29: `reading_targets`
+- L87: `build`
+- L152: `main`
+
+## day1/multimodal/prepare_eval.py
+
+- L16: `field`
+- L21: `documents`
+- L99: `render`
+- L139: `prepare`
 
 ## day1/multimodal/prepare_images.py
 
 - L38: `main`
 - L91: `meta`
 
+## day1/multimodal/probe_vision_policy.py
+
+- L17: `selected_development`
+- L26: `main`
+
 ## day1/multimodal/train_vl.py
 
 - L21: `main`
 
+## day1/multimodal/verify_official_base.py
+
+- L26: `load_evaluation`
+- L58: `select_development`
+- L69: `main`
+
 ## day1/multimodal/verify_vl.py
 
-- L12: `main`
+- L15: `run_inference`
+- L55: `main`
 
 ## day1/pipeline.py
 
@@ -284,13 +417,14 @@
 - L25: `sha256`
 - L29: `read_messages`
 - L53: `verified_rows`
-- L64: `tokenize_example`
-- L71: `render`
-- L95: `_tokenize_full_template`
-- L106: `render`
-- L147: `AssistantCollator`
-- L148: `__init__`
-- L151: `__call__`
+- L65: `audit_text_labels`
+- L96: `tokenize_example`
+- L103: `render`
+- L127: `_tokenize_full_template`
+- L138: `render`
+- L179: `AssistantCollator`
+- L180: `__init__`
+- L183: `__call__`
 
 ## day2/5-service/service-v2.py
 
@@ -1450,9 +1584,9 @@
 
 ## scripts/prepare_public_release.py
 
-- L19: `digest`
-- L23: `main`
-- L30: `copy`
+- L20: `digest`
+- L24: `main`
+- L31: `copy`
 
 ## scripts/run_local.py
 

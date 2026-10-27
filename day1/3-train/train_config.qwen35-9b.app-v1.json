@@ -1,0 +1,19 @@
+{
+  "model_dir": "models/base/Qwen3.5-9B",
+  "max_length": 4096,
+  "load_in_4bit": true,
+  "lora_r": 32,
+  "lora_alpha": 32,
+  "lora_dropout": 0,
+  "per_device_train_batch_size": 1,
+  "gradient_accumulation_steps": 8,
+  "warmup_steps": 2,
+  "num_train_epochs": 2,
+  "learning_rate": 0.00005,
+  "logging_steps": 1,
+  "optim": "adamw_8bit",
+  "weight_decay": 0.01,
+  "lr_scheduler_type": "linear",
+  "seed": 3407,
+  "save_total_limit": 1
+}

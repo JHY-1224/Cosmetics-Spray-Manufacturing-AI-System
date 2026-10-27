@@ -14,6 +14,49 @@ from assistant_app.backend.settings import Settings
 from assistant_app.backend.model_inventory import inventory, adapter_inventory
 
 
+def generation_stop_ids(model_path):
+    """Keep the base stop IDs and the tokenizer's supervised chat EOS."""
+    model_path = Path(model_path)
+    config = json.loads((model_path / 'config.json').read_text())
+    generation_file = model_path / 'generation_config.json'
+    generation = json.loads(generation_file.read_text()) if generation_file.is_file() else {}
+    ids = []
+    for value in (config.get('eos_token_id'), config.get('text_config', {}).get('eos_token_id'),
+                  generation.get('eos_token_id')):
+        ids.extend(value if isinstance(value, list) else [value] if value is not None else [])
+    tokenizer_config = json.loads((model_path / 'tokenizer_config.json').read_text())
+    eos = tokenizer_config.get('eos_token')
+    if isinstance(eos, dict):
+        eos = eos.get('content')
+    tokenizer = json.loads((model_path / 'tokenizer.json').read_text())
+    chat_ids = [token['id'] for token in tokenizer.get('added_tokens', []) if token['content'] == eos]
+    if not isinstance(eos, str) or len(chat_ids) != 1:
+        raise ValueError('Cannot establish tokenizer chat EOS; verify model files before launch')
+    ids.extend(chat_ids)
+    if any(type(value) is not int or value < 0 for value in ids):
+        raise ValueError('Invalid generation EOS token ID')
+    return list(dict.fromkeys(ids))
+
+
+def runtime_options(kind, quantization, environ):
+    """Use the kernel and input budgets exercised by the private GPU controls."""
+    options = ['--dtype', 'bfloat16', '--enforce-eager']
+    if quantization == 'bitsandbytes':
+        options += ['--load-format', 'bitsandbytes']
+    if kind == 'text':
+        backend = environ.get('ASSISTANT_TEXT_GDN_PREFILL_BACKEND', 'triton')
+        if backend not in ('triton', 'flashinfer', 'cutedsl'):
+            raise ValueError('Unsupported explicit GDN prefill backend')
+        options += ['--gdn-prefill-backend', backend]
+    else:
+        minimum = int(environ.get('ASSISTANT_VISION_MIN_PIXELS', '262144'))
+        maximum = int(environ.get('ASSISTANT_VISION_MAX_PIXELS', '1572864'))
+        if not 0 < minimum <= maximum <= 16777216 or minimum % 1024 or maximum % 1024:
+            raise ValueError('Vision pixel budget must use ordered multiples of1024 up to16777216')
+        options += ['--mm-processor-kwargs', json.dumps({'min_pixels': minimum, 'max_pixels': maximum})]
+    return options
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('kind', choices=['text', 'vision'])
@@ -68,6 +111,7 @@ def main():
         if quantization not in ('bitsandbytes', 'awq', 'gptq'):
             raise SystemExit('Unsupported explicit quantization')
         extra += ['--quantization', quantization]
+    extra += runtime_options(kind, quantization, os.environ)
     inventory(path, 'qwen3_5' if kind == 'text' else 'qwen3_vl')
     with socket.socket() as check:
         check.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -76,10 +120,17 @@ def main():
         except OSError:
             raise SystemExit(f'端口{port}已占用，未停止任何进程') from None
     os.environ.update(HF_HUB_OFFLINE='1', TRANSFORMERS_OFFLINE='1', HF_HUB_DISABLE_TELEMETRY='1')
+    # Invoking a venv Python by absolute path does not activate its executable PATH.
+    os.environ['PATH'] = str(Path(sys.prefix) / 'bin') + os.pathsep + os.environ.get('PATH', '')
+    os.environ.setdefault('VLLM_USE_FLASHINFER_SAMPLER', '0')
+    os.environ.setdefault('VLLM_WORKER_MULTIPROC_METHOD', 'spawn')
+    os.environ.setdefault('VLLM_NO_USAGE_STATS', '1')
+    os.environ.setdefault('DO_NOT_TRACK', '1')
     argv = [sys.executable, '-m', 'vllm.entrypoints.cli.main', 'serve', str(path), '--host', '127.0.0.1',
-            '--port', str(port), '--served-model-name', served,
+            '--port', str(port), '--served-model-name', served, '--tokenizer', str(path),
             '--gpu-memory-utilization', str(fraction), '--max-model-len', os.environ.get(prefix + '_MAX_MODEL_LEN', '8192'),
-            '--max-num-seqs', '1', '--default-chat-template-kwargs', '{"enable_thinking":false}', *extra]
+            '--max-num-seqs', '1', '--default-chat-template-kwargs', '{"enable_thinking":false}',
+            '--override-generation-config', json.dumps({'eos_token_id': generation_stop_ids(path)}), *extra]
     print('只启动此模型进程；Ctrl+C正常停止，不操作其他进程。', flush=True)
     os.execv(sys.executable, argv)
 

@@ -130,6 +130,20 @@ def test_offline_local_is_not_selectable_and_does_not_fallback(environment):
     assert default.calls == []
 
 
+def test_text_online_vision_base_offline_is_not_a_ready_multimodal_choice(environment):
+    browser, app, default, _, _, _ = environment
+
+    class TextOnlyClient(Client):
+        async def available(self, kind):
+            return kind == 'text'
+
+    app.state.model_catalog.client_factory = lambda s: TextOnlyClient(s)
+    result = options(browser)
+    local = next(m for m in result['models'] if m['category'] == 'local_base')
+    assert local['state'] == 'not_deployed' and not local['selectable']
+    assert default.calls == []
+
+
 def test_finetuned_artifact_listed_but_not_claimed_ready_without_verification(environment):
     browser, app, _, _, _, base = environment
     run = app.state.settings.model_directory / 'finetuned/Qwen3.5-9B-cosmetics/new-run'

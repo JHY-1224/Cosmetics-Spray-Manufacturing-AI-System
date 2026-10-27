@@ -110,6 +110,10 @@ python assistant_app/scripts/launch_qwen_light.py --env-file /root/autodl-tmp/mo
 ```
 
 它以前台方式管理5101文本和5102视觉两个vLLM子进程；任一退出会停止本次启动的另一个，Ctrl+C只结束本次子进程。
+新版入口按顺序加载：文本端点返回配置中的精确模型身份后，再启动视觉端点；两个身份就绪后才报告就绪。
+默认每个模型冷启动等待600秒，可用 `--startup-timeout` 显式调整。占用/相同端口、非本地端点、错误身份或子进程退出均拒绝继续，不结束其他进程。
+两个入口监听127.0.0.1，配置端点须用127.0.0.1或localhost。入口保留模型generation EOS并加入tokenizer的聊天EOS，避免回答结束后继续生成虚构对话；通过绝对路径调用venv Python时也补齐该venv的可执行PATH。
+这些启动检查不代替真实推理、质量、双模型驻留和重启负载验证；具体通过状态见[稳定性验收记录](QWEN_LIGHT_STABILITY_ACCEPTANCE.md)。
 也可分别运行 `launch_model.py text` 和 `launch_model.py vision` 排查，不关闭其他GPU进程。
 
 在Web环境构建 `assistant_app/frontend` 后运行：

@@ -4067,3 +4067,73 @@ Web另用轻量环境启动`run_assistant.py --env-file assistant_app/.env`。�
 用户首次8B单步冒烟已加载750/750权重，但SFTTrainer在初始化时拒绝普通Python类VisionRows；尚未开始成功的优化器步骤。修复在 `dataset.py:training_dataset/_conversation_batch`：使用HF Dataset.from_list保存可序列化文本和路径，再with_transform按单条/批量请求构造真实RGB图片messages；train_vl.py使用此数据集。不能改成torch Dataset来绕过，因为TRL 1.15.0核验的是datasets.Dataset/IterableDataset。保留逐条展开长度/有效标签检查、assistant监督、skip_prepare_dataset=True和remove_unused_columns=False，不改数据或权重，不修改生成缓存。
 
 修复后的Dataset接口已在现有云端datasets 4.8.5验证全部82条图片/答案、批量索引和select；检查只在内存执行，没有启动GPU训练或覆盖云端源文件。本机图像合同7项通过，新增HF接口回归2项因轻量环境没有datasets而跳过；云端全量接口检查另有实际终端结果。用户自行 `git pull --ff-only` 后重跑原8B --max-steps 1命令，成功须打印Saved vision adapter。失败run保留，重试另建run，不重装或重下模型。CUDA训练、LoRA产物与vLLM服务仍须后续真实验证。
+
+### 37.9 训练完成、视觉质量未通过与独立测试包（后续用户日志）
+
+用户日志证明：8B单步冒烟成功；完整8B训练82条、1epoch、21步、88.26秒，保存 `/root/autodl-tmp/models/services/qwen-light/vision/20261026-194847-896921/adapter`；9B训练36条、3epochs、9步、250.2秒，保存 `/root/autodl-tmp/models/services/qwen-light/text/20261026-195051-375615/adapter`。两者已实际加载并生成，9B的S01算量题符合该题证据边界；8B前三图回放存在错误描述、长串复读，当前质量不通过。不能把训练完成、loss下降、活动adapter或一个正确算量题当作整个多模态服务验收成功。
+
+最新用户要求：先把重要测试集全部保存，采用独立测试包上传服务器，避免重新上传整个GitHub项目或重新clone；本轮新测试补丁尚未发布/同步，不擅自重新训练、替换模型或启动服务。GitHub现有代码仍以远端实际状态为准，本地改文件不会自动影响云端。后续若选择Git更新只需pull，不需重新clone。
+
+最终资料为 `data/vision-eval-v2/`（32张合成测试图、64问、192字段，48开发/16封存）、`data/text-eval-v1/`（24题，18开发/6封存）、`docs/EVALUATION_HANDOFF.md`。早期vision-eval-v1为本地初稿，不用于最终测试。视觉题覆盖配料、参数设定/实测、批次、流程箭头、缺项、单位、证据边界和图片注入；不得冒充真实现场缺陷照片。检查图片哈希与训练集不重合、同组/同图不跨划分、相同完整题目/参考不跨划分。封存合成题共享生成器，不代表跨工厂泛化，不得反复用于开发直至碰巧通过。原82训练样本只能诊断回放，不能充当独立测试集。
+
+`evaluate.py`使用应用实际VISION提示词与VisionEvidence合同，gold不入模型输入；先离线检查，显式--run才加载GPU，关闭/开启同一量化基座上的adapter对照，记录JSON、字段/单位/未知、EOS、截断、复读、原回答、部分失败与人工审核。自动暂定门槛仅用于进入人工核验，production_accepted始终false；HF无vLLM JSON语法约束，HTTP实际接入须另测。`verify_vl.py`增加--compare-base/--limit/--max-new-tokens和停止/截断记录，属于本地测试工具增量，不是修改生产模型。
+
+独立包 `reports/evaluation-kit-20261026.tar.gz` 包含自有合成图、题目/参考、脚本、提示词/字段合同快照、说明、LICENSE与逐文件清单；无模型、凭据、客户资料或字体。上传项目根目录并解压到新evaluation-kit目录，使用包内run_tests.sh的check/compare/regression/final入口，复用已有cosmetics-unsloth Python，报告写云端qwen-light/evaluation全新目录，不覆盖源代码和训练产物。最终封存测试只在开发方案冻结后运行。当前仅本地测试工具32项通过、2项因未装datasets跳过，资料离线检查通过；新评测的云端模型正确率、多轮质量、vLLM/前端/飞书和真实现场验收均未执行。
+
+### 37.10 测试包公开发布与云端定向下载（2026-10-26后续）
+
+用户已追加明确授权：完整测试包属于开源项目，上传 GitHub 专用目录并传入既有云端项目；这一授权覆盖第37.9节制作包时“暂不改GitHub”的历史选择，不授权运行评测、训练或服务。新增 `evaluation/README.md`、`evaluation/evaluation-kit-20261026.tar.gz` 及同名 `.sha256`；原始 `reports/` 包完整保留、未重新打包。53个包内文件的路径与清单哈希通过，常见凭据模式扫描无匹配；只证明本次检查范围。
+
+GitHub 仓库 `JHY-1224/Cosmetics-Spray-Manufacturing-AI-System` 的 main 已发布：说明提交 `612b8c118e9747c74c1b5d64356a9632a0ebe810`，压缩包及校验提交 `9540ea1c2a006aa67f6d59f4fc448b4305d99781`。压缩包3,054,964字节、SHA256 `8b1ec491b099ae91383918a3c46ebbcd3124823e6a3d59362a0dcff0ddb6a399`；GitHub blob SHA及文件大小与本地一致。
+
+通过用户已登录 Cursor Remote SSH 终端，在云端独立目录 `/root/autodl-tmp/code/cosmetics-evaluation-only-kwxicc_e` 使用 `--depth 1 --filter=blob:none --no-checkout`、non-cone sparse checkout `/evaluation/`，实际接收17.42KiB元数据和2.92MiB测试目录对象。校验后将压缩包及 `.sha256` 以拒绝覆盖方式放入 `/root/autodl-tmp/code/Cosmetics-Spray-Manufacturing-AI-System/`，两文件SHA256均匹配；原项目未pull、未切换版本，模型和Adapter未改变。此前原始文件HTTP下载未收到数据，已中断本次尝试；保留其自建空暂存文件，不据此推断永久网络不可用。传输成功不代表新云端评测通过，本轮未解压、未启动评测/训练/服务。发布与云端截图、结构化记录保存在 `reports/evaluation-publish-20261026-zUdzmZ/`；公开说明见仓库 `evaluation/README.md`。
+
+### 37.11 当前接续点：compare已完成，排查8B复读
+
+2026-10-27 13:30恢复增量（覆盖下文锁屏状态）：Mac已解锁、SSH正常。关闭Adapter的BF16同输入8题对照已实际完成；基座S01/S02/密度题正确，但未知基准题的额外条件计算仍错。私有vLLM BF16 `evaluation/text-http-control-20261027-v2`完成同8题×两版本16次HTTP stop、0截断，Adapter仍有S02前后矛盾、密度加法与合计错误、缺证误作未执行等，未验收。PID20506已由自己的supervisor停止、returncode0。前一v1预检因序列化token差异在模型前退出；实际AutoTokenizer词表248077/特殊ID/模板/18条应用编码相同，官方加载时会补7个音频token，不是词表损坏。`probe_text_http.py`本机相关20项测试通过。当前运行`evaluation/text-http-sampling-control-20261027-v1`，同8题×两版本×种子3407/3408/3409，官方Best Practices非思考推理采样；只作对照，不改正式配置。恢复先查status，不重复启动；48次未全结束不得选好种子报通过。详情见docs/EVALUATION_HANDOFF.md顶部。未正式部署、未跑封存、未开始本轮新训练。
+
+2026-10-27最新接续：用户要求逐项保证最终Qwen轻量服务选择/启动稳定。8B告警策略v2(SHA cc0620bdde81e5bd106f0466508c106a9dff069a817f14d22ecd2980cee0f4ff)先6题18字段0关键错误并经助手审阅，再完整48题回归；云端evaluation/vision-policy-v2-http-20261027-v1已完成，原始142/144字段、2关键错误仅来自E010-Q1的`° C`排版，0循环/截断/漏告警。本地新visual_units.py仅在严格校验后规范摄氏度排版，保留raw_text/数值/状态及逐项修改元数据，orchestration.py再次校验后使用；未修改冻结评分器。audit_unit_typography.py回放管线144/144、0关键错误；旧v1漏告警负对照仍失败，原报告不改。补丁未同步云端实际应用，不能冒充已完成云端管线验收。
+
+9B新教学run20261027-111328-084607已完成，18应用+12教学题仍有内容错误；12题随后用于提示词开发，未进入SFT优化但不再独立于提示词选择。Thinking小对照2048预算4个已完成生成均无最终答案，核验PID14024后SIGINT停止，保留operator-stop.json。文本策略v1/v2/v3小对照均未全通过，不部署；v3精简策略SHA f888c4c87fc5ecf4116f45faf07c70d6638a4c417c9dc5b2401faad35dffb291。相同新Adapter/策略/8输入的BF16对照evaluation/text-bf16-control-20261027-v1已完成8 EOS、0截断/循环，实际无4bit/8bit/quant_state、dtype bf16/fp32，但仍有算术矛盾，不能仅归因量化。下一步是关闭Adapter的BF16同输入对照，尚未启动：准备命令reports/text-bf16-base-transfer-command-20261027-v1.sh；Cursor第一步getAXState因Mac锁屏阻断，未粘贴命令，云端probe_text_policy.py尚未更新variant支持。已请用户本机手动解锁并保持SSH。没有用户要求暂停；后续先查进程/报告/GPU，不重复旧训练或评测。现有GPU任务均已完成，最近BF16子进程16806结束；仍需再次实查。临时报告HTTP PID2894/127.0.0.1:8765清理待恢复后核验。
+
+本地应用稳定性修复（尚未同步/真实双模型验证）：EOS并集、venv PATH、逐个引擎精确身份就绪、端口/SO_REUSEADDR和失败仅清理自己的子进程、模型目录两端均在线才可选、摄氏度排版保真审计。最新assistant_app/tests 97通过；启动/目录/教学/HTTP针对性37通过（与前者重叠，不相加）。未正式部署5001、未封存、未现场验收、未Git提交推送。完整最新状态优先看docs/EVALUATION_HANDOFF.md顶部及docs/QWEN_LIGHT_STABILITY_ACCEPTANCE.md。
+
+2026-10-27最新接续（覆盖下段旧运行快照）：9B诊断漏配聊天EOS已用逐token对照复现。原config停止248044=endoftext，tokenizer/监督248046=im_end；旧Adapter S01/S02/T15在legacy模式1024截断，但首个im_end前89/122/48位置的tokens与修正EOS并集后90/123/49 tokens结束结果完全一致。不能再把此续写现象直接断言训练mask或Adapter退化。旧/第一版新/关闭Adapter基座各18题均0截断0循环，仍均有语义问题，未验收；eos-proof/content-review在本地reports/text-eos-control-20261027-v1/，云端同名evaluation。第一版正式新9B run20261027-101356-428375已训练18步完成，但S02/T14算术矛盾，不部署。原36标签4道计算校验正确，覆盖范围有限。已另外生成72原视图不改+48精确校验虚构教学题的120行补充集，12题参数不重合留出不参与优化，trainSHA e73dee6dba473dab9ccce222a258e8d317ff6544d83ca92c147bb97d9b2c1a10、122答案EOS预检通过。云端evaluation/text-teaching-retrain-20261027-v2/status.json已排队：等8B HTTP结束释放GPU，再预检/新run训练/应用18题/新留出12题，禁止恢复时重复启动。8B vLLM4bit实际加载及LoRA请求已成功，完整48题×两版HTTP回归位于evaluation/vision-http-control-20261027-v4/，进行中；官方与Adapter词表/规范化merges/added-ID/模板已核对一致，使用官方tokenizer避开5->4序列化差异，PyTorch sampler避开FlashInfer JIT缺编译工具，原环境依赖不改。v1/v2/v3失败保留，不能当质量失败。本地launch_model.py补EOS并集（未传云端或正式启用）；新增相关测试16通过。未封存/独立现场验收/部署。详见docs/EVALUATION_HANDOFF.md顶部最新段，先读现存状态再继续。
+
+2026-10-27重连后：旧8B完整96生成已完成（基座字段112/144，Adapter104/144，均0截断/循环）；缺项null规则候选提示词在9题×两版本18生成全部通过，尚待全量/HTTP验证，未重训8B。9B原始36生成完成后，真实应用SYSTEM+用户JSON输入18题发现旧Adapter9截断/6循环，关闭Adapter同输入S01/S02/T15三题均正常EOS，现已明确按证据只重训9B。新数据local_training/qwen-text-app-20261027-v1为36原始批准资料×canonical/助手协议两视图=72行，目标答案保持，74个答案/EOS均通过原生监督检查，最长3083；没有测试资料回流训练。新正式配置lr5e-5、2epoch、batch1/accum8、warmup2、r32/alpha32，独立smoke warmup0/maxsteps1，原产物保留。云端顺序任务状态 `models/services/qwen-light/evaluation/text-retrain-20261027-v1/status.json`（绝对父路径/root/autodl-tmp/），当时smoke_running、子进程8283，完成smoke验证才正式新run，再新9B真实应用18题回归。控制PID/启动哈希在项目reports/text-retrain-launch-20261027-v1/supervisor-launch.json；恢复必须先查，禁止重复启动。原三份训练脚本快照在evaluation/before-text-retrain-20261027/，pipeline/训练/预检增加显式数据目录、正文EOS/实际collator/padding核验与独立冒烟，未覆盖旧数据。相关本机测试50通过3因datasets缺失跳过。
+
+隔离vLLM环境已新建/root/autodl-tmp/envs/cosmetics-vllm-20261027，原锁vLLM0.22.1/Torch2.11.0+cu130/Transformers4.57.6/xgrammar0.2.5.post1及另固定bitsandbytes0.49.2，清华/官方源哈希一致；原训练环境不改。主194包依赖检查通过，CPU导入通过，GPU4bit/LoRA仍待实际验证；不得提前设置LoRA已验证或宣称已部署。evaluate_http.py准备开发HTTP回归，HTTP stop不冒充已观测EOS。新run/回归/HTTP验证后才冻结、封存、独立现场验收与部署；当时无正式模型服务/5001部署。详细证据与数据/配置哈希见docs/EVALUATION_HANDOFF.md顶部最新增量，下方断连/暂停内容为历史。
+
+2026-10-27最新：用户已恢复任务，确认 `化妆品工艺图像采集包_20261026/` 图片审核可训练（云端同名）；74张训练图与本地原件逐张哈希一致，历史expert/来源标记不改写。74图82标注审校完成：JSONL容器无已发现错误，主要缺口是自然语言训练答案与线上VisionEvidence结构任务不一致。官方基座＋官方processor诊断已修复导入及SizeDict序列化，在 `official-base-probe-20261027-v3` 完成14生成，8开发冒烟7通过、1严格null合同失败；3条简洁可见内容问答正常EOS，3条宽泛原问题达256上限但未循环。云端完整开发回归 `development-regression-20261027-v1` 已后台顺序启动8B96次和9B36次；断连前最后读取8B31/48题、两版各31生成，基座字段74/93、微调69/93，两边0循环/0截断，主要失败为unknown/uncertain值未用null，均未达验收。9B尚无本轮已读取结果。
+
+本地新增prepare_aligned.py及独立候选数据 `local_training/qwen-vl-aligned-20261027-v1/`（82条74图），dataset.py支持可选system，原数据/图/模型保留；候选只有8条具体读数任务，不能当完整OCR训练集或已批准新标签，尚未训练。另准备probe_vision_policy.py及缺项null规则候选提示词，默认不推理、仅开发题，原冻结包/应用提示词/校验均未改，先做配置对照再决定训练。云端旧脚本未在断连期间覆盖。当前Cursor SSH意外断开并要求root密码，已请用户在Cursor完成重连；恢复先查进程/报告，不能重复启动或假称已完成。报告私有127.0.0.1:8765下载进程本轮PID2894，结束须核验身份并清理本轮进程/转发。实际48GB显存49140MiB、驱动595.71.05、数据盘空闲54.38GiB；现有env无vLLM。锁定服务依赖与训练栈不同，不能覆盖训练env。详细记录和接续顺序见docs/EVALUATION_HANDOFF.md最新段。以下暂停记录为历史。
+
+最新暂停点：用户要求先暂停，停止继续测试／训练／服务启动。官方基座诊断新增verify_official_base.py已传云端，但PID101956在import evaluate时失败（云端项目根对应模块不存在、实际评测实现位于独立包），未加载模型或生成回答；日志 `/root/autodl-tmp/models/services/qwen-light/evaluation/official-base-probe-20261026-v1.log` 保留。最后nvidia-smi无计算进程。恢复先修正已校验包内评测模块的导入与路径预检，再新报告目录运行；不安装同名evaluate包、不把此次错误认定模型质量失败。82条监督审计已通过，下段有效；8B逐图标注审校、官方基座对照、9B独立开发评测、重训决定、封存与现场验收、服务部署均未完成。
+
+用户明确授权并再次确认清理云端两套大基座，已定向删除 `/root/autodl-tmp/models/Qwen3-VL-32B-Instruct` 和 `/root/autodl-tmp/models/Qwen3.8-27B`，删除前备份全部非权重元数据和文件清单到云端项目reports/removed-large-bases-20261026/；未保存大权重副本，恢复须重下匹配官方版本并校验。实际释放122312888320字节／113.91GiB，剩余154.38GiB；8B/9B及Adapter/数据/环境保留。详见docs/EVALUATION_HANDOFF.md和本地reports/cloud-supervision-audit-20261026/cloud-cleanup-result.png。不能在后续误认为32B/27B仍在当前云端，不能自动重新下载。
+
+2026-10-26最新助手云端执行：用户授权操作Cursor现有SSH并按证据整改，必要时新run保留旧产物、9B单独评测。新增audit_supervision.py在原环境重建原82条训练collator，82/82精确尾部对齐，正文与EOS监督完整、prefix/header/image/padding屏蔽正确，最短/最长padding混批通过，输入374—1616 tokens，无优化器更新。报告在 `/root/autodl-tmp/models/services/qwen-light/evaluation/supervision-audit-20261026-v1/supervision-audit.json`，SHA256 `1314427d33d1f66791f8d8b4219bcfe1209335abd6b415479b2d782e60a76314`；本地观察摘要/截图 `reports/cloud-supervision-audit-20261026/`，纯边界测试8项通过。当前重建不等于恢复旧训练未保存的tensor，也不代表标注、训练强度或模型质量通过。原训练数据、脚本与权重未改，尚未重训/部署；接下来官方基座＋官方processor诊断与标注审校。以下“尚未跑GPU／监督待核验”属历史阶段。云端已确认Adapter嵌套image_processor参数完整，预算262144—1572864与原训练一致。
+
+最新标准库结果与本地交叉核验：官方chat_template.json原文件哈希与用户云端一致，取出JSON中的模板正文后SHA256为`3636d0f0bd6bef02654cdffdc447b79cb2cef8ab02cc75267345946291a489e4`，与用户Adapter的jinja一致；不得再把保存格式／容器文件哈希差异认定模板正文被改。EOS/pad文本和r16/alpha16／基座路径符合记录。Adapter无generation_config不直接等于错误；image_parameters空是旧文件顶层摘要不足，同版本Transformers保存复合processor配置，需要核验嵌套image_processor而非宣称参数丢失。
+
+本地训练包当前仍82条／74图／16组，metadata哈希66eeb0c7de39c3963857dbff50f2d231680823c3949a5e9ba879c6066f19fd81；74条来源上下文主题标签、8条具体读取、0条JSON对象答案、0条专家审核。建议围绕线上结构化读图审校任务和答案，但不能由0条JSON标签推断必然不能输出JSON或已确定复读根因。保留原图，不全量重采；先核对真实collator的回答与EOS监督和剩余运行配置，再决定8B新run。当前8B Adapter不能据已完成训练直接上线；9B单独评测。本次只分析和保存记录，没有整改数据或重训部署。
+
+后续配置检查受阻：直接 `from transformers import AutoProcessor` 触发torchao导入，现有Torch2.8缺少其要求的ScalingType，错误发生在processor／模型加载前。上条直接导入检查命令不再使用；不据升级提示改动已成功运行Unsloth的GPU依赖。先使用仅标准库读取官方／Adapter配置及模板文件的替代命令；本机已验证语法和官方文件＋合成Adapter读取，云端输出待用户提供。磁盘配置检查不能代替运行时processor和真实collator标签监督核验，8B复读根因仍待确认。
+
+最新用户compare日志：报告 `/root/autodl-tmp/models/services/qwen-light/evaluation/20261026-125538-358999-compare/vision-paired.json`；base三条均256-token上限截断，无EOS，未见微调版那种明显循环但有无依据的识图／工艺推断。finetuned前两条循环且256上限截断，第三条30 tokens带EOS结束，但与训练参考不符。只支持本轮开启Adapter与循环退化关联，未确认唯一根因，不计算独立准确率。GPU启动前nvidia-smi无其他进程，4090报告49140MiB；不得据通用4090规格推翻本机实测。
+
+接下来先只读核对官方／Adapter的processor、模板、像素预算、特殊token与停止配置及基座身份，再核对真实collator的回答／EOS监督；必要时官方基座＋官方processor复核共同识图问题。当前训练预检只确认labels非空和序列预算，不能以supervision声明冒充逐token验证，也不能提前认定mask错误。用户原始日志及解析分析保存在 `reports/compare-analysis-20261026-qsv3bfu7/`；本轮助手没有重跑GPU、改模型、重训或启动服务。以下check和compare前置说明作为历史步骤保留，后续不要又从未解压／未compare状态重来。
+
+后续实际状态：用户已贴出完整云端check输出，解压、压缩包及包内完整性检查通过；`files_checked_no_inference`，development为48/48题、8类各6题，cases_sha256为 `5f828b5682f1c8bf76fae6add5ae5ead728f9a23020e754c1212f0b08cf4a3f1`，报告在 `/root/autodl-tmp/models/services/qwen-light/evaluation/20261026-125359-172543-check`。不必再次解压；下一步由用户手动运行包内 `run_tests.sh compare`。先查看当前GPU占用，不结束未知进程。compare尚无本轮结果，不能据check通过判断8B复读已解决。
+
+2026-10-26用户要求保存下一步并提供云端手动指令。本轮只更新本地交接记录，不自动执行云端解压、评测或服务。先在既有云端项目根目录核对 `.sha256`，确认没有同名目录或符号链接后，以 `tar --keep-old-files` 解压；再运行包内 `run_tests.sh check`。完整输出确认 `files_checked_no_inference`、48道开发题及报告路径后，再进入 `compare`。目录已存在、校验失败或check报错时先核对，不覆盖／删除或跳过检查。可复制指令在 `docs/EVALUATION_HANDOFF.md` 的“下一步”章节。
+
+compare默认前三条训练样本，关闭／开启Adapter共6次生成；共用Adapter目录processor与同一4bit基座，参数保持greedy、seed3407、max_new_tokens256。检查两版本原回答、EOS和输出上限。关闭正常而开启退化时检查标签、回答／EOS监督、LoRA模块和训练强度；两边都异常时检查共同输入／模板／processor／停止设置和运行环境，并用官方基座＋官方processor另行复核；普通回答正常但结构化任务失败时检查与VisionEvidence合同的任务一致性；内容连贯仅达输出上限时核对预算和停止条件。不能把共同processor的对照当独立纯基座验证，也不能用训练回放计算独立正确率。先读结果再决定修配置或新run，不擅自重训、用复读抑制掩盖问题、跑封存测试或启动服务。
+
+## 38. 源码正确性与云端运行的同步边界（2026-10-27）
+
+用户再次明确：脚本、数据/输入合同或应用逻辑缺陷修正本地源项目，经过公开审计同步GitHub与云端；纯云端环境、资源、训练产物问题在云端独立环境/新run处理，不据此无依据改锁或重训。Mac5001已按试用要求启动，仍是已有阿里云配置，不是云端微调服务上线。
+
+本轮发现旧3-test-adapter.py及三个视觉HF入口没有显式并集聊天EOS；新增day1/generation.py统一校验、复用到probe_app_text.py并显式传入generate，保留legacy只用于历史对照。原冻结evaluation归档、历史分数、训练数据和权重不改。公开测试改为从仓库自带固定SHA256归档解压临时夹具，复用公开图片和合成模型配置，修复四项依赖本机reports/local_training/weights的失败，不放宽断言。源项目助手+day1联合回归200通过、3项因无datasets跳过；发布副本/云端还需独立实测。
+
+云端balanced-v3的40次回放已读取并由助手逐项对照20条参考；仍发现投料先错后改、表格行列误读、无基线却称不良率下降及公式/结果不一致，不公布整体正确率、不登记验收、不盲目重训。审阅原件和补丁前快照在reports/source-correctness-20261027-144337/。详细最新状态以docs/EVALUATION_HANDOFF.md顶部为准；同步/部署是否完成必须看实际校验记录。
