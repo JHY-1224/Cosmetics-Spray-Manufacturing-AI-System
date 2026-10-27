@@ -18,8 +18,8 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 377804,
-      "sha256": "d46636fc7bffbd2a6adbf5b68299b890e7f5f799a31b0ac8e406122f9b1c9c06"
+      "bytes": 378637,
+      "sha256": "38080a3842d76bf69ec9cacb0aad50de1c8cb88f0a5aa762f5aee13b38d62f2d"
     },
     {
       "path": "DATA_LICENSE.md",
@@ -1013,8 +1013,8 @@
     },
     {
       "path": "docs/EVALUATION_HANDOFF.md",
-      "bytes": 44793,
-      "sha256": "265bfd018e97e4a011c7329200fdb4e42d658034702659dc47a05318b292e477"
+      "bytes": 45780,
+      "sha256": "73ded5c9400f6586dfce3fe41410c1326cd3f3bde39d744202f167218df56be1"
     },
     {
       "path": "docs/FINETUNED_MODEL_TEST_20261026.md",
@@ -1043,8 +1043,8 @@
     },
     {
       "path": "docs/RELEASE_STATUS.md",
-      "bytes": 4367,
-      "sha256": "a0c123184106bae6c74bdf533bff97231cd1a253915b11151bfc7338918c8303"
+      "bytes": 4726,
+      "sha256": "14133af96616dbfd578cd28ae4564945a29e695953e30d2b8de75bb415b9e4ea"
     },
     {
       "path": "docs/SOURCE_INDEX.md",
@@ -2493,7 +2493,7 @@
     }
   ],
   "public_source_files": 498,
-  "source_bytes": 32437649,
+  "source_bytes": 32439828,
   "models": "official manifests only; cloud weights external",
   "data": {
     "text_rows": 36,

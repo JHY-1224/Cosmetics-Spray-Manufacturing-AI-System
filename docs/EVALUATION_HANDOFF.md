@@ -2,6 +2,10 @@
 
 ## 2026-10-27源码修复与运行问题的边界
 
+**本轮源码同步已完成**：已发布提交278b3de1ff669cdb12cc5be2ea6526cc87f28f31并快进云端既有项目；498份清单文件及清单本身共499个SHA256全部一致，241个Python文件AST及结束符运行检查通过。源目录和独立公开副本均200通过、3项缺datasets跳过；云端没有重跑GPU推理或完整单元测试，Web环境仍待安装。下文“还需同步”是过程记录，以本段和本轮校验报告为准。
+
+普通云端Git拉取遇到HTTP/2错误及HTTP/1.1超时，改用官方GitHub API传输已发布提交的哈希固定Git离线包；先备份21份待更新文件，并保留三份限定源码范围的stash，再快进。保留凭据、模型、Adapter、local_training、运行报告及原冻结评测包；源码同步不能称作正式服务部署。云端证据在/root/autodl-tmp/models/services/qwen-light/evaluation/source-correctness-sync-20261027-v1/，本机副本在reports/source-correctness-20261027-144337/。
+
 用户再次明确：训练/诊断脚本、输入合同、可分发训练数据或应用逻辑的缺陷，应修正本地源项目并同步GitHub与云端；纯云端依赖、精度、资源和训练产物问题，在云端独立环境或新run处理。不能用Mac上的阿里云5001冒充云端微调版部署。
 
 本轮检查发现3-test-adapter.py及三个视觉HF入口仍未显式合并generation EOS与tokenizer聊天EOS；新增day1/generation.py统一校验并显式传给generate，probe_app_text.py复用同一实现，保留legacy仅供历史对照。旧冻结evaluation归档及原始报告未改，历史结果不追写为新配置结果。训练监督已有通过证据，本轮没有据停止符问题启动重训。

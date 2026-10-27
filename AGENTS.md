@@ -4137,3 +4137,5 @@ compare默认前三条训练样本，关闭／开启Adapter共6次生成；共�
 本轮发现旧3-test-adapter.py及三个视觉HF入口没有显式并集聊天EOS；新增day1/generation.py统一校验、复用到probe_app_text.py并显式传入generate，保留legacy只用于历史对照。原冻结evaluation归档、历史分数、训练数据和权重不改。公开测试改为从仓库自带固定SHA256归档解压临时夹具，复用公开图片和合成模型配置，修复四项依赖本机reports/local_training/weights的失败，不放宽断言。源项目助手+day1联合回归200通过、3项因无datasets跳过；发布副本/云端还需独立实测。
 
 云端balanced-v3的40次回放已读取并由助手逐项对照20条参考；仍发现投料先错后改、表格行列误读、无基线却称不良率下降及公式/结果不一致，不公布整体正确率、不登记验收、不盲目重训。审阅原件和补丁前快照在reports/source-correctness-20261027-144337/。详细最新状态以docs/EVALUATION_HANDOFF.md顶部为准；同步/部署是否完成必须看实际校验记录。
+
+本轮后续实际结果：源码与公开副本均200通过、3项缺datasets跳过，498文件公开清单/凭据审计通过。278b3de已发布GitHub并快进到云端现有项目；含清单共499文件SHA256一致，241个Python文件AST与结束符运行检查通过。云端普通Git网络失败后通过官方API下载已发布提交的固定哈希Git离线包，保留21份更新前文件和三份限定源码stash；未覆盖模型/Adapter、私有配置或原训练/评测资料。云端证据在/root/autodl-tmp/models/services/qwen-light/evaluation/source-correctness-sync-20261027-v1/，本机有cloud-result.json等副本。未安装云端Web依赖、未重跑GPU推理、未新训练、未正式部署；后续不要重复发布前的已完成排查，也不要把Mac阿里云试用入口当成最终云端服务。
