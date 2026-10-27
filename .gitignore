@@ -26,6 +26,7 @@ day1/**/.venv/
 
 # Private originals, runtime state, training weights and release staging
 local_training/
+evaluation/local-only/
 化妆品工艺图像采集包_*/
 化妆品资料采集包_*/
 关键对接需求文档/

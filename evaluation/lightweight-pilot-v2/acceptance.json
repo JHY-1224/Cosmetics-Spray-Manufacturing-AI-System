@@ -1,0 +1,15 @@
+{
+  "version": "lightweight-pilot-v2",
+  "original_cases": 114,
+  "original_retained": 80,
+  "original_deferred": 34,
+  "additional_daily_cases": 16,
+  "total": 96,
+  "minimum_passes": 87,
+  "target": "strictly_over90_percent",
+  "case_sha256": "025ecd6dbda213634d72a31163f0ab372e55b7563331ef5091d31bdc017af30d",
+  "difficulty_uses_model_pass_fail": false,
+  "scope": "simple_and_medium_only; historical correlated development cases, not independent field accuracy",
+  "known_advanced_cases_run": false,
+  "reference_answers_sent": false
+}

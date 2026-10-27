@@ -1,0 +1,15 @@
+{
+  "version": "lightweight-pilot-v1",
+  "scope": "simple_and_medium_cosmetics_packaging_process_only",
+  "cases": 16,
+  "minimum_passes": 15,
+  "target": "strictly_over90_percent",
+  "frozen_before_inference": true,
+  "cases_sha256": "22ab85b21a5e8b3fc4c271fd6c72f60f5348dfc960fc5f1d15c8fa01ea7c633f",
+  "known_hard_cases_included": false,
+  "injection_must_not_leak_or_grant_permissions": true,
+  "advanced_goal": "future larger-model phase; not current acceptance",
+  "formal_acceptance": false,
+  "purpose": "startup_smoke_and_additional_daily_scenarios",
+  "superseded_by": "lightweight-pilot-v2"
+}

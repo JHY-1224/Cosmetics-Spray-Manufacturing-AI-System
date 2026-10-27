@@ -13,13 +13,13 @@
     },
     {
       "path": ".gitignore",
-      "bytes": 736,
-      "sha256": "951c1832afbbf0e73a35d57834bca548a6b27738aac53de24968d7d6f9b91a38"
+      "bytes": 759,
+      "sha256": "f5c5729f269026223067a7fd998a1c810e7531eda0393eafab42efca21180522"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 382609,
-      "sha256": "7f8ce3e2e80c09003ada00879ec94cf03046285c678b661dad7eae01742c53b7"
+      "bytes": 385695,
+      "sha256": "f2c69e3692eb137286d3b94977af0e3490b3a62b40f1bb138a09edfabf47a4d5"
     },
     {
       "path": "DATA_LICENSE.md",
@@ -103,8 +103,8 @@
     },
     {
       "path": "assistant_app/backend/model_inventory.py",
-      "bytes": 5380,
-      "sha256": "1a6d4636ac5adbdf310b035d9ae95000436ccb3d3a45f7a7d147b33e3e0715f5"
+      "bytes": 8091,
+      "sha256": "a8e51bf0c0c35f1e1928c688941cdfbe3630225a0cea4103273f3367c0194061"
     },
     {
       "path": "assistant_app/backend/orchestration.py",
@@ -345,6 +345,11 @@
       "path": "assistant_app/tests/test_generation_stops.py",
       "bytes": 2413,
       "sha256": "d366608e016419da3f434ba9dceb7837dbea29eb9226132b9d7a83d4ba297f81"
+    },
+    {
+      "path": "assistant_app/tests/test_lora_target_formats.py",
+      "bytes": 1845,
+      "sha256": "a61c183073fe754e445df15c0108e0652e4351766bf816fc0ba889449c0f8321"
     },
     {
       "path": "assistant_app/tests/test_model_catalog.py",
@@ -1088,8 +1093,8 @@
     },
     {
       "path": "docs/EVALUATION_HANDOFF.md",
-      "bytes": 49753,
-      "sha256": "ab68b8e8494079c22d99ebaf700af065ca12a4c52d937e2ea406f32e3c43c30c"
+      "bytes": 51952,
+      "sha256": "335246762d2d3bf0a6a844a5fcc5f76baf3276a5d9f6ac220bac82a8c2de87e4"
     },
     {
       "path": "docs/FINETUNED_MODEL_TEST_20261026.md",
@@ -1098,8 +1103,13 @@
     },
     {
       "path": "docs/FINE_TUNING_LESSONS.md",
-      "bytes": 13425,
-      "sha256": "947d6e044846a4fc5956bc1db4ce0a9e986917a8e494e11daeae4d7b58995521"
+      "bytes": 14304,
+      "sha256": "76d00da8c9b8c0c865fc14b4c34561db2dd44108d0714eb7506cac5d7e6d9ec7"
+    },
+    {
+      "path": "docs/LIGHTWEIGHT_PILOT_AND_ROADMAP.md",
+      "bytes": 8674,
+      "sha256": "a74a982124f8d86b86a171316a410231438646541a8770cc6da8ab37bb94c18c"
     },
     {
       "path": "docs/MULTIMODAL_TRAINING.md",
@@ -1128,8 +1138,8 @@
     },
     {
       "path": "docs/SOURCE_INDEX.md",
-      "bytes": 29146,
-      "sha256": "4d20df2b2038b6c5690a68cb6d1b2733baf31ae255f177ddeae839ef9bd336bb"
+      "bytes": 29179,
+      "sha256": "99202c58aedcd66b2df11fabeb0184434b20102a065948fddb459f8f1edcccd1"
     },
     {
       "path": "docs/VALIDATION_AND_DELIVERY.md",
@@ -1150,6 +1160,41 @@
       "path": "evaluation/evaluation-kit-20261026.tar.gz.sha256",
       "bytes": 97,
       "sha256": "76ac49b6f5e96b7ba7ab842c2ab30ff6a60f794291c3240df50f73f618927601"
+    },
+    {
+      "path": "evaluation/lightweight-pilot-v1/README.md",
+      "bytes": 607,
+      "sha256": "0a8d4e7fc60f185da016b0f2fc501b8bc6c5f2b1aeef87e2fb09035a4f534cb4"
+    },
+    {
+      "path": "evaluation/lightweight-pilot-v1/acceptance.json",
+      "bytes": 603,
+      "sha256": "2508f4a526d98ed143fa06de5f91750df558208b84c3042036ec6f4b5830d697"
+    },
+    {
+      "path": "evaluation/lightweight-pilot-v1/cases.json",
+      "bytes": 4247,
+      "sha256": "22ab85b21a5e8b3fc4c271fd6c72f60f5348dfc960fc5f1d15c8fa01ea7c633f"
+    },
+    {
+      "path": "evaluation/lightweight-pilot-v2/README.md",
+      "bytes": 909,
+      "sha256": "f192a1ee9ae06e45e7e3070b84474164bff0b29cf44ca66927ecb007b59bece0"
+    },
+    {
+      "path": "evaluation/lightweight-pilot-v2/acceptance.json",
+      "bytes": 539,
+      "sha256": "29981c269b901ff7bc0b4288941d401758618c0fecdb5ed94627062287365353"
+    },
+    {
+      "path": "evaluation/lightweight-pilot-v2/cases.json",
+      "bytes": 83926,
+      "sha256": "025ecd6dbda213634d72a31163f0ab372e55b7563331ef5091d31bdc017af30d"
+    },
+    {
+      "path": "evaluation/lightweight-pilot-v2/original-114-difficulty.json",
+      "bytes": 18612,
+      "sha256": "f59bb0786c9418be541d08ccb460db29f604b9f241a47042c5c66ae40d990c3d"
     },
     {
       "path": "frontend/buildIdentity.d.mts",
@@ -2183,8 +2228,8 @@
     },
     {
       "path": "scripts/audit_public_release.py",
-      "bytes": 2409,
-      "sha256": "caf3f0796a311fcf77308751df7470a5da5974a20e25290f31ccae2dbe1a71bd"
+      "bytes": 2422,
+      "sha256": "7179ad9f1d51a543c1fbbe185d9090ea756f51079f05f50d8ad5bc0864cc3eb6"
     },
     {
       "path": "scripts/benchmark.py",
@@ -2258,8 +2303,8 @@
     },
     {
       "path": "scripts/prepare_public_release.py",
-      "bytes": 6582,
-      "sha256": "f9a713449e352a6426257ae675ccaf3995961a3eb114a92a70da63e7da5d64e6"
+      "bytes": 6595,
+      "sha256": "8fbd28454db1315c0b3826baf8c83a41c3a3b0bf0b121a2cc036195d5ac2f4b5"
     },
     {
       "path": "scripts/release_manifest.py",
@@ -2572,8 +2617,8 @@
       "sha256": "432092f6317b2ebe15fc2f361b19631c5487f53f2f5c2845c53322e715e70b95"
     }
   ],
-  "public_source_files": 514,
-  "source_bytes": 35629815,
+  "public_source_files": 523,
+  "source_bytes": 35758734,
   "models": "official manifests only; cloud weights external",
   "data": {
     "text_rows": 36,

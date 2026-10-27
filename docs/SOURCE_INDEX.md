@@ -100,10 +100,11 @@
 
 ## assistant_app/backend/model_inventory.py
 
-- L7: `digest`
-- L15: `inventory`
-- L48: `adapter_inventory`
-- L80: `verify_receipt`
+- L8: `digest`
+- L16: `inventory`
+- L49: `language_lora_targets`
+- L100: `adapter_inventory`
+- L129: `verify_receipt`
 
 ## assistant_app/backend/orchestration.py
 

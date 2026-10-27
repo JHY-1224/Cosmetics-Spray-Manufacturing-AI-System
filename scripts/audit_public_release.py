@@ -19,7 +19,7 @@ def main():
         for key,value in dotenv_values(args.private_env).items():
             if re.search(r'KEY|TOKEN|SECRET|PASSWORD',key) and value and len(value)>=12:
                 secrets.append(value.encode())
-    blocked={'var','local_training','node_modules','.data','.git','关键对接需求文档','configs-private'}
+    blocked={'var','local_training','node_modules','.data','.git','关键对接需求文档','configs-private','local-only'}
     patterns=[rb'gh[pousr]_[A-Za-z0-9]{30,}',rb'github_pat_[A-Za-z0-9_]{40,}',rb'sk-[A-Za-z0-9]{24,}',
               rb'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----\s+[A-Za-z0-9+/]{30,}']
     issues=[]

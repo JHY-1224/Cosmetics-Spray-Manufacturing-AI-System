@@ -13,7 +13,7 @@ BUNDLE_SHA256 = '7baeb891d8da0d852db5822d1bac242d1ee7c3904c17143cd3024554621fadc
 DIRECTORIES = ('quality','frontend','assistant_app','migrations','deploy','schemas','scripts','tests','day1','day2','docs',
                'data/vision-public','data/text-training','data/evaluation-inputs','evaluation')
 ROOT_FILES = ('.env.example','.dockerignore','.gitignore','Dockerfile','requirements.txt','pyproject.toml','alembic.ini','LICENSE','AGENTS.md')
-SKIP = {'node_modules','__pycache__','dist','test-results','playwright-report','.pytest_cache','.ruff_cache','outputs','dataset','.data','.git','configs-private'}
+SKIP = {'node_modules','__pycache__','dist','test-results','playwright-report','.pytest_cache','.ruff_cache','outputs','dataset','.data','.git','configs-private','local-only'}
 SUFFIXES = {'.py','.sh','.toml','.lock','.json','.jsonl','.yaml','.yml','.ts','.tsx','.mjs','.mts','.js','.css','.html','.md','.txt','.svg','.csv','.sql','.example','.command','.conf','.node'}
 
 

@@ -2,6 +2,7 @@
 import hashlib
 import json
 from pathlib import Path
+import re
 
 
 def digest(path):
@@ -45,6 +46,57 @@ def inventory(path, expected_type, hashes=False):
             'integrity_scope': 'local_inventory; compare against trusted official manifest separately'}
 
 
+def language_lora_targets(target_modules, shapes, rank):
+    """PEFT accepts target suffix lists or regex strings; inspect saved tensors too."""
+    if isinstance(target_modules, str):
+        if not target_modules or len(target_modules) > 4096:
+            raise ValueError('无效的LoRA目标表达式')
+        try:
+            expression = re.compile(target_modules)
+        except re.error:
+            raise ValueError('无效的LoRA目标表达式') from None
+        matches = lambda module: expression.fullmatch(module) is not None
+    elif (isinstance(target_modules, list) and target_modules and
+          all(isinstance(value, str) and value and len(value) <= 1000 for value in target_modules)):
+        if any('visual' in value or 'vision' in value for value in target_modules):
+            raise ValueError('LoRA目标列表包含视觉模块')
+        matches = lambda module: any(module == value or module.endswith('.'+value) for value in target_modules)
+    else:
+        raise ValueError('无效的LoRA目标模块')
+    # A generic pattern must not silently include the independently preserved vision tower.
+    if isinstance(target_modules, str):
+        for prefix in ('visual.blocks.0.attn', 'model.visual.blocks.0.attn',
+                       'model.vision_model.encoder.layers.0.self_attn', 'vision_tower.encoder.layers.0.self_attn'):
+            if any(matches(prefix+'.'+projection) for projection in ('qkv','proj','q_proj','k_proj','v_proj','o_proj')):
+                raise ValueError('LoRA目标表达式包含视觉模块')
+    if type(rank) is not int or rank <= 0:
+        raise ValueError('无效的LoRA秩')
+    pairs = {}
+    for name, shape in shapes.items():
+        found = re.fullmatch(r'base_model\.model\.(.+)\.lora_([AB])(?:\.[\w-]+)?\.weight', name)
+        if not found:
+            raise ValueError('存在非预期的LoRA张量')
+        module, side = found.groups()
+        parts = module.split('.')
+        language = (re.match(r'^(?:model\.)?(?:language_model|text_model)(?:\.model)?\.layers\.\d+\.', module)
+                    or re.match(r'^(?:model\.)?layers\.\d+\.', module))
+        if not language or any(part in ('visual','vision_model','vision_tower') for part in parts):
+            raise ValueError('仅允许已核对的语言层LoRA张量')
+        if not matches(module):
+            raise ValueError('LoRA张量与目标模块配置不一致')
+        if (not isinstance(shape, list) or len(shape) != 2 or
+                any(type(size) is not int or size <= 0 for size in shape) or
+                shape[0 if side == 'A' else 1] != rank):
+            raise ValueError('LoRA维度与配置不一致')
+        pair = pairs.setdefault(module, {})
+        if side in pair:
+            raise ValueError('重复的LoRA矩阵')
+        pair[side] = shape
+    if not pairs or any(set(pair) != {'A','B'} for pair in pairs.values()):
+        raise ValueError('LoRA矩阵必须成对完整')
+    return sorted(pairs)
+
+
 def adapter_inventory(adapter, base, hashes=False):
     import importlib.util
     from .settings import ROOT
@@ -56,17 +108,13 @@ def adapter_inventory(adapter, base, hashes=False):
     path = Path(adapter).resolve()
     config = json.loads((path / 'adapter_config.json').read_text())
     target_modules = config['target_modules']
-    if not isinstance(target_modules, list) or not target_modules or any('visual' in t for t in target_modules):
-        raise ValueError('仅允许已核对的语言层LoRA目标模块')
     with (path / 'adapter_model.safetensors').open('rb') as source:
         size = int.from_bytes(source.read(8), 'little')
         if not 2 <= size <= 16 * 1024 * 1024:
             raise ValueError('无效的safetensors头部')
         tensors = json.loads(source.read(size))
     shapes = {k: v['shape'] for k, v in tensors.items() if k != '__metadata__'}
-    lora = [shape for k, shape in shapes.items() if 'lora_' in k]
-    if not lora or any(len(shape) != 2 or config['r'] not in shape for shape in lora):
-        raise ValueError('LoRA维度与配置不一致')
+    modules = language_lora_targets(target_modules, shapes, config['r'])
     files = {}
     for p in sorted(path.iterdir()):
         if p.is_file():
@@ -74,6 +122,7 @@ def adapter_inventory(adapter, base, hashes=False):
             if hashes:
                 files[p.name]['sha256'] = digest(p)
     return {'path': str(path), 'r': config['r'], 'target_modules': target_modules, 'tensor_shapes': shapes,
+            'verified_language_modules': modules,
             'files': files, 'hashes_computed': hashes}
 
 

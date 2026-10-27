@@ -1,0 +1,578 @@
+{
+  "basis": "task structure and requested pilot scope, not whether the model passed",
+  "model_outputs_used_in_classification": false,
+  "retained_simple_medium": 80,
+  "deferred_advanced": 34,
+  "cases": [
+    {
+      "id": "S01",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "S02",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "S03",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "S04",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "S05",
+      "tier": "advanced",
+      "reason": "多源标注冲突或负数/跨量级单位矛盾的专门压力题"
+    },
+    {
+      "id": "S06",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "S07",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "S08",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "S09",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "S10",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "S11",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "S12",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "T13",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "T14",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "T15",
+      "tier": "advanced",
+      "reason": "多源标注冲突或负数/跨量级单位矛盾的专门压力题"
+    },
+    {
+      "id": "T16",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "T17",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "T18",
+      "tier": "medium",
+      "reason": "基础品质/权限/资料读取或中等核算与缺项核对"
+    },
+    {
+      "id": "balanced-percentage-validation-064",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-065",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-066",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-067",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-068",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-069",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-070",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-071",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-072",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-073",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-074",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-075",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-076",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-077",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-078",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-percentage-validation-079",
+      "tier": "medium",
+      "reason": "基础百分数与两组分质量比教学核算"
+    },
+    {
+      "id": "balanced-density-validation-064",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-065",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-066",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-067",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-068",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-069",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-070",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-071",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-072",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-073",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-074",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-075",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-076",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-077",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-078",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-density-validation-079",
+      "tier": "advanced",
+      "reason": "多密度/体积份数加权换算与反向复核"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-064",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-065",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-066",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-067",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-068",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-069",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-070",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-071",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-072",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-073",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-074",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-075",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-076",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-077",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-078",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-mass_ratio-validation-079",
+      "tier": "simple",
+      "reason": "明确质量比的基础分配"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-064",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-065",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-066",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-067",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-068",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-069",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-070",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-071",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-072",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-073",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-074",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-075",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-076",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-077",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-078",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-partial_quantities-validation-079",
+      "tier": "medium",
+      "reason": "不完整信息下保留已知量、不擅自补比例基准"
+    },
+    {
+      "id": "balanced-record_identity-validation-064",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-065",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-066",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-067",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-068",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-069",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-070",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-071",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-072",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-073",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-074",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-075",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-076",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-077",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-078",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-record_identity-validation-079",
+      "tier": "advanced",
+      "reason": "负数物理含义、单位尺度、对象标识与状态声明的多属性边界压力"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-064",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-065",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-066",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-067",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-068",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-069",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-070",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-071",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-072",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-073",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-074",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-075",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-076",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-077",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-078",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    },
+    {
+      "id": "balanced-sample_sufficiency-validation-079",
+      "tier": "medium",
+      "reason": "实际样本与最低要求比较，区分事实与批准依据"
+    }
+  ]
+}
