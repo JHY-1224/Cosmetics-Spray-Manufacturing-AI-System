@@ -10,7 +10,6 @@ export type ModelCatalog = {default_id:string; models:ModelOption[]; unreadable_
 const groups = [
   {id:'cloud',name:'阿里云模型',icon:<CloudOutlined/>,empty:'暂未配置云端模型'},
   {id:'local_finetuned',name:'自部署微调服务',icon:<ExperimentOutlined/>,empty:'微调并部署后，从服务端统一目录中读取'},
-  {id:'local_base',name:'基座预览',icon:<DesktopOutlined/>,empty:'用于示范与接线测试'},
 ];
 export function modelState(model:ModelOption){
   if(model.selectable)return '可用';
