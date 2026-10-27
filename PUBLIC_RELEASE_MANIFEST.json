@@ -18,8 +18,8 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 385695,
-      "sha256": "f2c69e3692eb137286d3b94977af0e3490b3a62b40f1bb138a09edfabf47a4d5"
+      "bytes": 388466,
+      "sha256": "886dbda135cfb6e1bd6742b9c8c8f32d5b45ba48576718d04925fc0d9e9b8715"
     },
     {
       "path": "DATA_LICENSE.md",
@@ -93,8 +93,8 @@
     },
     {
       "path": "assistant_app/backend/model_catalog.py",
-      "bytes": 12532,
-      "sha256": "f0354b5e23b38dc3165654251f16a79de0e5269bf9ceafb55a4956b41d7791f9"
+      "bytes": 12835,
+      "sha256": "a33b8a50f8e009392157cd1d097968277a9329d733cd260a622deb3fdd53cbb6"
     },
     {
       "path": "assistant_app/backend/model_clients.py",
@@ -158,8 +158,8 @@
     },
     {
       "path": "assistant_app/configs/model_profiles/README.md",
-      "bytes": 2580,
-      "sha256": "a9d3b7d1dca4bd069bb200683401e7c651f8f6d06c84070579f013ca54161ed8"
+      "bytes": 3377,
+      "sha256": "a029e4da7b089707031aa584854d4392024bf76d83c77674c4119cfff3638654"
     },
     {
       "path": "assistant_app/configs/model_profiles/local-base.json.example",
@@ -228,8 +228,8 @@
     },
     {
       "path": "assistant_app/frontend/src/ModelPicker.tsx",
-      "bytes": 3486,
-      "sha256": "ed6c7dfc625e388a80684a49c91422d04c74df222cb53b85e414acca70785338"
+      "bytes": 3385,
+      "sha256": "05a84343ce16157070b7e078714517eda9c2fbd331f7d9cd5583d9c19e7e7e3f"
     },
     {
       "path": "assistant_app/frontend/src/main.tsx",
@@ -353,8 +353,8 @@
     },
     {
       "path": "assistant_app/tests/test_model_catalog.py",
-      "bytes": 10793,
-      "sha256": "99a09dbff29e5511e56a5bf5b675260cd5cbd574651b9543459da218d3e30909"
+      "bytes": 11737,
+      "sha256": "71d58c83cb3820f54934db54d3414c2b36f3513c8fd64811aaa2dea1e1011128"
     },
     {
       "path": "assistant_app/tests/test_paired_startup.py",
@@ -1072,6 +1072,11 @@
       "sha256": "1bb64189e05baab453527a180fc5d32a6fb886e93b287a810cf22683dfc9984a"
     },
     {
+      "path": "docs/ALIYUN_BACKUP_20261027.md",
+      "bytes": 4558,
+      "sha256": "929e0d9519e727e26d38475d6ca68832cbf98598a15304de88a31fffad0e9bbc"
+    },
+    {
       "path": "docs/ARCHITECTURE_AND_WORKFLOWS.md",
       "bytes": 12062,
       "sha256": "f93ee9bdecb34f051b2120f04e1b3f620ca30912cbd6bdc09b93c0be407cab57"
@@ -1093,8 +1098,8 @@
     },
     {
       "path": "docs/EVALUATION_HANDOFF.md",
-      "bytes": 51952,
-      "sha256": "335246762d2d3bf0a6a844a5fcc5f76baf3276a5d9f6ac220bac82a8c2de87e4"
+      "bytes": 53303,
+      "sha256": "43551d28e40d7d3a4bfb63adfa4ff62d62967e8fd2dec22612c6db323d4c8304"
     },
     {
       "path": "docs/FINETUNED_MODEL_TEST_20261026.md",
@@ -1103,13 +1108,23 @@
     },
     {
       "path": "docs/FINE_TUNING_LESSONS.md",
-      "bytes": 14304,
-      "sha256": "76d00da8c9b8c0c865fc14b4c34561db2dd44108d0714eb7506cac5d7e6d9ec7"
+      "bytes": 16716,
+      "sha256": "ff62fdd7548171da2d59ad5d71bea18a1900227eef305d238be71fe28dab26d0"
+    },
+    {
+      "path": "docs/LIGHTWEIGHT_PILOT_20261027_RESULT.md",
+      "bytes": 9033,
+      "sha256": "7078564cfbab2b7eda6a9169d797bfd9532d86674e513dc032a0e88ddd6aa431"
     },
     {
       "path": "docs/LIGHTWEIGHT_PILOT_AND_ROADMAP.md",
-      "bytes": 8674,
-      "sha256": "a74a982124f8d86b86a171316a410231438646541a8770cc6da8ab37bb94c18c"
+      "bytes": 8989,
+      "sha256": "38022447a1120407f3d6e916155eeeb5ee3c0afca182524701050114e1190bab"
+    },
+    {
+      "path": "docs/MODEL_OPTIONS_20261027.md",
+      "bytes": 3869,
+      "sha256": "fb0c63a1938bd180b3de0d7bb5ef9b94c3580e714f5e7b4d316b8115b32036b0"
     },
     {
       "path": "docs/MULTIMODAL_TRAINING.md",
@@ -1139,7 +1154,7 @@
     {
       "path": "docs/SOURCE_INDEX.md",
       "bytes": 29179,
-      "sha256": "99202c58aedcd66b2df11fabeb0184434b20102a065948fddb459f8f1edcccd1"
+      "sha256": "48df05d52f15085ab3d2cc37852db983622f6dec7b7e816e014dc65556307403"
     },
     {
       "path": "docs/VALIDATION_AND_DELIVERY.md",
@@ -2617,8 +2632,8 @@
       "sha256": "432092f6317b2ebe15fc2f361b19631c5487f53f2f5c2845c53322e715e70b95"
     }
   ],
-  "public_source_files": 523,
-  "source_bytes": 35758734,
+  "public_source_files": 526,
+  "source_bytes": 35784986,
   "models": "official manifests only; cloud weights external",
   "data": {
     "text_rows": 36,
