@@ -49,7 +49,7 @@ def environment(tmp_path):
     profiles.mkdir()
     settings = Settings(data_dir=tmp_path / 'data', public_origin='http://testserver',
                         text_mode='approved_cloud', model_directory=root, model_profiles_dir=profiles,
-                        text_model_path=base, local_text_served_model='local-base')
+                        text_model_path=base, local_text_served_model='local-base', allow_base_preview=True)
     default = Client()
     clients = []
     def factory(config):
@@ -104,6 +104,23 @@ def test_directory_discovery_categories_and_private_fields(environment):
     assert str(base) not in serialized and '127.0.0.1' not in serialized
     assert 'api_key' not in serialized and 'text_model_base_url' not in serialized
     assert not any(m['category'] == 'local_finetuned' for m in result['models'])
+
+
+def test_trial_catalog_does_not_expose_stored_or_profiled_base_without_opt_in(environment):
+    browser, app, default, _, profiles, base = environment
+    ident = next(m['id'] for m in options(browser)['models'] if m['category']=='local_base')
+    profile(profiles/'base.json', base)
+    app.state.settings.allow_base_preview = False
+    result = options(browser)
+    assert [m['id'] for m in result['models']] == ['configured']
+    assert result['unreadable_entries'] == 0
+    conversation = browser.post('/api/assistant/conversations').json()['id']
+    for model in (ident, 'custom'):
+        response = browser.post('/api/assistant/conversations/'+conversation+'/messages',
+            json={'text':'synthetic request','request_key':'hidden-base-request','model_id':model})
+        assert response.status_code == 422
+    assert default.calls == []
+    assert base.is_dir() and (base/'model.safetensors').is_file()
 
 
 def test_request_routes_to_selected_client_without_global_change(environment):
