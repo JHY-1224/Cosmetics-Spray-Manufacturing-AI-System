@@ -1193,8 +1193,8 @@
     },
     {
       "path": "docs/licenses/Qwen-Apache-2.0.txt",
-      "bytes": 11544,
-      "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a"
+      "bytes": 11343,
+      "sha256": "50cbab8a892c5f2993b8c7351a99182507472def3b1374558308605d99b86b32"
     },
     {
       "path": "evaluation/README.md",
@@ -2673,7 +2673,7 @@
     }
   ],
   "public_source_files": 534,
-  "source_bytes": 15990917,
+  "source_bytes": 15990716,
   "models": "official manifests only; cloud weights external",
   "data": {
     "text_rows": 36,
