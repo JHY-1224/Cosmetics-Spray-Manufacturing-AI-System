@@ -10,6 +10,7 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument('snapshot',type=Path)
     p.add_argument('--private-env',type=Path,help='Optional local comparison; contents are never emitted')
+    p.add_argument('--result', action='store_true', help='Require the explicitly frozen bundled LoRA result parts')
     args=p.parse_args()
     root=args.snapshot.resolve()
     manifest=json.loads((root/'PUBLIC_RELEASE_MANIFEST.json').read_text())
@@ -20,9 +21,25 @@ def main():
             if re.search(r'KEY|TOKEN|SECRET|PASSWORD',key) and value and len(value)>=12:
                 secrets.append(value.encode())
     blocked={'var','local_training','node_modules','.data','.git','关键对接需求文档','configs-private','local-only'}
+    if not args.result:
+        blocked.add('pretrained')
     patterns=[rb'gh[pousr]_[A-Za-z0-9]{30,}',rb'github_pat_[A-Za-z0-9_]{40,}',rb'sk-[A-Za-z0-9]{24,}',
               rb'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----\s+[A-Za-z0-9+/]{30,}']
     issues=[]
+    if args.result:
+        result_manifest = json.loads((root/'models/releases/qwen-light-20261028-bundled.json').read_text())
+        expected_parts = {x['path']:x for model in result_manifest['models'].values() for x in model['downloads']}
+        actual_parts = {p.name for p in (root/'pretrained').iterdir() if p.is_file()}
+        if actual_parts != set(expected_parts):
+            issues.append({'path':'pretrained','reason':'missing or unexpected trained parameter part'})
+        for name,item in expected_parts.items():
+            part=root/'pretrained'/name
+            if (Path(name).name!=name or not part.is_file() or part.is_symlink()
+                or part.stat().st_size!=item['bytes'] or item['bytes']>40_000_000
+                or hashlib.sha256(part.read_bytes()).hexdigest()!=item['sha256']):
+                issues.append({'path':'pretrained/'+name,'reason':'trained parameter hash/size mismatch'})
+        if not (root/'assistant_app/frontend/dist/index.html').is_file():
+            issues.append({'path':'assistant_app/frontend/dist','reason':'compiled customer UI missing'})
     listed={item['path']:item for item in manifest['files']}
     for path in sorted(root.rglob('*')):
         if not path.is_file(): continue

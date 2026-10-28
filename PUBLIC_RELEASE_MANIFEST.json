@@ -13,13 +13,13 @@
     },
     {
       "path": ".gitignore",
-      "bytes": 759,
-      "sha256": "f5c5729f269026223067a7fd998a1c810e7531eda0393eafab42efca21180522"
+      "bytes": 791,
+      "sha256": "dc18630673a98b91c0750f49d2664b27d41af51cacc1939137d272362f7697dd"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 389990,
-      "sha256": "0d2be819eeb006ad9971731bdbc2994996b65642b70ce48baf7b84f0a84c3b7a"
+      "bytes": 390784,
+      "sha256": "196a785695a2abe60c8db09ff81ceeebc4b6c5f11fe198a30a17a2094f3eddad"
     },
     {
       "path": "DATA_LICENSE.md",
@@ -38,8 +38,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5377,
-      "sha256": "7f0d7be6b383951e9accaff9e1e3fac8d3162704be419970b4d398079caf985f"
+      "bytes": 5549,
+      "sha256": "100c316fb0933281f70172069c5abb596730072f10b47fd16b88f5b3e382bc91"
     },
     {
       "path": "TRAINING_ARCHITECTURE.md",
@@ -1098,8 +1098,8 @@
     },
     {
       "path": "docs/CLOUD_QUICKSTART.md",
-      "bytes": 11168,
-      "sha256": "b832d6e08b1ba634751b66e97f84ac9d824a795c13248306f2d0c219eb475853"
+      "bytes": 11367,
+      "sha256": "eb22bbebbc49f53c49e1d0876fe993c698fd9ef8cd725d5f7e95efe6d0ba6936"
     },
     {
       "path": "docs/DATA_LICENSE.md",
@@ -1123,13 +1123,18 @@
     },
     {
       "path": "docs/FINETUNED_RELEASE_20261028.md",
-      "bytes": 5180,
-      "sha256": "3a24dd790ee41d4ee4e773f29e1e10fa4250c7e0547b0e3e7ba0ebee80a9950c"
+      "bytes": 5561,
+      "sha256": "f2be3496ebab90722fac7d2463cbcb558f05ab149711bba7402dcdeb617191ed"
     },
     {
       "path": "docs/FINE_TUNING_LESSONS.md",
       "bytes": 17280,
       "sha256": "f39cd03a6acd40da7f5760e4d61c1ab816b90cdca2a3016608dd6d03d053a89c"
+    },
+    {
+      "path": "docs/GITEE_RESULT_README.md",
+      "bytes": 4945,
+      "sha256": "4f5e5ef8561df25e33ca4321fa0351e6360af41232f0ab7410539d4b9e91e9ad"
     },
     {
       "path": "docs/LIGHTWEIGHT_OPTIMIZATION_20261028.md",
@@ -1163,8 +1168,8 @@
     },
     {
       "path": "docs/PUBLIC_README.md",
-      "bytes": 5377,
-      "sha256": "7f0d7be6b383951e9accaff9e1e3fac8d3162704be419970b4d398079caf985f"
+      "bytes": 5549,
+      "sha256": "100c316fb0933281f70172069c5abb596730072f10b47fd16b88f5b3e382bc91"
     },
     {
       "path": "docs/QWEN_LIGHT_STABILITY_ACCEPTANCE.md",
@@ -1178,13 +1183,13 @@
     },
     {
       "path": "docs/SOURCE_AND_RELEASE_WORKFLOW.md",
-      "bytes": 4511,
-      "sha256": "ed8f43a878db7a985f2465775d647a77ae91bf917c10bcfc254ade5c09e8e64f"
+      "bytes": 5282,
+      "sha256": "905d5f249422e362a9339d88d8a4355bfbed40e9aade41642c05f3e16a40347f"
     },
     {
       "path": "docs/SOURCE_INDEX.md",
-      "bytes": 29302,
-      "sha256": "f42c7bf57b48c3417fe8b9f195c91f0e017de57faecb955f6c46ab2caf587496"
+      "bytes": 29704,
+      "sha256": "e0b90ed4469673bd791847d04ecb7038494c0165116c3f4f63f1c4db8c528f98"
     },
     {
       "path": "docs/VALIDATION_AND_DELIVERY.md",
@@ -1543,8 +1548,13 @@
     },
     {
       "path": "models/README.md",
-      "bytes": 453,
-      "sha256": "ec307d4fef3ceec4b1d6f01e2633413b85500e445c677e6f2e76389297e2096e"
+      "bytes": 573,
+      "sha256": "d24cce93e959b0b231c3c28909c8ba963f8118beb5a3a3e0039849760297c846"
+    },
+    {
+      "path": "models/releases/qwen-light-20261028-bundled.json",
+      "bytes": 9452,
+      "sha256": "19fecb1fd5befb1e444e5103249c8fb2dc3eaf79abf6c5491ebe1bbc97f2cc67"
     },
     {
       "path": "models/releases/qwen-light-20261028.json",
@@ -2273,8 +2283,8 @@
     },
     {
       "path": "scripts/audit_public_release.py",
-      "bytes": 2422,
-      "sha256": "7179ad9f1d51a543c1fbbe185d9090ea756f51079f05f50d8ad5bc0864cc3eb6"
+      "bytes": 3700,
+      "sha256": "df6028310096e0e60ec2951fec27922842562020e97611e39db00e8da17dcfec"
     },
     {
       "path": "scripts/benchmark.py",
@@ -2342,14 +2352,19 @@
       "sha256": "f225eca4e4f5173514de239a250d49be6257764eb4d99401aa124ba0a9701889"
     },
     {
+      "path": "scripts/prepare_customer_result.py",
+      "bytes": 4797,
+      "sha256": "efb308b715fe1f07d80f5787c844abd3602b61819370fdc75aa8a175718d5667"
+    },
+    {
       "path": "scripts/prepare_local_offline.py",
       "bytes": 3632,
       "sha256": "85fcf280ff8c54854a850887b79ecbd77f7b65c9d7df12707752185ec6934cfc"
     },
     {
       "path": "scripts/prepare_public_release.py",
-      "bytes": 7406,
-      "sha256": "884fc0ccb10971cc7a6d079a36ebb4a6b8fd07e0f76cdc026a0fb62e267a3de5"
+      "bytes": 7526,
+      "sha256": "beb64d0362fef390203f57dc5452a2f81628cda39db1d79028ee64d4e43f3282"
     },
     {
       "path": "scripts/release_manifest.py",
@@ -2360,6 +2375,11 @@
       "path": "scripts/restore_finetuned_release.py",
       "bytes": 3960,
       "sha256": "7891329a46c0db04f445b443ddcc465a1498d38453cabb0493f7c31cc963bb77"
+    },
+    {
+      "path": "scripts/run_finetuned_service.py",
+      "bytes": 17030,
+      "sha256": "bc8b29f69f93b86ab6b8d038dd637dc5625b966d2f0a62dbc76aaa616b9e2e4c"
     },
     {
       "path": "scripts/run_local.py",
@@ -2435,6 +2455,11 @@
       "path": "tests/test_csrf_contract.py",
       "bytes": 1812,
       "sha256": "3f1c00eac39b0ca780a46f53670675724ea4d3766176f80fd7b4ba322d69b17b"
+    },
+    {
+      "path": "tests/test_customer_result_start.py",
+      "bytes": 5058,
+      "sha256": "a2b774453b6936fb0ccd82e517e8c54d7d3b38c8ff4f010b262e5a58ec8acfc7"
     },
     {
       "path": "tests/test_delivery_integrity.py",
@@ -2672,8 +2697,8 @@
       "sha256": "432092f6317b2ebe15fc2f361b19631c5487f53f2f5c2845c53322e715e70b95"
     }
   ],
-  "public_source_files": 534,
-  "source_bytes": 15990716,
+  "public_source_files": 539,
+  "source_bytes": 16036439,
   "models": "official manifests only; cloud weights external",
   "data": {
     "text_rows": 36,

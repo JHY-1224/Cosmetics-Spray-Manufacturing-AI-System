@@ -1600,6 +1600,12 @@
 
 - L18: `generate`
 
+## scripts/prepare_customer_result.py
+
+- L13: `sha`
+- L21: `build`
+- L78: `main`
+
 ## scripts/prepare_local_offline.py
 
 - L19: `prepare`
@@ -1617,6 +1623,22 @@
 - L25: `verify`
 - L30: `restore`
 - L77: `main`
+
+## scripts/run_finetuned_service.py
+
+- L30: `write_new`
+- L36: `prepare_artifacts`
+- L78: `verify_bases`
+- L97: `validate_model_card`
+- L104: `NoRedirect`
+- L105: `redirect_request`
+- L109: `request_json`
+- L119: `probe_lora`
+- L142: `available_ports`
+- L155: `env_for`
+- L174: `serve`
+- L197: `stopped`
+- L266: `main`
 
 ## scripts/run_local.py
 

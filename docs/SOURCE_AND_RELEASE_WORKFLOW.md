@@ -7,9 +7,9 @@
 |Mac完整工作区|开发源码、数据处理、测试、私有原件、失败账本|持续开发，保护原件|
 |GitHub `JHY-1224/Cosmetics-Spray-Manufacturing-AI-System`|与Mac对应的可公开源码、许可明确的数据、脚本、锁文件、脱敏经验|每次授权且验证通过的修改；不等待项目最后一天才同步|
 |NVIDIA云端|冻结源码提交、独立训练/推理/Web环境、官方基座、逐run训练产物、私有运行配置|按准确提交克隆/更新；候选隔离验证，再办理正式切换|
-|Gitee `jhy1224520/Cosmetics-Spray-Manufacturing-AI-System-finetuned`|同名加“微调后”的发布源码、版本清单、LoRA参数附件、恢复步骤|每次选定发布版本；保留旧版本和失败记录|
+|Gitee `jhy1224520/Cosmetics-Spray-Manufacturing-AI-System-finetuned`|客户使用的训练结果：源码、仓库内LoRA分片、网页成品、必要环境说明及统一启动入口|每次选定发布版本；保留旧版本和失败记录|
 
-“本地与GitHub一致”指公开源码清单及文件SHA256一致。Mac上的密钥、客户资料、业务库、未获再分发许可的原件、缓存和虚拟环境不属于公开源码；不能整盘镜像。云端运行进程、CUDA驱动和显存状态也不能装进Git。
+“本地与GitHub一致”指公开源码清单及文件SHA256一致。共享业务代码继续同步到Gitee；Gitee另带客户结果资源和精简README，因此不再要求两仓库整个Git树相同。Mac上的密钥、客户资料、业务库、未获再分发许可的原件、缓存和虚拟环境不属于公开源码；不能整盘镜像。云端运行进程、CUDA驱动和显存状态也不能装进Git。
 
 ## 从Mac到云端
 
@@ -37,7 +37,9 @@ python day1/0-download-model/1-download.py --verify-only --model-root /root/auto
 
 ## 发布到Gitee
 
-源码与发布版本标识保持可追溯。基座提供官方链接与冻结清单，不重复上传约37GB权重；**项目训练出的LoRA参数必须作为发行版附件交付**，不能只给云端绝对路径。
+源码与发布版本标识保持可追溯。基座提供官方链接与冻结清单，不重复上传约37GB权重；**项目训练出的LoRA参数直接作为仓库内40MB分片交付**，普通克隆/源码ZIP即包含，不能只给云端路径或要求客户另找发行版附件。历史v1附件保留。
+
+开发源码用 `prepare_public_release.py --licensed-data-only` 导出；Gitee结果在通过源码审计后用 `prepare_customer_result.py` 附加明确选定的原参数分片与网页成品，再用 `audit_public_release.py --result` 逐项核对。Gitee根README取自 `docs/GITEE_RESULT_README.md`；训练过程不作为客户启动步骤。客户入口 `run_finetuned_service.py` 复用既有模型启动器，先核对真实LoRA身份与生成，再创建核验回执和启动Web，不静默回退基座。
 
 Gitee个人版官方配额：Git单仓库500MB、单文件50MB，附件单文件100MB、仓库附件总量1GB。大参数按原始字节分片并记录每片与合并文件SHA256；恢复时先验片、合并、验包、再安全解压，不改权重内容。
 

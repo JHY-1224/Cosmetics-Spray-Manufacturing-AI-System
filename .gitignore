@@ -43,5 +43,7 @@ reports/
 *.pem
 *.key
 models/services/
+.runtime-finetuned/
+pretrained/
 assistant_app/configs/model_profiles/*.json
 !assistant_app/configs/model_profiles/*.json.example
