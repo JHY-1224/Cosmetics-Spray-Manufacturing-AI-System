@@ -1,0 +1,206 @@
+{
+  "release_id": "qwen-light-finetuned-20261028-v6",
+  "source_project": "JHY-1224/Cosmetics-Spray-Manufacturing-AI-System",
+  "source_tag": "finetuned-20261028-v6",
+  "release_repository": "https://gitee.com/jhy1224520/Cosmetics-Spray-Manufacturing-AI-System-finetuned",
+  "base_weights_included": false,
+  "models": {
+    "text": {
+      "run_id": "20261027-134240-499467",
+      "files": [
+        {
+          "path": "adapter_config.json",
+          "bytes": 1755,
+          "sha256": "8d8d1c23ad3086c64a71673df98ff0c50b39facc10594237e418af8559bc3de2"
+        },
+        {
+          "path": "adapter_model.safetensors",
+          "bytes": 86630872,
+          "sha256": "9f8cac5c116acec133c5c1773ebf8ac0407609b55bd8e19c3801e14f1314b59c"
+        },
+        {
+          "path": "chat_template.jinja",
+          "bytes": 7756,
+          "sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+        },
+        {
+          "path": "tokenizer.json",
+          "bytes": 19989325,
+          "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "bytes": 7144,
+          "sha256": "8b07605296aaa9eb438a91b9eac5e4e817e04837e92bde83eb4084929542d9a9"
+        }
+      ],
+      "archive": "text-adapter.tar.gz",
+      "archive_bytes": 83402568,
+      "archive_sha256": "e3f68245ea5e253780d9dd8fe20471b84ff9ff51bc6931d0ba906721d6f317da",
+      "downloads": [
+        {
+          "path": "text-adapter.tar.gz",
+          "bytes": 83402568,
+          "sha256": "e3f68245ea5e253780d9dd8fe20471b84ff9ff51bc6931d0ba906721d6f317da"
+        }
+      ],
+      "base_model_id": "Qwen/Qwen3.5-9B",
+      "base_download_urls": [
+        "https://modelscope.cn/models/Qwen/Qwen3.5-9B",
+        "https://huggingface.co/Qwen/Qwen3.5-9B"
+      ],
+      "base_manifest": "models/Qwen3.5-9B.manifest.json",
+      "license": "Apache-2.0"
+    },
+    "vision": {
+      "run_id": "20261026-194847-896921",
+      "files": [
+        {
+          "path": "adapter_config.json",
+          "bytes": 1667,
+          "sha256": "a1a7c4cb70385797b241f801efdb7d311dc6d132b7d4436855b1ff7f5d6ad5b5"
+        },
+        {
+          "path": "adapter_model.safetensors",
+          "bytes": 174663096,
+          "sha256": "ec46d1b611aab96b7bd89821284dfe9c5f005477aaa7830ca4846a4b78edb8b6"
+        },
+        {
+          "path": "chat_template.jinja",
+          "bytes": 5292,
+          "sha256": "3636d0f0bd6bef02654cdffdc447b79cb2cef8ab02cc75267345946291a489e4"
+        },
+        {
+          "path": "processor_config.json",
+          "bytes": 1220,
+          "sha256": "c0ce1002a5ff0aa35e736befa6de91df12de701e865705992673146aaa2a7fb7"
+        },
+        {
+          "path": "tokenizer.json",
+          "bytes": 11422920,
+          "sha256": "ec03f089e7b9d4a0ca449f982023bec5346b1e2975e080c3cfada7aa7cbd60b1"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "bytes": 5486,
+          "sha256": "24a0108012355e002ee6aa0d5e8ed1a359fbf17143fd859018bf450a503d5b9e"
+        }
+      ],
+      "archive": "vision-adapter.tar.gz",
+      "archive_bytes": 162915181,
+      "archive_sha256": "7ea9324aa3b660f466c4a57333e28baf395a5be637dbeac7cb983ca3e1a2aa85",
+      "downloads": [
+        {
+          "path": "vision-adapter.tar.gz.part01",
+          "bytes": 90000000,
+          "sha256": "133250b078e1914f359261b4a3e959b9d1439364a402aba4c16059c98a50a700"
+        },
+        {
+          "path": "vision-adapter.tar.gz.part02",
+          "bytes": 72915181,
+          "sha256": "c6732545435ebcc71421c7db26f14b5aa8a46c0c0a8ad0de891062594121e77c"
+        }
+      ],
+      "base_model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "base_download_urls": [
+        "https://modelscope.cn/models/Qwen/Qwen3-VL-8B-Instruct",
+        "https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct"
+      ],
+      "base_manifest": "models/Qwen3-VL-8B-Instruct.manifest.json",
+      "license": "Apache-2.0"
+    }
+  },
+  "prompt_policy": {
+    "version": "industrial-assistant-v6",
+    "text_sha256": "564ea9c74eb89b93989eb3514eb76aab8d948a5f7f7d7eb8bed8a1c53f81c553",
+    "vision_sha256": "b08b40ceb10ad470381b5589b5f54f91e3eaf646930decd6e6585eadc9f7c9d5",
+    "shared_across_model_routes": true,
+    "signals_are_security_guarantee": false
+  },
+  "candidate_files": {
+    "assistant_app/backend/runtime_prompts.py": "ad979b06be7feb2a7c4f3e467bbf110b845a68a69e581ef7dd4ea80ad9d0d95c",
+    "assistant_app/backend/quantity_review.py": "f7ad1d825cc8427fd1aa37c67a67e49c9f6b6a0cabf8e8feb067602b462fe116",
+    "assistant_app/configs/policies/shared-text-v6.txt": "564ea9c74eb89b93989eb3514eb76aab8d948a5f7f7d7eb8bed8a1c53f81c553",
+    "assistant_app/configs/policies/shared-vision-v3.txt": "b08b40ceb10ad470381b5589b5f54f91e3eaf646930decd6e6585eadc9f7c9d5"
+  },
+  "evaluation": {
+    "suite": "lightweight-pilot-v2",
+    "cases": 96,
+    "passed": 89,
+    "failed": 7,
+    "scope": "correlated_simple_medium_development_regression_not_field_accuracy",
+    "case_sha256": "025ecd6dbda213634d72a31163f0ab372e55b7563331ef5091d31bdc017af30d",
+    "responses_sha256": "4d3b3f05962300582594ebc10983987461f00d2f174a0b375538f2b5820e9b38",
+    "review": "assistant reference review, not independent expert/field accuracy",
+    "prior_baseline": "83/96"
+  },
+  "multimodal_smoke": {
+    "tasks": 5,
+    "model_calls": 9,
+    "passed": 4,
+    "partial": 1,
+    "limitation": "multi-image observation quoted text absent from source image"
+  },
+  "cloud_inventory_before_publication": {
+    "source_commit": "1ca3b09ca9d0e8c6dd9a50e092e1d34908c5b033",
+    "source_tracked_changes": "",
+    "gpu": "NVIDIA GeForce RTX 4090, 49140 MiB, 595.71.05",
+    "prompt_policy": "industrial-assistant-v3",
+    "production_switched_to_v6": false
+  },
+  "environments": {
+    "training": {
+      "cosmetics-unsloth": {
+        "python": "3.12.3",
+        "packages": {
+          "torch": "2.8.0+cu128",
+          "transformers": "5.17.0",
+          "peft": "0.21.2",
+          "trl": "1.15.0",
+          "unsloth": "2026.10.8",
+          "unsloth_zoo": "2026.10.8",
+          "bitsandbytes": "0.50.2",
+          "accelerate": "1.15.0",
+          "httpx": "0.28.1",
+          "pydantic": "2.14.1"
+        }
+      }
+    },
+    "serving": {
+      "python": "3.12.3",
+      "packages": {
+        "torch": "2.11.0",
+        "transformers": "4.57.6",
+        "vllm": "0.22.1",
+        "bitsandbytes": "0.49.2",
+        "fastapi": "0.162.0",
+        "uvicorn": "0.54.0",
+        "httpx": "0.28.1",
+        "pydantic": "2.14.1"
+      }
+    },
+    "web": {
+      "python": "3.12.3",
+      "packages": {
+        "fastapi": "0.150.0",
+        "uvicorn": "0.54.0",
+        "httpx": "0.28.1",
+        "pydantic": "2.14.1"
+      }
+    }
+  },
+  "training_data": {
+    "text_manifest": "data/text-training/balanced-20261027-v3/dataset-manifest.json",
+    "text_rows": 456,
+    "text_sha256": "31d673bdc8c644f635a5fe4a06161f75d955655cc4be16e9bcc1cf3503a977b2",
+    "vision_actual_images": 74,
+    "vision_actual_rows": 82,
+    "vision_public_licensed_images": 20,
+    "vision_unverified_redistribution_images_excluded": 54,
+    "full_vision_retraining_from_public_subset_claimed": false
+  },
+  "artifact_license": "Apache-2.0",
+  "license_text": "docs/licenses/Qwen-Apache-2.0.txt",
+  "restore_script": "scripts/restore_finetuned_release.py",
+  "original_weights_modified": false
+}

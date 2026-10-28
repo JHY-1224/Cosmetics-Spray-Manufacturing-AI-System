@@ -127,7 +127,7 @@
 ## assistant_app/backend/quantity_review.py
 
 - L26: `material_label`
-- L32: `quantity_notices`
+- L34: `quantity_notices`
 
 ## assistant_app/backend/runtime_prompts.py
 
@@ -1608,7 +1608,15 @@
 
 - L20: `digest`
 - L24: `main`
-- L31: `copy`
+- L33: `copy`
+
+## scripts/restore_finetuned_release.py
+
+- L11: `digest`
+- L19: `basename`
+- L25: `verify`
+- L30: `restore`
+- L77: `main`
 
 ## scripts/run_local.py
 

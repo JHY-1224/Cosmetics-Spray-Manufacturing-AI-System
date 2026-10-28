@@ -6,7 +6,9 @@
 “Qwen轻量级服务”在前端是一个选项，内部由Qwen3.5-9B文本模型和Qwen3-VL-8B-Instruct视觉模型协作，与阿里云接口并列。
 
 **生产目标是Linux NVIDIA GPU云服务器。Mac仅用于开发、数据整理、示范与离线检查。**
-仓库提供源码、开发训练样本和部署工具，未发布训练权重。已有目标GPU训练和单模型诊断，成套服务仍须通过内容与稳定性验收；当前状态见[验收记录](docs/QWEN_LIGHT_STABILITY_ACCEPTANCE.md)。
+GitHub 保存与 Mac 对齐的开发源码、已核实许可的数据和训练部署工具；Gitee“微调后”保存发布快照与已训练的 LoRA 参数附件。基座不重复上传，使用官方链接与冻结校验清单。见[三端工作流程](docs/SOURCE_AND_RELEASE_WORKFLOW.md)及[微调后交付](docs/FINETUNED_RELEASE_20261028.md)。
+
+2026-10-28：v6 固定96题相关开发回归89通过（92.71%），仍有7道失败；这是助手参考复审，非独立现场准确率。云端正式5001仍保留v3，v6在隔离5005验收；本次开源发布不自动重启正式服务。
 
 ## 从哪里开始
 
@@ -29,7 +31,7 @@
 |`day1/3-train/`|9B文本Unsloth训练|
 |`day1/multimodal/`|8B图文数据整理、校验、训练和CUDA视觉冒烟|
 |`data/vision-public/`|20张CC BY 4.0图像及20条上下文开发问答|
-|`qwen-vl-full-20261026.tar.gz`|完整74图、82问答开发包；克隆后解压，保留原来源与许可状态|
+|`models/releases/`|微调产物哈希、官方基座链接、环境与验收范围；参数通过 Gitee 发行版附件分发|
 |`models/`|基座校验清单；无权重|
 |`data/text-training/`|可复现的72条协议视图、456条候选训练记录与96条预留教学题，保留来源署名|
 |`evaluation/`|冻结独立测试包、校验值与定向下载方法|
@@ -54,7 +56,7 @@ python day1/0-download-model/1-download.py --verify-only --model-root /root/auto
 
 本地完整图像训练开发包为74张图、82条问答，包括工艺照片、配料表、文字、参数页与简图。
 其中74条是主题/资料边界标签，8条是细项读取；不是全量逐字OCR，也未经过领域专家审核。
-完整74图和82条问答已随根目录 `qwen-vl-full-20261026.tar.gz` 纳入Git，克隆即可取得，无需另外上传；按云端手册校验、解压后训练。`data/vision-public/`仍保留20张明确CC BY 4.0来源的子集。其余54张图的许可状态仍未核实，完整包不适用代码MIT许可证。
+本次公开快照仅附20张已核实 CC BY 4.0许可的图像。旧74图包另54张的再分发许可尚未核实，因此新快照不附该压缩包；本地原件保留，GitHub旧提交历史不改写。已训练的视觉参数与数据原件分别说明，不把缺失的54张图伪称为已公开、可完整复训的数据。
 原36条文本和82条图文是有限开发数据。新版文本训练资料保留原答案，并补充明确虚构、代码核验的教学任务；预留题共享任务家族，不能用于宣称现场准确率。原冻结测试包另有开发／封存划分；封存题在配置冻结前不运行。
 
 模型建议不会操作PLC、自动加料、审批、放行或确认唯一根因。提示词约束与权限、隔离、限流、结果校验共同工作，不能保证所有提示词注入都被阻止。
@@ -64,5 +66,5 @@ python day1/0-download-model/1-download.py --verify-only --model-root /root/auto
 
 代码使用[MIT](LICENSE)。数据、图像、基座和依赖各自遵循原许可，详见[数据许可](DATA_LICENSE.md)。
 基座来自官方[Qwen3.5-9B](https://modelscope.cn/models/Qwen/Qwen3.5-9B)与[Qwen3-VL-8B-Instruct](https://modelscope.cn/models/Qwen/Qwen3-VL-8B-Instruct)。
-模型权重、API密钥、业务数据库、客户配置、会议记录、其他私有资料及历史运行报告不在Git中。
+基座和LoRA二进制不进入源码Git；LoRA在Gitee发行版附件提供。API密钥、业务数据库、客户配置、会议记录和私有运行报告不公开。
 公开文件与SHA256见 `PUBLIC_RELEASE_MANIFEST.json`。

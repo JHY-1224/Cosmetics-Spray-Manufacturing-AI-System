@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BUNDLE = 'qwen-vl-full-20261026.tar.gz'
 BUNDLE_SHA256 = '7baeb891d8da0d852db5822d1bac242d1ee7c3904c17143cd3024554621fadcf'
 DIRECTORIES = ('quality','frontend','assistant_app','migrations','deploy','schemas','scripts','tests','day1','day2','docs',
-               'data/vision-public','data/text-training','data/evaluation-inputs','evaluation')
+               'data/vision-public','data/text-training','data/evaluation-inputs','evaluation','models/releases')
 ROOT_FILES = ('.env.example','.dockerignore','.gitignore','Dockerfile','requirements.txt','pyproject.toml','alembic.ini','LICENSE','AGENTS.md')
 SKIP = {'node_modules','__pycache__','dist','test-results','playwright-report','.pytest_cache','.ruff_cache','outputs','dataset','.data','.git','configs-private','local-only'}
 SUFFIXES = {'.py','.sh','.toml','.lock','.json','.jsonl','.yaml','.yml','.ts','.tsx','.mjs','.mts','.js','.css','.html','.md','.txt','.svg','.csv','.sql','.example','.command','.conf','.node'}
@@ -24,6 +24,8 @@ def digest(path):
 def main():
     p=argparse.ArgumentParser()
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--licensed-data-only', action='store_true',
+                   help='Omit the legacy full image archive whose extra54 images lack verified redistribution rights')
     args=p.parse_args()
     output=args.output.resolve()
     if output==ROOT or ROOT.is_relative_to(output): raise ValueError('Output must be a new child or independent directory')
@@ -50,17 +52,18 @@ def main():
                 copy(path)
     for name in ROOT_FILES: copy(ROOT/name)
     # Explicitly requested training bundle; do not include arbitrary local archives.
-    if digest(ROOT/BUNDLE) != BUNDLE_SHA256:
-        raise ValueError('Training bundle differs from the approved snapshot')
-    copy(ROOT/BUNDLE)
-    copy(ROOT/(BUNDLE+'.sha256'))
+    if not args.licensed_data_only:
+        if digest(ROOT/BUNDLE) != BUNDLE_SHA256:
+            raise ValueError('Training bundle differs from the approved snapshot')
+        copy(ROOT/BUNDLE)
+        copy(ROOT/(BUNDLE+'.sha256'))
     copy(ROOT/'README.md',Path('docs/PROJECT_MANUAL.md'))
     copy(ROOT/'docs/PUBLIC_README.md',Path('README.md'))
     copy(ROOT/'docs/DATA_LICENSE.md',Path('DATA_LICENSE.md'))
     copy(ROOT/'docs/MULTIMODAL_TRAINING.md',Path('TRAINING_ARCHITECTURE.md'))
     for name in ('Qwen3.5-9B','Qwen3-VL-8B-Instruct'):
         copy(ROOT/'models'/(name+'.manifest.json'))
-    (output/'models/README.md').write_text('# 模型位置\n\n权重不随Git发布。生产基座位于/root/autodl-tmp/models/Qwen3.5-9B和Qwen3-VL-8B-Instruct；成套微调产物在/root/autodl-tmp/models/services/qwen-light。详见../docs/CLOUD_QUICKSTART.md。Mac本地models/base仅供示范测试。\n')
+    (output/'models/README.md').write_text('# 模型位置\n\n基座不随Git发布，官方链接与冻结清单见../docs/FINETUNED_RELEASE_20261028.md。自训LoRA参数通过Gitee发行版附件分发，哈希与分片清单在releases/；不是只提供云端路径。原云端基座位于/root/autodl-tmp/models/Qwen3.5-9B和Qwen3-VL-8B-Instruct；原微调产物在/root/autodl-tmp/models/services/qwen-light。恢复步骤见微调后交付文档；Mac本地models/base仅供示范测试。\n')
     # Source links and local-only history are retained, but remove workstation user paths in prose.
     for path in output.rglob('*.md'):
         value=path.read_text()
@@ -83,10 +86,15 @@ def main():
     files=[{'path':str(p.relative_to(output)),'bytes':p.stat().st_size,'sha256':digest(p)} for p in sorted(output.rglob('*')) if p.is_file()]
     report={'project':'化妆品喷涂制造工艺AI智能系统','files':files,'public_source_files':len(files),
             'source_bytes':sum(f['bytes'] for f in files),'models':'official manifests only; cloud weights external',
-            'data':{'text_rows':36,'cc_by_subset_images':20,'cc_by_subset_rows':20,'bundled_full_images':74,'bundled_full_rows':82,'rights_unverified_images':54,'bundle':BUNDLE},
+            'data':{'text_rows':36,'cc_by_subset_images':20,'cc_by_subset_rows':20,
+                    'bundled_full_images':0 if args.licensed_data_only else 74,
+                    'bundled_full_rows':0 if args.licensed_data_only else 82,
+                    'rights_unverified_images_excluded':54 if args.licensed_data_only else 0,
+                    'bundle':None if args.licensed_data_only else BUNDLE},
             'excluded':['weights and adapters','credentials and private runtime','customer configurations','meeting documents','unpacked local_training and other unselected data','environments and caches','historical reports'],
             'gpu_validation':'not performed on this Mac; target-cloud status in docs/RELEASE_STATUS.md',
-            'candidate_text_training':{'rows':456,'parameter_holdout_rows':96,'quality_accepted':False},
+            'candidate_text_training':{'rows':456,'parameter_holdout_rows':96,
+                                       'quality_scope':'See docs/FINETUNED_RELEASE_20261028.md;96-case correlated development regression is not field accuracy'},
             'evaluation_archive_sha256':'8b1ec491b099ae91383918a3c46ebbcd3124823e6a3d59362a0dcff0ddb6a399'}
     (output/'PUBLIC_RELEASE_MANIFEST.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
     print(json.dumps({'output':str(output),'files':len(files),'bytes':report['source_bytes']},ensure_ascii=False))

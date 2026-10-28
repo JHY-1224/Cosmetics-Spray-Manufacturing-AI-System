@@ -26,6 +26,35 @@ def test_unit_conversion_prevents_false_large_change():
     assert quantity_notices('原来20克，现在21克') == []
 
 
+@pytest.mark.parametrize('text', [
+    '基准记录中助剂为20g，本次人工填入80g，批量没有写。',
+    '原来记录中加水20g，本次人工录入加水80g。',
+])
+def test_recording_words_do_not_become_material_names(text):
+    notice = quantity_notices(text)[0]
+    assert notice['code'] == 'quantity_change_review'
+    assert notice['ratio'] == '4'
+    assert '原值的4倍' in notice['message']
+    assert '差额为60g' in notice['message']
+
+
+def test_recording_words_do_not_hide_a_real_material_difference():
+    notice = quantity_notices('原来记录中加水20g，本次人工填入加色浆80g')[0]
+    assert notice['code'] == 'quantity_context_mismatch'
+    assert 'ratio' not in notice
+
+
+def test_material_qualifier_is_not_an_entry_verb():
+    notice = quantity_notices('原来人工合成脂20g，现在合成脂80g')[0]
+    assert notice['code'] == 'quantity_context_mismatch'
+    assert 'ratio' not in notice
+
+
+def test_quantity_difference_preserves_baseline_unit():
+    notice = quantity_notices('基准0.02kg，本次80克')[0]
+    assert '差额为0.06kg' in notice['message']
+
+
 @pytest.mark.parametrize('text', ['原来20g，现在80mL', '原来加水20g，现在加色浆80g'])
 def test_different_basis_never_computed_as_comparable(text):
     notices = quantity_notices(text)

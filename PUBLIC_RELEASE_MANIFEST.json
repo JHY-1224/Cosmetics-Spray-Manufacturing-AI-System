@@ -18,13 +18,13 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 388466,
-      "sha256": "886dbda135cfb6e1bd6742b9c8c8f32d5b45ba48576718d04925fc0d9e9b8715"
+      "bytes": 389990,
+      "sha256": "0d2be819eeb006ad9971731bdbc2994996b65642b70ce48baf7b84f0a84c3b7a"
     },
     {
       "path": "DATA_LICENSE.md",
-      "bytes": 1878,
-      "sha256": "5671b2357cdbf469b81891030a4a36624654978b325d2275a88b94e1af89de04"
+      "bytes": 2263,
+      "sha256": "36933e9a514f4b92c694f78df71874b50cb0273516ba58ac6a45e0aea097dac5"
     },
     {
       "path": "Dockerfile",
@@ -38,8 +38,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4961,
-      "sha256": "e4780858a5308f0b07d53ae0a8fcc725b5cbaf911dad13c3ccf493cf87e0e2f4"
+      "bytes": 5377,
+      "sha256": "7f0d7be6b383951e9accaff9e1e3fac8d3162704be419970b4d398079caf985f"
     },
     {
       "path": "TRAINING_ARCHITECTURE.md",
@@ -58,8 +58,8 @@
     },
     {
       "path": "assistant_app/README.md",
-      "bytes": 19478,
-      "sha256": "8472704d2a7212a5b62d484f3573d3e201b57fae33ffa74565e4fa3081ad30bf"
+      "bytes": 19964,
+      "sha256": "daf49b871b270bfa1c6210167fece629df8729852aa7a7162d6e322cfa0a2e97"
     },
     {
       "path": "assistant_app/__init__.py",
@@ -118,13 +118,13 @@
     },
     {
       "path": "assistant_app/backend/quantity_review.py",
-      "bytes": 4205,
-      "sha256": "f0dc2f6d4a19ef710646b9199347e9aa61a5076860ec409d9efb3f9932e525a4"
+      "bytes": 4578,
+      "sha256": "f7ad1d825cc8427fd1aa37c67a67e49c9f6b6a0cabf8e8feb067602b462fe116"
     },
     {
       "path": "assistant_app/backend/runtime_prompts.py",
       "bytes": 1214,
-      "sha256": "7215a70a55d1e525644bd60759534f85ad40d31481772222c6247aba49c7d5d6"
+      "sha256": "ad979b06be7feb2a7c4f3e467bbf110b845a68a69e581ef7dd4ea80ad9d0d95c"
     },
     {
       "path": "assistant_app/backend/schemas.py",
@@ -180,6 +180,21 @@
       "path": "assistant_app/configs/policies/shared-text-v3.txt",
       "bytes": 3795,
       "sha256": "b255504801deaee32d6b6e273043ac1e64136550bffd25cf7ca1e8591699dc23"
+    },
+    {
+      "path": "assistant_app/configs/policies/shared-text-v4.txt",
+      "bytes": 5687,
+      "sha256": "8807fbced70c7ff266729a88157542748192ee4df809d0db8f00670774143a4f"
+    },
+    {
+      "path": "assistant_app/configs/policies/shared-text-v5.txt",
+      "bytes": 6010,
+      "sha256": "47d5bd933832ecd0709c0969092a9e2c14f1622a68ce97d49d9721ecb517dcc4"
+    },
+    {
+      "path": "assistant_app/configs/policies/shared-text-v6.txt",
+      "bytes": 5022,
+      "sha256": "564ea9c74eb89b93989eb3514eb76aab8d948a5f7f7d7eb8bed8a1c53f81c553"
     },
     {
       "path": "assistant_app/configs/policies/shared-vision-v3.txt",
@@ -368,8 +383,8 @@
     },
     {
       "path": "assistant_app/tests/test_quantity_review.py",
-      "bytes": 2819,
-      "sha256": "e298def34db36469689f459c72332ef9fd3783dff89a52732fa3cf487f5d59d2"
+      "bytes": 3937,
+      "sha256": "9c095266dafaa53ce64ae66601513b084c06058be60f41e9e8abf747dd7c98ab"
     },
     {
       "path": "assistant_app/tests/test_visual_units.py",
@@ -1083,13 +1098,13 @@
     },
     {
       "path": "docs/CLOUD_QUICKSTART.md",
-      "bytes": 10827,
-      "sha256": "c3eb26fe4882975d6f89159219de16ced2e52316f9c3b49739684625c35047c1"
+      "bytes": 11168,
+      "sha256": "b832d6e08b1ba634751b66e97f84ac9d824a795c13248306f2d0c219eb475853"
     },
     {
       "path": "docs/DATA_LICENSE.md",
-      "bytes": 1878,
-      "sha256": "5671b2357cdbf469b81891030a4a36624654978b325d2275a88b94e1af89de04"
+      "bytes": 2263,
+      "sha256": "36933e9a514f4b92c694f78df71874b50cb0273516ba58ac6a45e0aea097dac5"
     },
     {
       "path": "docs/DEPLOYMENT_AND_OPERATIONS.md",
@@ -1107,9 +1122,19 @@
       "sha256": "43ba0aeec30c2ad6ee5aa6c2c65802f27c0c4bbaf49b467893b105d127591a69"
     },
     {
+      "path": "docs/FINETUNED_RELEASE_20261028.md",
+      "bytes": 5180,
+      "sha256": "3a24dd790ee41d4ee4e773f29e1e10fa4250c7e0547b0e3e7ba0ebee80a9950c"
+    },
+    {
       "path": "docs/FINE_TUNING_LESSONS.md",
-      "bytes": 16716,
-      "sha256": "ff62fdd7548171da2d59ad5d71bea18a1900227eef305d238be71fe28dab26d0"
+      "bytes": 17280,
+      "sha256": "f39cd03a6acd40da7f5760e4d61c1ab816b90cdca2a3016608dd6d03d053a89c"
+    },
+    {
+      "path": "docs/LIGHTWEIGHT_OPTIMIZATION_20261028.md",
+      "bytes": 7679,
+      "sha256": "dabf81ae7e0382ea635aa3efe7b07d9b83280d10c3eedbe651fa28e35616075c"
     },
     {
       "path": "docs/LIGHTWEIGHT_PILOT_20261027_RESULT.md",
@@ -1118,8 +1143,8 @@
     },
     {
       "path": "docs/LIGHTWEIGHT_PILOT_AND_ROADMAP.md",
-      "bytes": 8989,
-      "sha256": "38022447a1120407f3d6e916155eeeb5ee3c0afca182524701050114e1190bab"
+      "bytes": 9330,
+      "sha256": "a35f22d0d66a53eac40a452ed58b0b2930974b8716058eab617142467f98263d"
     },
     {
       "path": "docs/MODEL_OPTIONS_20261027.md",
@@ -1138,28 +1163,38 @@
     },
     {
       "path": "docs/PUBLIC_README.md",
-      "bytes": 4961,
-      "sha256": "e4780858a5308f0b07d53ae0a8fcc725b5cbaf911dad13c3ccf493cf87e0e2f4"
+      "bytes": 5377,
+      "sha256": "7f0d7be6b383951e9accaff9e1e3fac8d3162704be419970b4d398079caf985f"
     },
     {
       "path": "docs/QWEN_LIGHT_STABILITY_ACCEPTANCE.md",
-      "bytes": 4989,
-      "sha256": "2b15ece00038dbc6e717e67ea14741a98382c1f5d06af7e8af40007f140fdc7f"
+      "bytes": 5330,
+      "sha256": "299166eaab9091978fba1c333bf9f49ced6052bfc8ba3aaaa3e5b458123a85c5"
     },
     {
       "path": "docs/RELEASE_STATUS.md",
-      "bytes": 6393,
-      "sha256": "099decaecc2b29f20264917e2c81ccf5e97e723ca41adcbfaa3e432cbfe569f9"
+      "bytes": 6734,
+      "sha256": "2aff30c23ee9245004bce39bbb1397774fc52921e855c53526a44542a7133711"
+    },
+    {
+      "path": "docs/SOURCE_AND_RELEASE_WORKFLOW.md",
+      "bytes": 4511,
+      "sha256": "ed8f43a878db7a985f2465775d647a77ae91bf917c10bcfc254ade5c09e8e64f"
     },
     {
       "path": "docs/SOURCE_INDEX.md",
-      "bytes": 29179,
-      "sha256": "48df05d52f15085ab3d2cc37852db983622f6dec7b7e816e014dc65556307403"
+      "bytes": 29302,
+      "sha256": "f42c7bf57b48c3417fe8b9f195c91f0e017de57faecb955f6c46ab2caf587496"
     },
     {
       "path": "docs/VALIDATION_AND_DELIVERY.md",
       "bytes": 1737,
       "sha256": "c3bb0f0413ff6e7d974a44810e6369495e6cdea45f80545ed27eaa88dc3b219b"
+    },
+    {
+      "path": "docs/licenses/Qwen-Apache-2.0.txt",
+      "bytes": 11544,
+      "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a"
     },
     {
       "path": "evaluation/README.md",
@@ -1508,8 +1543,13 @@
     },
     {
       "path": "models/README.md",
-      "bytes": 263,
-      "sha256": "161911a84178f7e95263d8630d6b8a5e1359969a6f284d3371f1174c2645fa26"
+      "bytes": 453,
+      "sha256": "ec307d4fef3ceec4b1d6f01e2633413b85500e445c677e6f2e76389297e2096e"
+    },
+    {
+      "path": "models/releases/qwen-light-20261028.json",
+      "bytes": 7387,
+      "sha256": "a38e6ce5ae94a93988debc288f366d623a0e27f93035e51e4499bb98802d2838"
     },
     {
       "path": "pyproject.toml",
@@ -1850,16 +1890,6 @@
       "path": "quality/workspace.py",
       "bytes": 14427,
       "sha256": "6c31fd175af77759d233fcf604ce92c2b26486411b21bbe3b4bf73ef239293c9"
-    },
-    {
-      "path": "qwen-vl-full-20261026.tar.gz",
-      "bytes": 19861779,
-      "sha256": "7baeb891d8da0d852db5822d1bac242d1ee7c3904c17143cd3024554621fadcf"
-    },
-    {
-      "path": "qwen-vl-full-20261026.tar.gz.sha256",
-      "bytes": 95,
-      "sha256": "18fd9f9451f461462af0dc5d0ba7229ffcf118c733eef196cecb23bfb16b2cde"
     },
     {
       "path": "requirements.txt",
@@ -2318,13 +2348,18 @@
     },
     {
       "path": "scripts/prepare_public_release.py",
-      "bytes": 6595,
-      "sha256": "8fbd28454db1315c0b3826baf8c83a41c3a3b0bf0b121a2cc036195d5ac2f4b5"
+      "bytes": 7406,
+      "sha256": "884fc0ccb10971cc7a6d079a36ebb4a6b8fd07e0f76cdc026a0fb62e267a3de5"
     },
     {
       "path": "scripts/release_manifest.py",
       "bytes": 3273,
       "sha256": "fbb6f9b9b860160895b56e6019448cb0441a7d335a85f0570fcaf6dda55b87b3"
+    },
+    {
+      "path": "scripts/restore_finetuned_release.py",
+      "bytes": 3960,
+      "sha256": "7891329a46c0db04f445b443ddcc465a1498d38453cabb0493f7c31cc963bb77"
     },
     {
       "path": "scripts/run_local.py",
@@ -2435,6 +2470,11 @@
       "path": "tests/test_expert_learning.py",
       "bytes": 36697,
       "sha256": "709ec2eadfd431998c851d1a9bca0473f29f0b6fba7f3f72ef00d3f2770db5cf"
+    },
+    {
+      "path": "tests/test_finetuned_release_restore.py",
+      "bytes": 2670,
+      "sha256": "6ee3f819935bdd203c507fb10d86ee687b5c5b742a09b57b8cc210f6172dfb75"
     },
     {
       "path": "tests/test_governance.py",
@@ -2632,17 +2672,17 @@
       "sha256": "432092f6317b2ebe15fc2f361b19631c5487f53f2f5c2845c53322e715e70b95"
     }
   ],
-  "public_source_files": 526,
-  "source_bytes": 35784986,
+  "public_source_files": 534,
+  "source_bytes": 15990917,
   "models": "official manifests only; cloud weights external",
   "data": {
     "text_rows": 36,
     "cc_by_subset_images": 20,
     "cc_by_subset_rows": 20,
-    "bundled_full_images": 74,
-    "bundled_full_rows": 82,
-    "rights_unverified_images": 54,
-    "bundle": "qwen-vl-full-20261026.tar.gz"
+    "bundled_full_images": 0,
+    "bundled_full_rows": 0,
+    "rights_unverified_images_excluded": 54,
+    "bundle": null
   },
   "excluded": [
     "weights and adapters",
@@ -2657,7 +2697,7 @@
   "candidate_text_training": {
     "rows": 456,
     "parameter_holdout_rows": 96,
-    "quality_accepted": false
+    "quality_scope": "See docs/FINETUNED_RELEASE_20261028.md;96-case correlated development regression is not field accuracy"
   },
   "evaluation_archive_sha256": "8b1ec491b099ae91383918a3c46ebbcd3124823e6a3d59362a0dcff0ddb6a399"
 }

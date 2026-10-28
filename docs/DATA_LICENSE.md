@@ -20,3 +20,8 @@ Inspection of Defective Glass Bottle Mouths Using Machine Learning（DOI:10.3390
 原图像素保留，新增中文上下文问答；并非领域专家标签，不能改变原图的研究对象或实验边界。
 署名和变更说明见 `data/vision-public/ATTRIBUTION.json`。两论文存在相关素材，按同一来源组处理。
 完整图像包 `qwen-vl-full-20261026.tar.gz` 按项目所有者本次明确要求随Git仓库提供。包内54份其他来源资料的再分发许可仍未核实；公开可下载不代表已取得这些权利，不适用本项目MIT许可证。包内metadata.jsonl逐项保留source_url与rights_status，原权利归原作者/权利人，不因本次上传改变。
+
+
+## 2026-10-28 发布范围更新
+
+上述74图归档描述保留旧发布历史。本次 `--licensed-data-only` 快照不再附该归档，仅分发20张已核实 CC BY 4.0图像及其署名；54张许可未核实原件留本地，不改写旧Git历史。微调参数的基座许可与训练数据来源说明见 `FINETUNED_RELEASE_20261028.md`，代码MIT不替代第三方权利。

@@ -8,7 +8,7 @@ from pathlib import Path
 
 from .prompts import injection_signals
 
-PROMPT_VERSION = 'industrial-assistant-v3'
+PROMPT_VERSION = 'industrial-assistant-v6'
 _DIRECTORY = Path(__file__).resolve().parents[1] / 'configs/policies'
 
 
@@ -19,7 +19,7 @@ def _read(name, expected):
     return value
 
 
-SYSTEM = _read('shared-text-v3.txt', 'b255504801deaee32d6b6e273043ac1e64136550bffd25cf7ca1e8591699dc23')
+SYSTEM = _read('shared-text-v6.txt', '564ea9c74eb89b93989eb3514eb76aab8d948a5f7f7d7eb8bed8a1c53f81c553')
 VISION = _read('shared-vision-v3.txt', 'b08b40ceb10ad470381b5589b5f54f91e3eaf646930decd6e6585eadc9f7c9d5')
 
 
